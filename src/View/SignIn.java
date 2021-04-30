@@ -139,7 +139,15 @@ public class SignIn extends javax.swing.JFrame {
         model = loginController.handleLogin(textUsername.getText(), String.valueOf(textPassword.getPassword()));
         
         if (model.getUsername() != ""){
-            JOptionPane.showMessageDialog(this, "dang nhap thnah cong", "dang nhap thanh cong", JOptionPane.INFORMATION_MESSAGE);
+            if(model.getRole().equals("admin")){
+                HomeAdmin homeAdmin = new HomeAdmin();
+                homeAdmin.setVisible(true);
+                this.setVisible(false);
+            }else if(model.getRole().equals("staff")){
+                CreateBill createBill = new CreateBill();
+                createBill.setVisible(true);
+                this.setVisible(false);
+            }
         }else{
             JOptionPane.showMessageDialog(this, message, title, JOptionPane.INFORMATION_MESSAGE);
         }
