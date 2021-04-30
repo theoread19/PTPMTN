@@ -5,17 +5,37 @@
  */
 package View;
 
+import java.awt.Font;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableCellRenderer;
+
 /**
  *
  * @author B1704721
  */
 public class ManageBeverage extends javax.swing.JFrame {
+    
+    private Font myFont = new Font("Times New Roman", Font.PLAIN, 22);
 
     /**
-     * Creates new form ManageUser
+     * Creates new form
      */
     public ManageBeverage() {
         initComponents();
+        tableBeverage.getTableHeader().setFont(myFont);
+        ((DefaultTableCellRenderer) tableBeverage.getTableHeader().getDefaultRenderer())
+                .setHorizontalAlignment(JLabel.CENTER);
+        
+        tableBeverage.setRowHeight(30);
+        
+        JTextField myTextField = new JTextField();
+        myTextField.setFont(myFont);
+        
+        DefaultCellEditor cellEditor;
+        cellEditor = new DefaultCellEditor(myTextField);
+        tableBeverage.getColumnModel().getColumn(2).setCellEditor(cellEditor);
     }
 
     /**
@@ -30,126 +50,150 @@ public class ManageBeverage extends javax.swing.JFrame {
         labelTitle = new javax.swing.JLabel();
         panelLeft = new javax.swing.JPanel();
         panelTopLeft = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        panelBottomLeft = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        labelBeverageName = new javax.swing.JLabel();
+        labelPrice = new javax.swing.JLabel();
+        textBeverageName = new javax.swing.JTextField();
+        textPrice = new javax.swing.JTextField();
+        labelUnitOfCurrency = new javax.swing.JLabel();
         labelTopLeft = new javax.swing.JLabel();
-        jSeparator1 = new javax.swing.JSeparator();
+        panelLeftSeparator = new javax.swing.JSeparator();
+        panelBottomLeft = new javax.swing.JPanel();
+        buttonInsert = new javax.swing.JButton();
+        buttonUpdate = new javax.swing.JButton();
+        buttonDelete = new javax.swing.JButton();
+        buttonConfirm = new javax.swing.JButton();
+        buttonCancel = new javax.swing.JButton();
+        buttonReturn = new javax.swing.JButton();
         panelRight = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        scrollPaneTable = new javax.swing.JScrollPane();
+        tableBeverage = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("KAT - Quản lý thức uống");
 
-        labelTitle.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        labelTitle.setFont(new java.awt.Font("Times New Roman", 1, 30)); // NOI18N
         labelTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelTitle.setText("QUẢN LÝ THỨC UỐNG");
 
         panelLeft.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        jLabel1.setText("Tên thức uống:");
+        labelBeverageName.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        labelBeverageName.setText("Tên thức uống:");
 
-        jLabel2.setText("Giá:");
+        labelPrice.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        labelPrice.setText("Giá:");
 
-        jLabel4.setText("(VNĐ)");
+        textBeverageName.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+
+        textPrice.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+
+        labelUnitOfCurrency.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        labelUnitOfCurrency.setText("VNĐ");
+
+        labelTopLeft.setFont(new java.awt.Font("Times New Roman", 1, 22)); // NOI18N
+        labelTopLeft.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelTopLeft.setText("Thức uống");
 
         javax.swing.GroupLayout panelTopLeftLayout = new javax.swing.GroupLayout(panelTopLeft);
         panelTopLeft.setLayout(panelTopLeftLayout);
         panelTopLeftLayout.setHorizontalGroup(
             panelTopLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTopLeftLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelTopLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(panelTopLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelTopLeftLayout.createSequentialGroup()
+                        .addComponent(labelPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(labelBeverageName, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(panelTopLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
-                    .addComponent(jTextField2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(textBeverageName, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
+                    .addComponent(textPrice))
+                .addGap(18, 18, 18)
+                .addComponent(labelUnitOfCurrency)
+                .addGap(18, 18, 18))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTopLeftLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labelTopLeft, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         panelTopLeftLayout.setVerticalGroup(
             panelTopLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTopLeftLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelTopLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField1)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(labelTopLeft)
                 .addGap(18, 18, 18)
                 .addGroup(panelTopLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(panelTopLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextField2)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(textBeverageName)
+                    .addComponent(labelBeverageName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(panelTopLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE, false)
+                    .addComponent(labelPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textPrice)
+                    .addComponent(labelUnitOfCurrency, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18))
         );
 
-        jButton1.setText("Thêm");
+        buttonInsert.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        buttonInsert.setText("Thêm");
 
-        jButton2.setText("Sửa");
+        buttonUpdate.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        buttonUpdate.setText("Sửa");
 
-        jButton3.setText("Xóa");
+        buttonDelete.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        buttonDelete.setText("Xóa");
 
-        jButton4.setText("Xác nhận");
+        buttonConfirm.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        buttonConfirm.setText("Xác nhận");
 
-        jButton5.setText("Hủy");
+        buttonCancel.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        buttonCancel.setText("Hủy");
 
-        jButton6.setText("Trở về");
+        buttonReturn.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        buttonReturn.setText("Trở về");
+        buttonReturn.setToolTipText("");
 
         javax.swing.GroupLayout panelBottomLeftLayout = new javax.swing.GroupLayout(panelBottomLeft);
         panelBottomLeft.setLayout(panelBottomLeftLayout);
         panelBottomLeftLayout.setHorizontalGroup(
             panelBottomLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelBottomLeftLayout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelBottomLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelBottomLeftLayout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(buttonInsert)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton2)
+                        .addComponent(buttonUpdate)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton3))
+                        .addComponent(buttonDelete))
                     .addGroup(panelBottomLeftLayout.createSequentialGroup()
-                        .addComponent(jButton4)
+                        .addComponent(buttonConfirm)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton5)
+                        .addComponent(buttonCancel)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton6)))
-                .addContainerGap(148, Short.MAX_VALUE))
+                        .addComponent(buttonReturn)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        panelBottomLeftLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton1, jButton2, jButton3, jButton4, jButton5, jButton6});
+        panelBottomLeftLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {buttonCancel, buttonConfirm, buttonDelete, buttonInsert, buttonReturn, buttonUpdate});
 
         panelBottomLeftLayout.setVerticalGroup(
             panelBottomLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelBottomLeftLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelBottomLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
                 .addGap(18, 18, 18)
                 .addGroup(panelBottomLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4)
-                    .addComponent(jButton5)
-                    .addComponent(jButton6))
-                .addContainerGap())
+                    .addComponent(buttonInsert)
+                    .addComponent(buttonUpdate)
+                    .addComponent(buttonDelete))
+                .addGap(18, 18, 18)
+                .addGroup(panelBottomLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonConfirm)
+                    .addComponent(buttonCancel)
+                    .addComponent(buttonReturn))
+                .addGap(18, 18, 18))
         );
 
-        panelBottomLeftLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButton1, jButton2, jButton3, jButton4, jButton5, jButton6});
-
-        labelTopLeft.setText("Thức uống");
+        panelBottomLeftLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {buttonCancel, buttonConfirm, buttonDelete, buttonInsert, buttonReturn, buttonUpdate});
 
         javax.swing.GroupLayout panelLeftLayout = new javax.swing.GroupLayout(panelLeft);
         panelLeft.setLayout(panelLeftLayout);
@@ -161,29 +205,26 @@ public class ManageBeverage extends javax.swing.JFrame {
                     .addComponent(panelBottomLeft, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panelLeftLayout.createSequentialGroup()
                         .addGroup(panelLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelLeftLayout.createSequentialGroup()
-                                .addComponent(labelTopLeft)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(panelTopLeft, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(panelTopLeft, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(panelLeftSeparator, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addContainerGap())))
         );
         panelLeftLayout.setVerticalGroup(
             panelLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelLeftLayout.createSequentialGroup()
-                .addComponent(labelTopLeft)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap()
                 .addComponent(panelTopLeft, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelLeftSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelBottomLeft, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         panelRight.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tableBeverage.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        tableBeverage.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -206,18 +247,18 @@ public class ManageBeverage extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(jTable1);
+        tableBeverage.getTableHeader().setReorderingAllowed(false);
+        scrollPaneTable.setViewportView(tableBeverage);
 
         javax.swing.GroupLayout panelRightLayout = new javax.swing.GroupLayout(panelRight);
         panelRight.setLayout(panelRightLayout);
         panelRightLayout.setHorizontalGroup(
             panelRightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 447, Short.MAX_VALUE)
+            .addComponent(scrollPaneTable, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
         );
         panelRightLayout.setVerticalGroup(
             panelRightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
+            .addComponent(scrollPaneTable, javax.swing.GroupLayout.DEFAULT_SIZE, 522, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -225,25 +266,25 @@ public class ManageBeverage extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(panelLeft, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(panelRight, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(labelTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGap(18, 18, 18))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(30, 30, 30)
                 .addComponent(labelTitle)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panelLeft, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelRight, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGap(18, 18, 18))
         );
 
         pack();
@@ -287,25 +328,25 @@ public class ManageBeverage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JButton buttonCancel;
+    private javax.swing.JButton buttonConfirm;
+    private javax.swing.JButton buttonDelete;
+    private javax.swing.JButton buttonInsert;
+    private javax.swing.JButton buttonReturn;
+    private javax.swing.JButton buttonUpdate;
+    private javax.swing.JLabel labelBeverageName;
+    private javax.swing.JLabel labelPrice;
     private javax.swing.JLabel labelTitle;
     private javax.swing.JLabel labelTopLeft;
+    private javax.swing.JLabel labelUnitOfCurrency;
     private javax.swing.JPanel panelBottomLeft;
     private javax.swing.JPanel panelLeft;
+    private javax.swing.JSeparator panelLeftSeparator;
     private javax.swing.JPanel panelRight;
     private javax.swing.JPanel panelTopLeft;
+    private javax.swing.JScrollPane scrollPaneTable;
+    private javax.swing.JTable tableBeverage;
+    private javax.swing.JTextField textBeverageName;
+    private javax.swing.JTextField textPrice;
     // End of variables declaration//GEN-END:variables
 }

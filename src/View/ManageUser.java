@@ -5,17 +5,37 @@
  */
 package View;
 
+import java.awt.Font;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableCellRenderer;
+
 /**
  *
  * @author B1704721
  */
 public class ManageUser extends javax.swing.JFrame {
+    
+    private Font myFont = new Font("Times New Roman", Font.PLAIN, 22);
 
     /**
-     * Creates new form ManageUser
+     * Creates new form
      */
     public ManageUser() {
         initComponents();
+        tableUser.getTableHeader().setFont(myFont);
+        ((DefaultTableCellRenderer) tableUser.getTableHeader().getDefaultRenderer())
+                .setHorizontalAlignment(JLabel.CENTER);
+        
+        tableUser.setRowHeight(30);
+        
+        JTextField myTextField = new JTextField();
+        myTextField.setFont(myFont);
+        
+        DefaultCellEditor cellEditor;
+        cellEditor = new DefaultCellEditor(myTextField);
+        tableUser.getColumnModel().getColumn(2).setCellEditor(cellEditor);
     }
 
     /**
@@ -30,104 +50,111 @@ public class ManageUser extends javax.swing.JFrame {
         labelTitle = new javax.swing.JLabel();
         panelLeft = new javax.swing.JPanel();
         panelTopLeft = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox();
-        labelTopLeft = new javax.swing.JLabel();
+        labelUser = new javax.swing.JLabel();
+        labelUsername = new javax.swing.JLabel();
+        textUsername = new javax.swing.JTextField();
+        labelPassword = new javax.swing.JLabel();
+        textPassword = new javax.swing.JTextField();
+        labelRole = new javax.swing.JLabel();
+        comboBoxRole = new javax.swing.JComboBox();
+        panelLeftSeparator = new javax.swing.JSeparator();
         panelBottomLeft = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jSeparator1 = new javax.swing.JSeparator();
+        buttonInsert = new javax.swing.JButton();
+        buttonUpdate = new javax.swing.JButton();
+        buttonDelete = new javax.swing.JButton();
+        buttonConfirm = new javax.swing.JButton();
+        buttonCancel = new javax.swing.JButton();
+        buttonReturn = new javax.swing.JButton();
         panelRight = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        scrollPaneTable = new javax.swing.JScrollPane();
+        tableUser = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("KAT - Quản lý người dùng");
 
-        labelTitle.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        labelTitle.setFont(new java.awt.Font("Times New Roman", 1, 30)); // NOI18N
         labelTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelTitle.setText("QUẢN LÝ NGƯỜI DÙNG");
 
         panelLeft.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        jLabel1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabel1.setText("Tên người dùng:");
+        labelUser.setFont(new java.awt.Font("Times New Roman", 1, 22)); // NOI18N
+        labelUser.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelUser.setText("Người dùng");
 
-        jLabel2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabel2.setText("Mật khẩu:");
+        labelUsername.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        labelUsername.setText("Tên người dùng:");
 
-        jLabel3.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabel3.setText("Vai trò:");
+        textUsername.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
 
-        jComboBox1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Quản trị viên", "Nhân viên" }));
+        labelPassword.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        labelPassword.setText("Mật khẩu:");
 
-        labelTopLeft.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        labelTopLeft.setText("Người dùng");
+        textPassword.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+
+        labelRole.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        labelRole.setText("Vai trò:");
+
+        comboBoxRole.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        comboBoxRole.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Quản trị viên", "Nhân viên" }));
 
         javax.swing.GroupLayout panelTopLeftLayout = new javax.swing.GroupLayout(panelTopLeft);
         panelTopLeft.setLayout(panelTopLeftLayout);
         panelTopLeftLayout.setHorizontalGroup(
             panelTopLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTopLeftLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(18, 18, 18)
                 .addGroup(panelTopLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelTopLeftLayout.createSequentialGroup()
                         .addGroup(panelTopLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(labelUsername, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(labelRole, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(labelPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(panelTopLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
-                            .addComponent(jTextField1)))
-                    .addComponent(labelTopLeft))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(textUsername)
+                            .addComponent(textPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                            .addComponent(comboBoxRole, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(labelUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18))
         );
         panelTopLeftLayout.setVerticalGroup(
             panelTopLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTopLeftLayout.createSequentialGroup()
-                .addComponent(labelTopLeft, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(labelUser)
                 .addGap(18, 18, 18)
                 .addGroup(panelTopLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField1)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(textUsername)
+                    .addComponent(labelUsername, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(panelTopLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField2)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(textPassword)
+                    .addComponent(labelPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(panelTopLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jComboBox1)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(comboBoxRole)
+                    .addComponent(labelRole, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18))
         );
 
-        jButton1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jButton1.setText("Thêm");
+        buttonInsert.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        buttonInsert.setText("Thêm");
 
-        jButton2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jButton2.setText("Sửa");
+        buttonUpdate.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        buttonUpdate.setText("Sửa");
 
-        jButton3.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jButton3.setText("Xóa");
+        buttonDelete.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        buttonDelete.setText("Xóa");
 
-        jButton4.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jButton4.setText("Xác nhận");
+        buttonConfirm.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        buttonConfirm.setText("Xác nhận");
 
-        jButton5.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jButton5.setText("Hủy");
+        buttonCancel.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        buttonCancel.setText("Hủy");
 
-        jButton6.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jButton6.setText("Trở về");
+        buttonReturn.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        buttonReturn.setText("Trở về");
 
         javax.swing.GroupLayout panelBottomLeftLayout = new javax.swing.GroupLayout(panelBottomLeft);
         panelBottomLeft.setLayout(panelBottomLeftLayout);
@@ -137,39 +164,39 @@ public class ManageUser extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelBottomLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelBottomLeftLayout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(buttonInsert)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton2)
+                        .addComponent(buttonUpdate)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton3))
+                        .addComponent(buttonDelete))
                     .addGroup(panelBottomLeftLayout.createSequentialGroup()
-                        .addComponent(jButton4)
+                        .addComponent(buttonConfirm)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton5)
+                        .addComponent(buttonCancel)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton6)))
+                        .addComponent(buttonReturn)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        panelBottomLeftLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton1, jButton2, jButton3, jButton4, jButton5, jButton6});
+        panelBottomLeftLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {buttonCancel, buttonConfirm, buttonDelete, buttonInsert, buttonReturn, buttonUpdate});
 
         panelBottomLeftLayout.setVerticalGroup(
             panelBottomLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelBottomLeftLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelBottomLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
                 .addGap(18, 18, 18)
                 .addGroup(panelBottomLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4)
-                    .addComponent(jButton5)
-                    .addComponent(jButton6))
-                .addContainerGap())
+                    .addComponent(buttonInsert)
+                    .addComponent(buttonUpdate)
+                    .addComponent(buttonDelete))
+                .addGap(18, 18, 18)
+                .addGroup(panelBottomLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonConfirm)
+                    .addComponent(buttonCancel)
+                    .addComponent(buttonReturn))
+                .addGap(18, 18, 18))
         );
 
-        panelBottomLeftLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButton1, jButton2, jButton3, jButton4, jButton5, jButton6});
+        panelBottomLeftLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {buttonCancel, buttonConfirm, buttonDelete, buttonInsert, buttonReturn, buttonUpdate});
 
         javax.swing.GroupLayout panelLeftLayout = new javax.swing.GroupLayout(panelLeft);
         panelLeft.setLayout(panelLeftLayout);
@@ -178,7 +205,7 @@ public class ManageUser extends javax.swing.JFrame {
             .addGroup(panelLeftLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator1)
+                    .addComponent(panelLeftSeparator)
                     .addGroup(panelLeftLayout.createSequentialGroup()
                         .addComponent(panelTopLeft, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
@@ -188,19 +215,19 @@ public class ManageUser extends javax.swing.JFrame {
         panelLeftLayout.setVerticalGroup(
             panelLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelLeftLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addContainerGap()
                 .addComponent(panelTopLeft, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelLeftSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
                 .addComponent(panelBottomLeft, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 174, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         panelRight.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        jTable1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tableUser.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        tableUser.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -223,17 +250,17 @@ public class ManageUser extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        scrollPaneTable.setViewportView(tableUser);
 
         javax.swing.GroupLayout panelRightLayout = new javax.swing.GroupLayout(panelRight);
         panelRight.setLayout(panelRightLayout);
         panelRightLayout.setHorizontalGroup(
             panelRightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)
+            .addComponent(scrollPaneTable, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
         );
         panelRightLayout.setVerticalGroup(
             panelRightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE)
+            .addComponent(scrollPaneTable, javax.swing.GroupLayout.DEFAULT_SIZE, 522, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -241,23 +268,23 @@ public class ManageUser extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(18, 18, 18)
                 .addComponent(panelLeft, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelRight, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(18, 18, 18))
             .addComponent(labelTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(30, 30, 30)
                 .addComponent(labelTitle)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panelLeft, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelRight, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGap(18, 18, 18))
         );
 
         pack();
@@ -300,26 +327,26 @@ public class ManageUser extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JButton buttonCancel;
+    private javax.swing.JButton buttonConfirm;
+    private javax.swing.JButton buttonDelete;
+    private javax.swing.JButton buttonInsert;
+    private javax.swing.JButton buttonReturn;
+    private javax.swing.JButton buttonUpdate;
+    private javax.swing.JComboBox comboBoxRole;
+    private javax.swing.JLabel labelPassword;
+    private javax.swing.JLabel labelRole;
     private javax.swing.JLabel labelTitle;
-    private javax.swing.JLabel labelTopLeft;
+    private javax.swing.JLabel labelUser;
+    private javax.swing.JLabel labelUsername;
     private javax.swing.JPanel panelBottomLeft;
     private javax.swing.JPanel panelLeft;
+    private javax.swing.JSeparator panelLeftSeparator;
     private javax.swing.JPanel panelRight;
     private javax.swing.JPanel panelTopLeft;
+    private javax.swing.JScrollPane scrollPaneTable;
+    private javax.swing.JTable tableUser;
+    private javax.swing.JTextField textPassword;
+    private javax.swing.JTextField textUsername;
     // End of variables declaration//GEN-END:variables
 }

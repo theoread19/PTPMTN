@@ -5,13 +5,11 @@
  */
 package View;
 
-import Config.DBConnection;
 import Controller.LoginController;
 import Model.UserModel;
-import java.sql.SQLException;
+import java.awt.Color;
 import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,14 +17,16 @@ import javax.swing.JOptionPane;
  * @author B1704721
  */
 public class SignIn extends javax.swing.JFrame {
-    
     private LoginController loginController = new LoginController();
-    
+    ImageIcon logo = new ImageIcon("src\\others\\logo.png");
+    Color backgroundColor = Color.pink;
+
     /**
-     * Creates new form SignIn
+     * Creates new form
      */
     public SignIn() {
         initComponents();
+        initSettings();
     }
 
     /**
@@ -39,7 +39,7 @@ public class SignIn extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        labelTitle = new javax.swing.JLabel();
+        labelLogo = new javax.swing.JLabel();
         labelUsername = new javax.swing.JLabel();
         labelPassword = new javax.swing.JLabel();
         textUsername = new javax.swing.JTextField();
@@ -53,17 +53,20 @@ public class SignIn extends javax.swing.JFrame {
         setTitle("KAT - Đăng nhập");
         setResizable(false);
 
-        labelTitle.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        labelTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelTitle.setText("ĐĂNG NHẬP");
+        labelLogo.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        labelLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
-        labelUsername.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        labelUsername.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
         labelUsername.setText("Tên đăng nhập:");
 
-        labelPassword.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        labelPassword.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
         labelPassword.setText("Mật khẩu:");
 
-        buttonSignIn.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        textUsername.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+
+        textPassword.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+
+        buttonSignIn.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
         buttonSignIn.setText("Đăng nhập");
         buttonSignIn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -71,7 +74,7 @@ public class SignIn extends javax.swing.JFrame {
             }
         });
 
-        buttonQuit.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        buttonQuit.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
         buttonQuit.setText("Thoát");
         buttonQuit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -83,26 +86,24 @@ public class SignIn extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labelTitle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(labelLogo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(labelPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(labelUsername, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(textUsername)
-                            .addComponent(textPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(buttonSignIn)
-                        .addGap(18, 18, 18)
-                        .addComponent(buttonQuit)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(122, Short.MAX_VALUE)
+                .addComponent(buttonSignIn)
+                .addGap(18, 18, 18)
+                .addComponent(buttonQuit)
+                .addGap(0, 116, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(labelUsername, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(labelPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(textPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                    .addComponent(textUsername))
+                .addGap(50, 50, 50))
         );
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {textPassword, textUsername});
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {buttonQuit, buttonSignIn});
 
@@ -110,7 +111,7 @@ public class SignIn extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addComponent(labelTitle)
+                .addComponent(labelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(textUsername)
@@ -131,8 +132,34 @@ public class SignIn extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+    
+    private void initSettings() {
+        // Set logo
+        labelLogo.setIcon(logo);
+        
+
+        // Set background color
+        this.getContentPane().setBackground(backgroundColor);
+    }
 
     private void buttonSignInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSignInActionPerformed
+//        // Lay gia tri tu form
+//        String username = textUsername.getText();
+//        String password = Arrays.toString(textPassword.getPassword());
+//
+//        // Thuc hien yeu cau dang nhap
+//        // Xu ly ket qua dang nhap
+//        // If dang nhap thanh cong
+//        // Dang nhap voi vai tro Quan tri vien
+//        HomeAdmin form = new HomeAdmin();
+//        form.setVisible(true);
+//        textUsername.setText(null);
+//        textPassword.setText(null);
+//        this.setVisible(false);
+//                // Dang nhap voi vai tro Nhan vien
+//        // Else
+
+
         String message = "Tên đăng nhập hoặc mật khẩu không đúng!";
         String title = "Thông báo";
         UserModel model = new UserModel();
@@ -197,8 +224,8 @@ public class SignIn extends javax.swing.JFrame {
     private javax.swing.JButton buttonQuit;
     private javax.swing.JButton buttonSignIn;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel labelLogo;
     private javax.swing.JLabel labelPassword;
-    private javax.swing.JLabel labelTitle;
     private javax.swing.JLabel labelUsername;
     private javax.swing.JPasswordField textPassword;
     private javax.swing.JTextField textUsername;

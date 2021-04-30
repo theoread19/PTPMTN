@@ -5,6 +5,10 @@
  */
 package View;
 
+import java.awt.Font;
+import javax.swing.JLabel;
+import javax.swing.table.DefaultTableCellRenderer;
+
 /**
  *
  * @author B1704721
@@ -12,10 +16,13 @@ package View;
 public class ViewBillHistory extends javax.swing.JFrame {
 
     /**
-     * Creates new form ManageUser
+     * Creates new form
      */
     public ViewBillHistory() {
         initComponents();
+        tableBillHistory.getTableHeader().setFont(new Font("Times New Roman", Font.PLAIN, 22));
+        ((DefaultTableCellRenderer) tableBillHistory.getTableHeader().getDefaultRenderer())
+                .setHorizontalAlignment(JLabel.CENTER);
     }
 
     /**
@@ -28,21 +35,26 @@ public class ViewBillHistory extends javax.swing.JFrame {
     private void initComponents() {
 
         labelTitle = new javax.swing.JLabel();
-        panel = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
+        buttonDetail = new javax.swing.JButton();
+        buttonReturn = new javax.swing.JButton();
+        scrollPaneTable = new javax.swing.JScrollPane();
+        tableBillHistory = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("KAT - Xem lịch sử hóa đơn");
 
-        labelTitle.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        labelTitle.setFont(new java.awt.Font("Times New Roman", 1, 30)); // NOI18N
         labelTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelTitle.setText("XEM LỊCH SỬ HÓA ĐƠN");
 
-        panel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        buttonDetail.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        buttonDetail.setText("Xem chi tiết");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        buttonReturn.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        buttonReturn.setText("Trở về");
+
+        tableBillHistory.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        tableBillHistory.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -65,59 +77,45 @@ public class ViewBillHistory extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(jTable1);
-
-        javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
-        panel.setLayout(panelLayout);
-        panelLayout.setHorizontalGroup(
-            panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
-        );
-        panelLayout.setVerticalGroup(
-            panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
-        );
-
-        jButton7.setText("Xem chi tiết");
-
-        jButton8.setText("Trở về");
+        scrollPaneTable.setViewportView(tableBillHistory);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(labelTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 906, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, 0)
+                        .addComponent(scrollPaneTable))
+                    .addComponent(labelTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 764, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton7)
+                        .addComponent(buttonDetail)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton8)
+                        .addComponent(buttonReturn)
                         .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                .addGap(18, 18, 18))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton7, jButton8});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {buttonDetail, buttonReturn});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(30, 30, 30)
                 .addComponent(labelTitle)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(30, 30, 30)
+                .addComponent(scrollPaneTable, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton7)
-                    .addComponent(jButton8))
-                .addContainerGap())
+                    .addComponent(buttonDetail)
+                    .addComponent(buttonReturn))
+                .addGap(18, 18, 18))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButton7, jButton8});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {buttonDetail, buttonReturn});
 
         pack();
         setLocationRelativeTo(null);
@@ -162,11 +160,10 @@ public class ViewBillHistory extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JButton buttonDetail;
+    private javax.swing.JButton buttonReturn;
     private javax.swing.JLabel labelTitle;
-    private javax.swing.JPanel panel;
+    private javax.swing.JScrollPane scrollPaneTable;
+    private javax.swing.JTable tableBillHistory;
     // End of variables declaration//GEN-END:variables
 }

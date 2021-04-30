@@ -5,6 +5,10 @@
  */
 package View;
 
+import java.awt.Font;
+import javax.swing.JLabel;
+import javax.swing.table.DefaultTableCellRenderer;
+
 /**
  *
  * @author B1704721
@@ -12,10 +16,13 @@ package View;
 public class BillDetail extends javax.swing.JFrame {
 
     /**
-     * Creates new form ManageUser
+     * Creates new form
      */
     public BillDetail() {
         initComponents();
+        tableBeverageList.getTableHeader().setFont(new Font("Times New Roman", Font.PLAIN, 22));
+        ((DefaultTableCellRenderer) tableBeverageList.getTableHeader().getDefaultRenderer())
+                .setHorizontalAlignment(JLabel.CENTER);
     }
 
     /**
@@ -27,31 +34,83 @@ public class BillDetail extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollBar1 = new javax.swing.JScrollBar();
         labelTitle = new javax.swing.JLabel();
-        panel = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jButton8 = new javax.swing.JButton();
+        buttonReturn = new javax.swing.JButton();
+        labelAmountTotal = new javax.swing.JLabel();
+        labelTotal = new javax.swing.JLabel();
+        labelDiscount = new javax.swing.JLabel();
+        labelMoneyToPay = new javax.swing.JLabel();
+        labelReceivedMoney = new javax.swing.JLabel();
+        labelChangeMoney = new javax.swing.JLabel();
+        labelAmountTotalValue = new javax.swing.JLabel();
+        labelTotalValue = new javax.swing.JLabel();
+        labelDiscountValue = new javax.swing.JLabel();
+        labelMoneyToPayValue = new javax.swing.JLabel();
+        labelReceivedMoneyValue = new javax.swing.JLabel();
+        labelChangeMoneyValue = new javax.swing.JLabel();
+        scrollPaneTable = new javax.swing.JScrollPane();
+        tableBeverageList = new javax.swing.JTable();
+        labelCreatorId = new javax.swing.JLabel();
+        labelBillIdValue = new javax.swing.JLabel();
+        labelCreateTimeValue = new javax.swing.JLabel();
+        labelBillId = new javax.swing.JLabel();
+        labelCreatorIdValue = new javax.swing.JLabel();
+        labelCreateTime = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
-        labelTitle.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        labelTitle.setFont(new java.awt.Font("Times New Roman", 1, 30)); // NOI18N
         labelTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelTitle.setText("CHI TIẾT HÓA ĐƠN");
 
-        panel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        buttonReturn.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        buttonReturn.setText("Trở về");
+        buttonReturn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonReturnActionPerformed(evt);
+            }
+        });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        labelAmountTotal.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        labelAmountTotal.setText("Tổng số lượng:");
+
+        labelTotal.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        labelTotal.setText("Tổng tiền hóa đơn:");
+
+        labelDiscount.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        labelDiscount.setText("Khuyến mãi:");
+
+        labelMoneyToPay.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        labelMoneyToPay.setText("Tiền phải trả:");
+
+        labelReceivedMoney.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        labelReceivedMoney.setText("Tiền nhận:");
+
+        labelChangeMoney.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        labelChangeMoney.setText("Tiền thối lại:");
+
+        labelAmountTotalValue.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        labelAmountTotalValue.setText("Tổng số thức uống");
+
+        labelTotalValue.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        labelTotalValue.setText("Tổng tiền hóa đơn");
+
+        labelDiscountValue.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        labelDiscountValue.setText("Số tiền được khuyến mãi");
+
+        labelMoneyToPayValue.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        labelMoneyToPayValue.setText("Số tiền khách hàng phải trả");
+
+        labelReceivedMoneyValue.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        labelReceivedMoneyValue.setText("Số tiền nhận từ khách hàng");
+
+        labelChangeMoneyValue.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        labelChangeMoneyValue.setText("Số tiền thối lại");
+
+        tableBeverageList.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        tableBeverageList.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -74,112 +133,138 @@ public class BillDetail extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(2).setResizable(false);
-            jTable1.getColumnModel().getColumn(3).setResizable(false);
-        }
+        tableBeverageList.getTableHeader().setReorderingAllowed(false);
+        scrollPaneTable.setViewportView(tableBeverageList);
 
-        jLabel1.setText("ID hóa đơn:");
+        labelCreatorId.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        labelCreatorId.setText("Người tạo:");
 
-        jLabel2.setText("Ngày tạo:");
+        labelBillIdValue.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        labelBillIdValue.setText("ID hóa đơn");
 
-        jLabel3.setText("Người tạo:");
+        labelCreateTimeValue.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        labelCreateTimeValue.setText("Ngày tạo");
 
-        jLabel4.setText("Tổng số lượng:");
+        labelBillId.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        labelBillId.setText("ID hóa đơn:");
 
-        jLabel5.setText("Tổng tiền hóa đơn:");
+        labelCreatorIdValue.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        labelCreatorIdValue.setText("ID người tạo");
 
-        jLabel6.setText("Khuyến mãi:");
-
-        jLabel7.setText("Tiền phải trả:");
-
-        jLabel8.setText("Tiền nhận:");
-
-        jLabel9.setText("Tiền dư:");
-
-        javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
-        panel.setLayout(panelLayout);
-        panelLayout.setHorizontalGroup(
-            panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
-            .addGroup(panelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        panelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel1, jLabel2, jLabel3, jLabel4, jLabel5});
-
-        panelLayout.setVerticalGroup(
-            panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel3)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel4)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel5)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel6)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel7)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel8)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel9)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        jButton8.setText("Trở về");
+        labelCreateTime.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        labelCreateTime.setText("Ngày tạo:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(labelTitle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(labelTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton8)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(buttonReturn)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(scrollPaneTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(labelChangeMoney)
+                                    .addComponent(labelReceivedMoney)
+                                    .addComponent(labelMoneyToPay)
+                                    .addComponent(labelDiscount)
+                                    .addComponent(labelTotal)
+                                    .addComponent(labelAmountTotal))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(labelChangeMoneyValue)
+                                    .addComponent(labelReceivedMoneyValue)
+                                    .addComponent(labelMoneyToPayValue)
+                                    .addComponent(labelDiscountValue)
+                                    .addComponent(labelTotalValue)
+                                    .addComponent(labelAmountTotalValue))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(18, 18, 18))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelCreatorId)
+                            .addComponent(labelCreateTime)
+                            .addComponent(labelBillId))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelCreatorIdValue)
+                            .addComponent(labelCreateTimeValue)
+                            .addComponent(labelBillIdValue))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {labelAmountTotal, labelBillId, labelCreateTime, labelCreatorId, labelTotal});
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {labelAmountTotalValue, labelBillIdValue, labelChangeMoneyValue, labelCreateTimeValue, labelCreatorIdValue, labelDiscountValue, labelMoneyToPayValue, labelReceivedMoneyValue, labelTotalValue});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(30, 30, 30)
                 .addComponent(labelTitle)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton8)
-                .addContainerGap())
+                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(labelBillId)
+                        .addGap(18, 18, 18)
+                        .addComponent(labelCreatorId)
+                        .addGap(18, 18, 18)
+                        .addComponent(labelCreateTime))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(labelBillIdValue)
+                        .addGap(18, 18, 18)
+                        .addComponent(labelCreatorIdValue)
+                        .addGap(18, 18, 18)
+                        .addComponent(labelCreateTimeValue)))
+                .addGap(18, 18, 18)
+                .addComponent(scrollPaneTable, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(labelAmountTotal)
+                        .addGap(18, 18, 18)
+                        .addComponent(labelTotal)
+                        .addGap(18, 18, 18)
+                        .addComponent(labelDiscount)
+                        .addGap(18, 18, 18)
+                        .addComponent(labelMoneyToPay)
+                        .addGap(18, 18, 18)
+                        .addComponent(labelReceivedMoney)
+                        .addGap(18, 18, 18)
+                        .addComponent(labelChangeMoney))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(labelAmountTotalValue)
+                        .addGap(18, 18, 18)
+                        .addComponent(labelTotalValue)
+                        .addGap(18, 18, 18)
+                        .addComponent(labelDiscountValue)
+                        .addGap(18, 18, 18)
+                        .addComponent(labelMoneyToPayValue)
+                        .addGap(18, 18, 18)
+                        .addComponent(labelReceivedMoneyValue)
+                        .addGap(18, 18, 18)
+                        .addComponent(labelChangeMoneyValue)))
+                .addGap(18, 18, 18)
+                .addComponent(buttonReturn)
+                .addGap(18, 18, 18))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {labelAmountTotalValue, labelBillIdValue, labelChangeMoneyValue, labelCreateTimeValue, labelCreatorIdValue, labelDiscountValue, labelMoneyToPayValue, labelReceivedMoneyValue, labelTotalValue});
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void buttonReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonReturnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonReturnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -224,19 +309,28 @@ public class BillDetail extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton8;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JButton buttonReturn;
+    private javax.swing.JScrollBar jScrollBar1;
+    private javax.swing.JLabel labelAmountTotal;
+    private javax.swing.JLabel labelAmountTotalValue;
+    private javax.swing.JLabel labelBillId;
+    private javax.swing.JLabel labelBillIdValue;
+    private javax.swing.JLabel labelChangeMoney;
+    private javax.swing.JLabel labelChangeMoneyValue;
+    private javax.swing.JLabel labelCreateTime;
+    private javax.swing.JLabel labelCreateTimeValue;
+    private javax.swing.JLabel labelCreatorId;
+    private javax.swing.JLabel labelCreatorIdValue;
+    private javax.swing.JLabel labelDiscount;
+    private javax.swing.JLabel labelDiscountValue;
+    private javax.swing.JLabel labelMoneyToPay;
+    private javax.swing.JLabel labelMoneyToPayValue;
+    private javax.swing.JLabel labelReceivedMoney;
+    private javax.swing.JLabel labelReceivedMoneyValue;
     private javax.swing.JLabel labelTitle;
-    private javax.swing.JPanel panel;
+    private javax.swing.JLabel labelTotal;
+    private javax.swing.JLabel labelTotalValue;
+    private javax.swing.JScrollPane scrollPaneTable;
+    private javax.swing.JTable tableBeverageList;
     // End of variables declaration//GEN-END:variables
 }

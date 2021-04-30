@@ -47,11 +47,8 @@ public class LoginController {
             ResultSet rs = stm.executeQuery(sql);
             
             while(rs.next()){
-                System.out.print(rs.getString("password"));
-                System.out.print(password);
                 if (username.equals(rs.getString("username")) && password.equals(rs.getString("password"))){
-                    model.setId(rs.getInt("id"));
-                    System.out.print("dung tk");
+                    model.setId(rs.getInt("id"));              
                     model.setUsername(rs.getString("username"));
                     model.setRole(rs.getString("role"));
                 }

@@ -11,9 +11,8 @@ import javax.swing.ImageIcon;
  *
  * @author B1704721
  */
-public class HomeAdmin extends javax.swing.JFrame {
+public class HomeStaff extends javax.swing.JFrame {
 
-    private ImageIcon icon1 = new ImageIcon("src\\others\\icon-manage-user.png");
     private ImageIcon icon2 = new ImageIcon("src\\others\\icon-manage-bill.png");
     private ImageIcon icon3 = new ImageIcon("src\\others\\icon-manage-beverage.png");
     private ImageIcon icon4 = new ImageIcon("src\\others\\icon-sign-out.png");
@@ -21,10 +20,9 @@ public class HomeAdmin extends javax.swing.JFrame {
     /**
      * Creates new form
      */
-    public HomeAdmin() {
+    public HomeStaff() {
         initComponents();
 
-        buttonManageUser.setIcon(icon1);
         buttonCreateBill.setIcon(icon2);
         buttonManageBeverage.setIcon(icon3);
         buttonSignOut.setIcon(icon4);
@@ -41,14 +39,11 @@ public class HomeAdmin extends javax.swing.JFrame {
     private void initComponents() {
 
         labelTitle = new javax.swing.JLabel();
-        buttonManageUser = new javax.swing.JButton();
         buttonCreateBill = new javax.swing.JButton();
         buttonManageBeverage = new javax.swing.JButton();
         buttonSignOut = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
-        menuManageBill = new javax.swing.JMenu();
-        menuItemCreateBill = new javax.swing.JMenuItem();
-        menuItemViewBillHistory = new javax.swing.JMenuItem();
+        menuCreateBill = new javax.swing.JMenu();
         menuManageBeverage = new javax.swing.JMenu();
         menuSignOut = new javax.swing.JMenu();
 
@@ -59,14 +54,6 @@ public class HomeAdmin extends javax.swing.JFrame {
         labelTitle.setFont(new java.awt.Font("Times New Roman", 1, 30)); // NOI18N
         labelTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelTitle.setText("HỆ THỐNG QUẢN LÝ QUÁN NƯỚC KISS A TEN");
-
-        buttonManageUser.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
-        buttonManageUser.setToolTipText("Quản lý người dùng");
-        buttonManageUser.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonManageUserActionPerformed(evt);
-            }
-        });
 
         buttonCreateBill.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
         buttonCreateBill.setToolTipText("Tạo hóa đơn");
@@ -95,28 +82,15 @@ public class HomeAdmin extends javax.swing.JFrame {
         menuBar.setToolTipText("");
         menuBar.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
 
-        menuManageBill.setText("Quản lý hóa đơn   ");
-        menuManageBill.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
-
-        menuItemCreateBill.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
-        menuItemCreateBill.setText("Tạo hóa đơn");
-        menuItemCreateBill.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemCreateBillActionPerformed(evt);
+        menuCreateBill.setText("Tạo hóa đơn   ");
+        menuCreateBill.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        menuCreateBill.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuCreateBillMouseClicked(evt);
             }
         });
-        menuManageBill.add(menuItemCreateBill);
-
-        menuItemViewBillHistory.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
-        menuItemViewBillHistory.setText("Xem lịch sử hóa đơn");
-        menuItemViewBillHistory.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemViewBillHistoryActionPerformed(evt);
-            }
-        });
-        menuManageBill.add(menuItemViewBillHistory);
-
-        menuBar.add(menuManageBill);
+        menuBar.add(menuCreateBill);
+        menuCreateBill.getAccessibleContext().setAccessibleName("Tạo hóa đơn   ");
 
         menuManageBeverage.setText("Quản lý thức uống   ");
         menuManageBeverage.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
@@ -145,17 +119,17 @@ public class HomeAdmin extends javax.swing.JFrame {
             .addComponent(labelTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 747, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(buttonManageBeverage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(buttonManageUser, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(buttonManageBeverage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(buttonCreateBill, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                    .addComponent(buttonSignOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(buttonSignOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(buttonCreateBill, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {buttonCreateBill, buttonManageBeverage, buttonManageUser, buttonSignOut});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {buttonCreateBill, buttonManageBeverage, buttonSignOut});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -163,9 +137,7 @@ public class HomeAdmin extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addComponent(labelTitle)
                 .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(buttonManageUser, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonCreateBill, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(buttonCreateBill, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(buttonSignOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -173,7 +145,7 @@ public class HomeAdmin extends javax.swing.JFrame {
                 .addGap(35, 35, 35))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {buttonCreateBill, buttonManageBeverage, buttonManageUser, buttonSignOut});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {buttonCreateBill, buttonManageBeverage, buttonSignOut});
 
         pack();
         setLocationRelativeTo(null);
@@ -194,16 +166,6 @@ public class HomeAdmin extends javax.swing.JFrame {
         this.getParent().setVisible(true);
     }//GEN-LAST:event_buttonSignOutActionPerformed
 
-    private void menuItemCreateBillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCreateBillActionPerformed
-        CreateBill form = new CreateBill();
-        form.setVisible(true);
-    }//GEN-LAST:event_menuItemCreateBillActionPerformed
-
-    private void menuItemViewBillHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemViewBillHistoryActionPerformed
-        ViewBillHistory form = new ViewBillHistory();
-        form.setVisible(true);
-    }//GEN-LAST:event_menuItemViewBillHistoryActionPerformed
-
     private void menuManageBeverageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuManageBeverageMouseClicked
         ManageBeverage form = new ManageBeverage();
         form.setVisible(true);
@@ -214,10 +176,10 @@ public class HomeAdmin extends javax.swing.JFrame {
         this.getParent().setVisible(true);
     }//GEN-LAST:event_menuSignOutMouseClicked
 
-    private void buttonManageUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonManageUserActionPerformed
-        ManageUser form = new ManageUser();
+    private void menuCreateBillMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuCreateBillMouseClicked
+        CreateBill form = new CreateBill();
         form.setVisible(true);
-    }//GEN-LAST:event_buttonManageUserActionPerformed
+    }//GEN-LAST:event_menuCreateBillMouseClicked
 
     /**
      * @param args the command line arguments
@@ -236,20 +198,21 @@ public class HomeAdmin extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(HomeAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HomeStaff.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(HomeAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HomeStaff.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(HomeAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HomeStaff.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(HomeAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HomeStaff.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new HomeAdmin().setVisible(true);
+                new HomeStaff().setVisible(true);
             }
         });
     }
@@ -257,14 +220,11 @@ public class HomeAdmin extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCreateBill;
     private javax.swing.JButton buttonManageBeverage;
-    private javax.swing.JButton buttonManageUser;
     private javax.swing.JButton buttonSignOut;
     private javax.swing.JLabel labelTitle;
     private javax.swing.JMenuBar menuBar;
-    private javax.swing.JMenuItem menuItemCreateBill;
-    private javax.swing.JMenuItem menuItemViewBillHistory;
+    private javax.swing.JMenu menuCreateBill;
     private javax.swing.JMenu menuManageBeverage;
-    private javax.swing.JMenu menuManageBill;
     private javax.swing.JMenu menuSignOut;
     // End of variables declaration//GEN-END:variables
 }
