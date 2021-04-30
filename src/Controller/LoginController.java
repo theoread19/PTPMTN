@@ -53,7 +53,7 @@ public class LoginController {
                     model.setId(rs.getInt("id"));
                     System.out.print("dung tk");
                     model.setUsername(rs.getString("username"));
-                    model.setRole(rs.getString("password"));
+                    model.setRole(rs.getString("role"));
                 }
             }    
             
