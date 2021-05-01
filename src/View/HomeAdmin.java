@@ -5,6 +5,8 @@
  */
 package View;
 
+import Controller.AdminController;
+import Model.UserModel;
 import javax.swing.ImageIcon;
 
 /**
@@ -17,13 +19,13 @@ public class HomeAdmin extends javax.swing.JFrame {
     private ImageIcon icon2 = new ImageIcon("src\\others\\icon-manage-bill.png");
     private ImageIcon icon3 = new ImageIcon("src\\others\\icon-manage-beverage.png");
     private ImageIcon icon4 = new ImageIcon("src\\others\\icon-sign-out.png");
-
+    private AdminController adminController = new AdminController();
+    private UserModel userModel = new UserModel();
     /**
      * Creates new form
      */
     public HomeAdmin() {
-        initComponents();
-
+        initComponents();   
         buttonManageUser.setIcon(icon1);
         buttonCreateBill.setIcon(icon2);
         buttonManageBeverage.setIcon(icon3);
@@ -179,6 +181,14 @@ public class HomeAdmin extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Lay username o day
+     * @param model 
+     */
+    public void setUser(UserModel model){
+        userModel = adminController.get(model);
+    }
+    
     private void buttonCreateBillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCreateBillActionPerformed
         CreateBill form = new CreateBill();
         form.setVisible(true);

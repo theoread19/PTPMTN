@@ -143,22 +143,6 @@ public class SignIn extends javax.swing.JFrame {
     }
 
     private void buttonSignInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSignInActionPerformed
-//        // Lay gia tri tu form
-//        String username = textUsername.getText();
-//        String password = Arrays.toString(textPassword.getPassword());
-//
-//        // Thuc hien yeu cau dang nhap
-//        // Xu ly ket qua dang nhap
-//        // If dang nhap thanh cong
-//        // Dang nhap voi vai tro Quan tri vien
-//        HomeAdmin form = new HomeAdmin();
-//        form.setVisible(true);
-//        textUsername.setText(null);
-//        textPassword.setText(null);
-//        this.setVisible(false);
-//                // Dang nhap voi vai tro Nhan vien
-//        // Else
-
 
         String message = "Tên đăng nhập hoặc mật khẩu không đúng!";
         String title = "Thông báo";
@@ -168,6 +152,7 @@ public class SignIn extends javax.swing.JFrame {
         if (model.getUsername() != ""){
             if(model.getRole().equals("admin")){
                 HomeAdmin homeAdmin = new HomeAdmin();
+                homeAdmin.setUser(model);
                 homeAdmin.setVisible(true);
                 this.setVisible(false);
             }else if(model.getRole().equals("staff")){

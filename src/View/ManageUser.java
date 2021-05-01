@@ -5,11 +5,17 @@
  */
 package View;
 
+import Controller.LoginController;
+import Controller.UserController;
+import Model.UserModel;
 import java.awt.Font;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -18,12 +24,13 @@ import javax.swing.table.DefaultTableCellRenderer;
 public class ManageUser extends javax.swing.JFrame {
     
     private Font myFont = new Font("Times New Roman", Font.PLAIN, 22);
-
+    private UserController userController;
     /**
      * Creates new form
      */
     public ManageUser() {
         initComponents();
+        initTable();
         tableUser.getTableHeader().setFont(myFont);
         ((DefaultTableCellRenderer) tableUser.getTableHeader().getDefaultRenderer())
                 .setHorizontalAlignment(JLabel.CENTER);
@@ -38,6 +45,22 @@ public class ManageUser extends javax.swing.JFrame {
         tableUser.getColumnModel().getColumn(2).setCellEditor(cellEditor);
     }
 
+    
+    public void initTable(){
+        userController = new UserController();
+        List<UserModel> models = userController.get();
+        DefaultTableModel tableModel = (DefaultTableModel) tableUser.getModel();
+        tableModel.fireTableDataChanged();
+        for (UserModel item : models){
+            Object[] rs = new Object[4];
+            rs[0] = item.getId();
+            rs[1] = item.getUsername();
+            rs[2] = item.getPassword();
+            rs[3] = item.getRole();
+            tableModel.addRow((Object[]) rs);
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -96,7 +119,7 @@ public class ManageUser extends javax.swing.JFrame {
         labelRole.setText("Vai trò:");
 
         comboBoxRole.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
-        comboBoxRole.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Quản trị viên", "Nhân viên" }));
+        comboBoxRole.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "admin", "staff" }));
 
         javax.swing.GroupLayout panelTopLeftLayout = new javax.swing.GroupLayout(panelTopLeft);
         panelTopLeft.setLayout(panelTopLeftLayout);
@@ -140,6 +163,11 @@ public class ManageUser extends javax.swing.JFrame {
 
         buttonInsert.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
         buttonInsert.setText("Thêm");
+        buttonInsert.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonInsertActionPerformed(evt);
+            }
+        });
 
         buttonUpdate.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
         buttonUpdate.setText("Sửa");
@@ -290,6 +318,27 @@ public class ManageUser extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    public void loadTable(){
+        DefaultTableModel dm = (DefaultTableModel) tableUser.getModel();
+        int rowCount = dm.getRowCount();
+        while(rowCount > 0){
+            dm.removeRow(0);
+            rowCount--;
+        }
+        initTable();
+    }
+    
+    private void buttonInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonInsertActionPerformed
+        UserModel model = new UserModel();
+        model.setUsername(textUsername.getText());
+        model.setPassword(textPassword.getText());
+        textUsername.setText("");
+        textPassword.setText("");
+        model.setRole(comboBoxRole.getSelectedItem().toString());
+        userController.post(model);
+        loadTable();
+    }//GEN-LAST:event_buttonInsertActionPerformed
 
     /**
      * @param args the command line arguments
