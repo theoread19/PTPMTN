@@ -5,10 +5,6 @@
  */
 package View;
 
-import java.awt.Font;
-import javax.swing.JLabel;
-import javax.swing.table.DefaultTableCellRenderer;
-
 /**
  *
  * @author B1704721
@@ -20,9 +16,7 @@ public class ViewBillHistory extends javax.swing.JFrame {
      */
     public ViewBillHistory() {
         initComponents();
-        tableBillHistory.getTableHeader().setFont(new Font("Times New Roman", Font.PLAIN, 22));
-        ((DefaultTableCellRenderer) tableBillHistory.getTableHeader().getDefaultRenderer())
-                .setHorizontalAlignment(JLabel.CENTER);
+        setInterface();
     }
 
     /**
@@ -45,7 +39,7 @@ public class ViewBillHistory extends javax.swing.JFrame {
 
         labelTitle.setFont(new java.awt.Font("Times New Roman", 1, 30)); // NOI18N
         labelTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelTitle.setText("XEM LỊCH SỬ HÓA ĐƠN");
+        labelTitle.setText("LỊCH SỬ HÓA ĐƠN");
 
         buttonDetail.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
         buttonDetail.setText("Xem chi tiết");
@@ -56,7 +50,10 @@ public class ViewBillHistory extends javax.swing.JFrame {
         tableBillHistory.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
         tableBillHistory.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                { new Integer(1), "Yo", "01/01",  new Integer(1000)},
+                { new Integer(2), "What", "02/02",  new Integer(2000)},
+                { new Integer(3), "The", "03/03",  new Integer(3000)},
+                { new Integer(4), "Fuck", "04/04",  new Integer(4000)}
             },
             new String [] {
                 "ID", "Người tạo", "Thời gian tạo", "Tổng tiền"
@@ -66,7 +63,7 @@ public class ViewBillHistory extends javax.swing.JFrame {
                 java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -86,9 +83,7 @@ public class ViewBillHistory extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, 0)
-                        .addComponent(scrollPaneTable))
+                    .addComponent(scrollPaneTable)
                     .addComponent(labelTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 764, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -121,6 +116,14 @@ public class ViewBillHistory extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void setInterface() {
+        // Set frame interface
+        Settings.setFrameInterface(this);
+        
+        // Set table interface
+        Settings.setTableInterface(tableBillHistory, scrollPaneTable);
+    }
+    
     /**
      * @param args the command line arguments
      */

@@ -7,9 +7,6 @@ package View;
 
 import Controller.LoginController;
 import Model.UserModel;
-import java.awt.Color;
-import java.util.Arrays;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -17,16 +14,15 @@ import javax.swing.JOptionPane;
  * @author B1704721
  */
 public class SignIn extends javax.swing.JFrame {
+
     private LoginController loginController = new LoginController();
-    ImageIcon logo = new ImageIcon("src\\others\\logo.png");
-    Color backgroundColor = Color.pink;
 
     /**
      * Creates new form
      */
     public SignIn() {
         initComponents();
-        initSettings();
+        setInterface();
     }
 
     /**
@@ -38,7 +34,6 @@ public class SignIn extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         labelLogo = new javax.swing.JLabel();
         labelUsername = new javax.swing.JLabel();
         labelPassword = new javax.swing.JLabel();
@@ -46,8 +41,6 @@ public class SignIn extends javax.swing.JFrame {
         textPassword = new javax.swing.JPasswordField();
         buttonSignIn = new javax.swing.JButton();
         buttonQuit = new javax.swing.JButton();
-
-        jLabel1.setText("jLabel1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("KAT - Đăng nhập");
@@ -132,14 +125,13 @@ public class SignIn extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-    
-    private void initSettings() {
-        // Set logo
-        labelLogo.setIcon(logo);
-        
 
-        // Set background color
-        this.getContentPane().setBackground(backgroundColor);
+    private void setInterface() {
+        // Set frame interface
+        Settings.setFrameInterface(this);
+        
+        // Set components
+        labelLogo.setIcon(Settings.logo);
     }
 
     private void buttonSignInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSignInActionPerformed
@@ -159,23 +151,25 @@ public class SignIn extends javax.swing.JFrame {
 //                // Dang nhap voi vai tro Nhan vien
 //        // Else
 
-
         String message = "Tên đăng nhập hoặc mật khẩu không đúng!";
         String title = "Thông báo";
         UserModel model = new UserModel();
         model = loginController.handleLogin(textUsername.getText(), String.valueOf(textPassword.getPassword()));
-        
-        if (model.getUsername() != ""){
-            if(model.getRole().equals("admin")){
-                HomeAdmin homeAdmin = new HomeAdmin();
-                homeAdmin.setVisible(true);
-                this.setVisible(false);
-            }else if(model.getRole().equals("staff")){
-                CreateBill createBill = new CreateBill();
-                createBill.setVisible(true);
-                this.setVisible(false);
+
+        if (!model.getUsername().equals("")) {
+            switch (model.getRole()) {
+                case "admin":
+                    HomeAdmin homeAdmin = new HomeAdmin();
+                    homeAdmin.setVisible(true);
+                    this.setVisible(false);
+                    break;
+                case "staff":
+                    CreateBill createBill = new CreateBill();
+                    createBill.setVisible(true);
+                    this.setVisible(false);
+                    break;
             }
-        }else{
+        } else {
             JOptionPane.showMessageDialog(this, message, title, JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_buttonSignInActionPerformed
@@ -223,7 +217,6 @@ public class SignIn extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonQuit;
     private javax.swing.JButton buttonSignIn;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel labelLogo;
     private javax.swing.JLabel labelPassword;
     private javax.swing.JLabel labelUsername;

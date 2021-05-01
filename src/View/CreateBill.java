@@ -5,39 +5,22 @@
  */
 package View;
 
+import java.awt.Color;
 import java.awt.Font;
-import javax.swing.DefaultCellEditor;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.ImageIcon;
 
 /**
  *
  * @author B1704721
  */
 public class CreateBill extends javax.swing.JFrame {
-    
-    private Font myFont = new Font("Times New Roman", Font.PLAIN, 22);
 
     /**
      * Creates new form
      */
     public CreateBill() {
         initComponents();
-        
-        tableBeverage.getTableHeader().setFont(myFont);
-        
-        ((DefaultTableCellRenderer) tableBeverage.getTableHeader().getDefaultRenderer())
-                .setHorizontalAlignment(JLabel.CENTER);
-        
-        tableBeverage.setRowHeight(30);
-        
-        JTextField myTextField = new JTextField();
-        myTextField.setFont(myFont);
-        
-        DefaultCellEditor cellEditor;
-        cellEditor = new DefaultCellEditor(myTextField);
-        tableBeverage.getColumnModel().getColumn(2).setCellEditor(cellEditor);
+        setInterface();
     }
 
     /**
@@ -345,6 +328,19 @@ public class CreateBill extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void setInterface() {
+        // Set frame interface
+        Settings.setFrameInterface(this);
+
+        // Set table interface
+        Settings.setTableInterface(tableBeverage, scrollPaneTable);
+
+        // Set components
+        panelLeft.setBackground(Settings.contponentBackgroundColor);
+        panelTopLeft.setBackground(Settings.contponentBackgroundColor);
+        panelBottomLeft.setBackground(Settings.contponentBackgroundColor);
+    }
 
     /**
      * @param args the command line arguments
