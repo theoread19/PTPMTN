@@ -264,10 +264,7 @@ public class ManageUser extends javax.swing.JFrame {
         tableUser.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
         tableUser.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                { new Integer(1), "Admin", "admin", "Admin"},
-                { new Integer(2), "Staff", "pass", "Staff"},
-                { new Integer(3), "Admax", "word", "Staff"},
-                { new Integer(4), "Ffats", "why", "Admin"}
+
             },
             new String [] {
                 "ID", "Tên người dùng", "Mật khẩu", "Vai trò"

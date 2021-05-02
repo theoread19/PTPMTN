@@ -276,9 +276,7 @@ public class ManageBeverage extends javax.swing.JFrame {
         tableBeverage.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
         tableBeverage.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                { new Integer(1), "Alo",  new Integer(1000)},
-                { new Integer(2), "Bitch",  new Integer(2000)},
-                { new Integer(3), "Casul",  new Integer(3000)}
+
             },
             new String [] {
                 "ID", "Tên thức uống", "Giá"
@@ -368,6 +366,18 @@ public class ManageBeverage extends javax.swing.JFrame {
         textPrice.setText("");
     }//GEN-LAST:event_buttonCancelActionPerformed
 
+    
+    public void loadTable(){
+        DefaultTableModel dm = (DefaultTableModel) tableBeverage.getModel();
+        int rowCount = dm.getRowCount();
+        while(rowCount > 0){
+            dm.removeRow(0);
+            rowCount--;
+        }
+        initTable();
+    }
+    
+    
     private void buttonInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonInsertActionPerformed
         String bName = textBeverageName.getText();
         int bPrice = 0;
@@ -379,10 +389,8 @@ public class ManageBeverage extends javax.swing.JFrame {
             //System.out.println("name: " + bName + ", price: " + bPrice);
             beverageController = new BeverageController();
             beverageController.post(bName, bPrice);
-            ManageBeverage mnBeverage = new ManageBeverage();
-            mnBeverage.setVisible(true);
+            loadTable();
             JOptionPane.showMessageDialog(this, "Đã thêm thức uống mới vào CSDL", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-            this.dispose();
             }else{
             JOptionPane.showMessageDialog(this, "Giá phải lớn hơn 0", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
             }
