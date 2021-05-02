@@ -25,12 +25,12 @@ public class Settings {
     public static Font myFont = new Font("Times New Roman", Font.PLAIN, 22);
     public static Color backgroundColor = new Color(255, 204, 213);
     public static Color contponentBackgroundColor = new Color(255, 230, 234);
-    public static ImageIcon icon = new ImageIcon("src\\others\\icon.png");
-    public static ImageIcon logo = new ImageIcon("src\\others\\logo.png");
-    public static ImageIcon manageUserIcon = new ImageIcon("src\\others\\icon-manage-user.png");
-    public static ImageIcon manageBillIcon = new ImageIcon("src\\others\\icon-manage-bill.png");
-    public static ImageIcon manageBeverageIcon = new ImageIcon("src\\others\\icon-manage-beverage.png");
-    public static ImageIcon signOutIcon = new ImageIcon("src\\others\\icon-sign-out.png");
+    public static ImageIcon icon = new ImageIcon("src\\images\\icon.png");
+    public static ImageIcon logo = new ImageIcon("src\\images\\logo.png");
+    public static ImageIcon manageUserIcon = new ImageIcon("src\\images\\icon-manage-user.png");
+    public static ImageIcon manageBillIcon = new ImageIcon("src\\images\\icon-manage-bill.png");
+    public static ImageIcon manageBeverageIcon = new ImageIcon("src\\images\\icon-manage-beverage.png");
+    public static ImageIcon signOutIcon = new ImageIcon("src\\images\\icon-sign-out.png");
     
     public static void setFrameInterface(JFrame frame) {
         // Set frame's icon
