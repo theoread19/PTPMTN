@@ -27,10 +27,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                      <Component id="scrollPaneTable" max="32767" attributes="0"/>
-                  </Group>
+                  <Component id="scrollPaneTable" max="32767" attributes="0"/>
                   <Component id="labelTitle" pref="764" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -68,7 +65,7 @@
           <Font name="Times New Roman" size="30" style="1"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="XEM L&#x1eca;CH S&#x1eec; H&#xd3;A &#x110;&#x1a0;N"/>
+        <Property name="text" type="java.lang.String" value="L&#x1eca;CH S&#x1eec; H&#xd3;A &#x110;&#x1a0;N"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="buttonDetail">
@@ -100,11 +97,31 @@
               <Font name="Times New Roman" size="22" style="0"/>
             </Property>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="4" rowCount="0">
-                <Column editable="false" title="ID" type="java.lang.Integer"/>
-                <Column editable="false" title="Ng&#x1b0;&#x1edd;i t&#x1ea1;o" type="java.lang.String"/>
-                <Column editable="false" title="Th&#x1edd;i gian t&#x1ea1;o" type="java.lang.String"/>
-                <Column editable="false" title="T&#x1ed5;ng ti&#x1ec1;n" type="java.lang.Integer"/>
+              <Table columnCount="4" rowCount="4">
+                <Column editable="false" title="ID" type="java.lang.Integer">
+                  <Data value="1"/>
+                  <Data value="2"/>
+                  <Data value="3"/>
+                  <Data value="4"/>
+                </Column>
+                <Column editable="false" title="Ng&#x1b0;&#x1edd;i t&#x1ea1;o" type="java.lang.String">
+                  <Data value="Yo"/>
+                  <Data value="What"/>
+                  <Data value="The"/>
+                  <Data value="Fuck"/>
+                </Column>
+                <Column editable="true" title="Th&#x1edd;i gian t&#x1ea1;o" type="java.lang.String">
+                  <Data value="01/01"/>
+                  <Data value="02/02"/>
+                  <Data value="03/03"/>
+                  <Data value="04/04"/>
+                </Column>
+                <Column editable="false" title="T&#x1ed5;ng ti&#x1ec1;n" type="java.lang.Integer">
+                  <Data value="1000"/>
+                  <Data value="2000"/>
+                  <Data value="3000"/>
+                  <Data value="4000"/>
+                </Column>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -130,6 +147,9 @@
                   <Renderer/>
                 </Column>
               </TableColumnModel>
+            </Property>
+            <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+              <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
             </Property>
           </Properties>
         </Component>

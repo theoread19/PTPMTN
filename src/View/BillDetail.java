@@ -5,10 +5,6 @@
  */
 package View;
 
-import java.awt.Font;
-import javax.swing.JLabel;
-import javax.swing.table.DefaultTableCellRenderer;
-
 /**
  *
  * @author B1704721
@@ -20,9 +16,7 @@ public class BillDetail extends javax.swing.JFrame {
      */
     public BillDetail() {
         initComponents();
-        tableBeverageList.getTableHeader().setFont(new Font("Times New Roman", Font.PLAIN, 22));
-        ((DefaultTableCellRenderer) tableBeverageList.getTableHeader().getDefaultRenderer())
-                .setHorizontalAlignment(JLabel.CENTER);
+        setInterface();
     }
 
     /**
@@ -34,7 +28,6 @@ public class BillDetail extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollBar1 = new javax.swing.JScrollBar();
         labelTitle = new javax.swing.JLabel();
         buttonReturn = new javax.swing.JButton();
         labelAmountTotal = new javax.swing.JLabel();
@@ -59,6 +52,7 @@ public class BillDetail extends javax.swing.JFrame {
         labelCreateTime = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("KAT - Chi tiết hóa đơn");
         setResizable(false);
 
         labelTitle.setFont(new java.awt.Font("Times New Roman", 1, 30)); // NOI18N
@@ -112,14 +106,15 @@ public class BillDetail extends javax.swing.JFrame {
         tableBeverageList.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
         tableBeverageList.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {"Name", "10000",  new Integer(4), null},
+                {"Name", "20000",  new Integer(2), null}
             },
             new String [] {
                 "Thức uống", "Đơn giá", "Số lượng", "Thành tiền"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false
@@ -262,6 +257,14 @@ public class BillDetail extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void setInterface() {
+        // Set frame interface
+        Settings.setFrameInterface(this);
+        
+        // Set table interface
+        Settings.setTableInterface(tableBeverageList, scrollPaneTable);
+    }
+    
     private void buttonReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonReturnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_buttonReturnActionPerformed
@@ -310,7 +313,6 @@ public class BillDetail extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonReturn;
-    private javax.swing.JScrollBar jScrollBar1;
     private javax.swing.JLabel labelAmountTotal;
     private javax.swing.JLabel labelAmountTotalValue;
     private javax.swing.JLabel labelBillId;

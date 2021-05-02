@@ -5,9 +5,11 @@
  */
 package View;
 
+
 import Controller.StaffController;
 import Model.UserModel;
 import javax.swing.ImageIcon;
+
 
 /**
  *
@@ -15,21 +17,19 @@ import javax.swing.ImageIcon;
  */
 public class HomeStaff extends javax.swing.JFrame {
 
+
     private ImageIcon icon2 = new ImageIcon("src\\others\\icon-manage-bill.png");
     private ImageIcon icon3 = new ImageIcon("src\\others\\icon-manage-beverage.png");
     private ImageIcon icon4 = new ImageIcon("src\\others\\icon-sign-out.png");
     private StaffController staffController = new StaffController();
     private UserModel userModel = new UserModel();
+
     /**
      * Creates new form
      */
     public HomeStaff() {
         initComponents();
-
-        buttonCreateBill.setIcon(icon2);
-        buttonManageBeverage.setIcon(icon3);
-        buttonSignOut.setIcon(icon4);
-        labelTitle.requestFocus();
+        setInterface();
     }
 
     /**
@@ -48,7 +48,8 @@ public class HomeStaff extends javax.swing.JFrame {
         menuBar = new javax.swing.JMenuBar();
         menuCreateBill = new javax.swing.JMenu();
         menuManageBeverage = new javax.swing.JMenu();
-        menuSignOut = new javax.swing.JMenu();
+        menuUser = new javax.swing.JMenu();
+        menuItemSignOut = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("KAT - Trang chủ");
@@ -93,7 +94,6 @@ public class HomeStaff extends javax.swing.JFrame {
             }
         });
         menuBar.add(menuCreateBill);
-        menuCreateBill.getAccessibleContext().setAccessibleName("Tạo hóa đơn   ");
 
         menuManageBeverage.setText("Quản lý thức uống   ");
         menuManageBeverage.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
@@ -104,14 +104,19 @@ public class HomeStaff extends javax.swing.JFrame {
         });
         menuBar.add(menuManageBeverage);
 
-        menuSignOut.setText("Đăng xuất   ");
-        menuSignOut.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
-        menuSignOut.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                menuSignOutMouseClicked(evt);
+        menuUser.setText("Đăng xuất   ");
+        menuUser.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+
+        menuItemSignOut.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        menuItemSignOut.setText("Đăng xuất ");
+        menuItemSignOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemSignOutActionPerformed(evt);
             }
         });
-        menuBar.add(menuSignOut);
+        menuUser.add(menuItemSignOut);
+
+        menuBar.add(menuUser);
 
         setJMenuBar(menuBar);
 
@@ -120,7 +125,7 @@ public class HomeStaff extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(labelTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 747, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(buttonManageBeverage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(30, 30, 30)
@@ -154,13 +159,24 @@ public class HomeStaff extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    
+
     /**
      * Lay username o day
      * @param model 
      */
     public void setUser(UserModel model){
         userModel = staffController.get(model);
+    }
+    private void setInterface() {
+        // Set frame interface
+        Settings.setFrameInterface(this);
+        
+        // Set components
+        buttonCreateBill.setIcon(Settings.manageBillIcon);
+        buttonManageBeverage.setIcon(Settings.manageBeverageIcon);
+        buttonSignOut.setIcon(Settings.signOutIcon);
+        labelTitle.requestFocus();
+
     }
     
     private void buttonCreateBillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCreateBillActionPerformed
@@ -183,15 +199,14 @@ public class HomeStaff extends javax.swing.JFrame {
         form.setVisible(true);
     }//GEN-LAST:event_menuManageBeverageMouseClicked
 
-    private void menuSignOutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuSignOutMouseClicked
-        this.dispose();
-        this.getParent().setVisible(true);
-    }//GEN-LAST:event_menuSignOutMouseClicked
-
     private void menuCreateBillMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuCreateBillMouseClicked
         CreateBill form = new CreateBill();
         form.setVisible(true);
     }//GEN-LAST:event_menuCreateBillMouseClicked
+
+    private void menuItemSignOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemSignOutActionPerformed
+        // Sign out
+    }//GEN-LAST:event_menuItemSignOutActionPerformed
 
     /**
      * @param args the command line arguments
@@ -236,7 +251,8 @@ public class HomeStaff extends javax.swing.JFrame {
     private javax.swing.JLabel labelTitle;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu menuCreateBill;
+    private javax.swing.JMenuItem menuItemSignOut;
     private javax.swing.JMenu menuManageBeverage;
-    private javax.swing.JMenu menuSignOut;
+    private javax.swing.JMenu menuUser;
     // End of variables declaration//GEN-END:variables
 }

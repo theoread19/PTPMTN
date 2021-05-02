@@ -22,14 +22,18 @@ import javax.swing.table.DefaultTableModel;
  * @author B1704721
  */
 public class ManageUser extends javax.swing.JFrame {
-    
+
     private Font myFont = new Font("Times New Roman", Font.PLAIN, 22);
     private UserController userController;
+
+
+
     /**
      * Creates new form
      */
     public ManageUser() {
         initComponents();
+
         initTable();
         tableUser.getTableHeader().setFont(myFont);
         ((DefaultTableCellRenderer) tableUser.getTableHeader().getDefaultRenderer())
@@ -43,6 +47,9 @@ public class ManageUser extends javax.swing.JFrame {
         DefaultCellEditor cellEditor;
         cellEditor = new DefaultCellEditor(myTextField);
         tableUser.getColumnModel().getColumn(2).setCellEditor(cellEditor);
+
+        setInterface();
+
     }
 
     
@@ -257,7 +264,10 @@ public class ManageUser extends javax.swing.JFrame {
         tableUser.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
         tableUser.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                { new Integer(1), "Admin", "admin", "Admin"},
+                { new Integer(2), "Staff", "pass", "Staff"},
+                { new Integer(3), "Admax", "word", "Staff"},
+                { new Integer(4), "Ffats", "why", "Admin"}
             },
             new String [] {
                 "ID", "Tên người dùng", "Mật khẩu", "Vai trò"
@@ -267,7 +277,7 @@ public class ManageUser extends javax.swing.JFrame {
                 java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -319,6 +329,7 @@ public class ManageUser extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+
     public void loadTable(){
         DefaultTableModel dm = (DefaultTableModel) tableUser.getModel();
         int rowCount = dm.getRowCount();
@@ -339,6 +350,21 @@ public class ManageUser extends javax.swing.JFrame {
         userController.post(model);
         loadTable();
     }//GEN-LAST:event_buttonInsertActionPerformed
+
+
+    private void setInterface() {
+        // Set frame interface
+        Settings.setFrameInterface(this);
+        
+        // Set table interface
+        Settings.setTableInterface(tableUser, scrollPaneTable);
+        
+        // Set components
+        panelLeft.setBackground(Settings.contponentBackgroundColor);
+        panelTopLeft.setBackground(Settings.contponentBackgroundColor);
+        panelBottomLeft.setBackground(Settings.contponentBackgroundColor);
+    }
+    
 
     /**
      * @param args the command line arguments
