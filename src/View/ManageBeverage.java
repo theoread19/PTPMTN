@@ -5,20 +5,74 @@
  */
 package View;
 
+
+import Controller.BeverageController;
+import Model.BeverageModel;
+import java.awt.Font;
+import java.util.List;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+
+
 /**
  *
  * @author B1704721
  */
 public class ManageBeverage extends javax.swing.JFrame {
 
+    private BeverageController beverageController;
+ 
+    
+    private Font myFont = new Font("Times New Roman", Font.PLAIN, 22);
+
+
     /**
      * Creates new form
      */
     public ManageBeverage() {
         initComponents();
+
         setInterface();
+
+
+        tableBeverage.getTableHeader().setFont(myFont);
+        ((DefaultTableCellRenderer) tableBeverage.getTableHeader().getDefaultRenderer())
+                .setHorizontalAlignment(JLabel.CENTER);
+        
+        tableBeverage.setRowHeight(30);
+        
+        JTextField myTextField = new JTextField();
+        myTextField.setFont(myFont);
+        
+        DefaultCellEditor cellEditor;
+        cellEditor = new DefaultCellEditor(myTextField);
+        tableBeverage.getColumnModel().getColumn(2).setCellEditor(cellEditor);
+        
+        initTable();
+
     }
 
+    public void initTable(){
+        beverageController = new BeverageController();
+        List<BeverageModel> bModel = beverageController.get();
+        DefaultTableModel defaulttablemodel = (DefaultTableModel)tableBeverage.getModel();
+        for(BeverageModel item : bModel){
+            Object[] data = new Object[3];
+            data[0] = item.getId();
+            data[1] = item.getName();
+            data[2] = item.getPrice();
+            defaulttablemodel.addRow(data);
+        }
+ 
+        //tableBeverage.setModel(defaulttablemodel);
+    }
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -117,6 +171,11 @@ public class ManageBeverage extends javax.swing.JFrame {
 
         buttonInsert.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
         buttonInsert.setText("Thêm");
+        buttonInsert.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonInsertActionPerformed(evt);
+            }
+        });
 
         buttonUpdate.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
         buttonUpdate.setText("Sửa");
@@ -129,10 +188,20 @@ public class ManageBeverage extends javax.swing.JFrame {
 
         buttonCancel.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
         buttonCancel.setText("Hủy");
+        buttonCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCancelActionPerformed(evt);
+            }
+        });
 
         buttonReturn.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
         buttonReturn.setText("Trở về");
         buttonReturn.setToolTipText("");
+        buttonReturn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonReturnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelBottomLeftLayout = new javax.swing.GroupLayout(panelBottomLeft);
         panelBottomLeft.setLayout(panelBottomLeftLayout);
@@ -274,6 +343,7 @@ public class ManageBeverage extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+
     private void setInterface() {
         // Set frame interface
         Settings.setFrameInterface(this);
@@ -287,6 +357,46 @@ public class ManageBeverage extends javax.swing.JFrame {
         panelBottomLeft.setBackground(Settings.contponentBackgroundColor);
     }
     
+
+    private void buttonReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonReturnActionPerformed
+        beverageController.CloseManageBeverage();
+        System.exit(0);
+    }//GEN-LAST:event_buttonReturnActionPerformed
+
+    private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelActionPerformed
+        textBeverageName.setText("");
+        textPrice.setText("");
+    }//GEN-LAST:event_buttonCancelActionPerformed
+
+    private void buttonInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonInsertActionPerformed
+        String bName = textBeverageName.getText();
+        int bPrice = 0;
+        
+        try {
+            bPrice = Integer.parseInt(textPrice.getText());
+            
+            if(bPrice > 0){
+            //System.out.println("name: " + bName + ", price: " + bPrice);
+            beverageController = new BeverageController();
+            beverageController.post(bName, bPrice);
+            ManageBeverage mnBeverage = new ManageBeverage();
+            mnBeverage.setVisible(true);
+            JOptionPane.showMessageDialog(this, "Đã thêm thức uống mới vào CSDL", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            this.dispose();
+            }else{
+            JOptionPane.showMessageDialog(this, "Giá phải lớn hơn 0", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            }
+            }
+        catch (NumberFormatException e){
+            JOptionPane.showMessageDialog(this, "Giá phải là số nguyên", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            e.printStackTrace();
+            }
+        
+        
+        
+    }//GEN-LAST:event_buttonInsertActionPerformed
+
+
     /**
      * @param args the command line arguments
      */
