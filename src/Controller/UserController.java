@@ -63,19 +63,31 @@ public class UserController {
             con = connection.connectDB();
             Statement stm = con.createStatement();
             stm.executeUpdate(sql);
-            
+            con.close();
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    
     public void delete(int id){
         String sql = "delete from user where id = " + id ;
         try {
             con = connection.connectDB();
             Statement stm = con.createStatement();
             stm.executeUpdate(sql); 
+            con.close();
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void put(UserModel model){
+        String sql = "update user set username = '"+model.getUsername()+"', password = '"+model.getPassword()+"', role = '"+model.getRole()+"' where id = "+model.getId() ;
+        try {
+            con = connection.connectDB();
+            Statement stm = con.createStatement();
+            stm.executeUpdate(sql); 
+            con.close();
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
         }

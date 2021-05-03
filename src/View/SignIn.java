@@ -153,21 +153,6 @@ public class SignIn extends javax.swing.JFrame {
                 CreateBill createBill = new CreateBill();
                 createBill.setVisible(true);
                 this.setVisible(false);
-
-//
-//        if (!model.getUsername().equals("")) {
-//            switch (model.getRole()) {
-//                case "admin":
-//                    HomeAdmin homeAdmin = new HomeAdmin();
-//                    homeAdmin.setVisible(true);
-//                    this.setVisible(false);
-//                    break;
-//                case "staff":
-//                    CreateBill createBill = new CreateBill();
-//                    createBill.setVisible(true);
-//                    this.setVisible(false);
-//                    break;
-
             }
         } else {
             JOptionPane.showMessageDialog(this, message, title, JOptionPane.INFORMATION_MESSAGE);

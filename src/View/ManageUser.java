@@ -5,11 +5,9 @@
  */
 package View;
 
-import Controller.LoginController;
 import Controller.UserController;
 import Model.UserModel;
 import java.awt.Font;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JLabel;
@@ -25,15 +23,13 @@ public class ManageUser extends javax.swing.JFrame {
 
     private Font myFont = new Font("Times New Roman", Font.PLAIN, 22);
     private UserController userController;
-
-
+    private UserModel userModel;
 
     /**
      * Creates new form
      */
     public ManageUser() {
         initComponents();
-
         initTable();
         tableUser.getTableHeader().setFont(myFont);
         ((DefaultTableCellRenderer) tableUser.getTableHeader().getDefaultRenderer())
@@ -178,18 +174,43 @@ public class ManageUser extends javax.swing.JFrame {
 
         buttonUpdate.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
         buttonUpdate.setText("Sửa");
+        buttonUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonUpdateActionPerformed(evt);
+            }
+        });
 
         buttonDelete.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
         buttonDelete.setText("Xóa");
+        buttonDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonDeleteActionPerformed(evt);
+            }
+        });
 
         buttonConfirm.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
         buttonConfirm.setText("Xác nhận");
+        buttonConfirm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonConfirmActionPerformed(evt);
+            }
+        });
 
         buttonCancel.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
         buttonCancel.setText("Hủy");
+        buttonCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCancelActionPerformed(evt);
+            }
+        });
 
         buttonReturn.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
         buttonReturn.setText("Trở về");
+        buttonReturn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonReturnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelBottomLeftLayout = new javax.swing.GroupLayout(panelBottomLeft);
         panelBottomLeft.setLayout(panelBottomLeftLayout);
@@ -335,19 +356,48 @@ public class ManageUser extends javax.swing.JFrame {
             rowCount--;
         }
         initTable();
+        //load lai tat ca cac nut va textbox
     }
     
     private void buttonInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonInsertActionPerformed
-        UserModel model = new UserModel();
-        model.setUsername(textUsername.getText());
-        model.setPassword(textPassword.getText());
-        textUsername.setText("");
-        textPassword.setText("");
-        model.setRole(comboBoxRole.getSelectedItem().toString());
-        userController.post(model);
-        loadTable();
+        userModel = new UserModel();
     }//GEN-LAST:event_buttonInsertActionPerformed
 
+    private void buttonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteActionPerformed
+        int index = tableUser.getSelectedRow();
+        userController.delete((int) tableUser.getValueAt(index, 0));
+        loadTable();
+    }//GEN-LAST:event_buttonDeleteActionPerformed
+
+    private void buttonConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConfirmActionPerformed
+        userModel.setUsername(textUsername.getText());
+        userModel.setPassword(textPassword.getText());
+        userModel.setRole((String) comboBoxRole.getSelectedItem());
+        if (userModel.getId() > 0){
+            userController.put(userModel);
+        }else{
+            userController.post(userModel);
+        }
+        loadTable();
+    }//GEN-LAST:event_buttonConfirmActionPerformed
+
+    private void buttonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUpdateActionPerformed
+        userModel = new UserModel();
+        int index = tableUser.getSelectedRow();
+        userModel.setId((int) tableUser.getValueAt(index, 0));
+        textUsername.setText((String) tableUser.getValueAt(index, 1));
+        textPassword.setText((String) tableUser.getValueAt(index, 2));
+        comboBoxRole.setSelectedItem((String) tableUser.getValueAt(index, 3));
+    }//GEN-LAST:event_buttonUpdateActionPerformed
+
+    private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelActionPerformed
+        userModel = new UserModel();//load bien toan cuc
+        //Load lai het :v
+    }//GEN-LAST:event_buttonCancelActionPerformed
+
+    private void buttonReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonReturnActionPerformed
+        this.dispose(); 
+    }//GEN-LAST:event_buttonReturnActionPerformed
 
     private void setInterface() {
         // Set frame interface
