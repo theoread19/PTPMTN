@@ -65,6 +65,44 @@ public class BeverageController {
         return beverageModel;
     }
     
+    public void delete(int id){
+        String sql = "delete from beverage where id = " + id;
+        
+        try {
+            Statement stm = con.createStatement();
+            stm.executeUpdate(sql);
+            
+            con.close();
+        } catch (SQLException ex) {
+            try {
+                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+                con.close();
+            } catch (SQLException ex1) {
+                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        }
+        
+    }
+    
+    public void put(int id, String name, int price){
+        String sql = "update beverage set name = '" + name + "', price = " + price + " where id = " + id;
+        
+        try {
+            Statement stm = con.createStatement();
+            stm.executeUpdate(sql);
+            
+            con.close();
+        } catch (SQLException ex) {
+            try {
+                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+                con.close();
+            } catch (SQLException ex1) {
+                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        }
+        
+    }
+    
     public void post(String name, int price){
         String sql = "insert into beverage (name,price) values ('" + name + "', '" + price + "')";
          
