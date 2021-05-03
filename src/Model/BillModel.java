@@ -16,17 +16,17 @@ import java.sql.Timestamp;
 public class BillModel {
     private int id;
     private int creatorId;
-    private int discountId;
+    private float discount;
     private Timestamp createTime;
-    private int total;
+    private float total;
     private int totalAmount;
     private int receivedMoney;
-    private int changeMoney;
+    private float changeMoney;
     
     public BillModel(){
         id = -1;
         creatorId = -1;
-        discountId = -1;
+        discount = -1;
         createTime = null;
         total = -1;
         totalAmount = -1;
@@ -50,12 +50,12 @@ public class BillModel {
         this.creatorId = creatorId;
     }
 
-    public int getDiscountId() {
-        return discountId;
+    public float getDiscount() {
+        return discount;
     }
 
-    public void setDiscountId(int discountId) {
-        this.discountId = discountId;
+    public void setDiscount(float discountId) {
+        this.discount = discountId;
     }
 
     public Timestamp getCreateTime() {
@@ -65,12 +65,12 @@ public class BillModel {
     public void setCreateTime(Timestamp createTime) {
         this.createTime = createTime;
     }
-
-    public int getTotal() {
+    
+    public float getTotal() {
         return total;
     }
 
-    public void setTotal(int total) {
+    public void setTotal(float total) {
         this.total = total;
     }
 
@@ -90,11 +90,11 @@ public class BillModel {
         this.receivedMoney = receivedMoney;
     }
 
-    public int getChangeMoney() {
+    public float getChangeMoney() {
         return changeMoney;
     }
 
-    public void setChangeMoney(int changeMoney) {
+    public void setChangeMoney(float changeMoney) {
         this.changeMoney = changeMoney;
     }
     

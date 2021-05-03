@@ -68,8 +68,6 @@ public class ManageBeverage extends javax.swing.JFrame {
             data[2] = item.getPrice();
             defaulttablemodel.addRow(data);
         }
- 
-        //tableBeverage.setModel(defaulttablemodel);
     }
     
     
@@ -373,8 +371,9 @@ public class ManageBeverage extends javax.swing.JFrame {
     
 
     private void buttonReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonReturnActionPerformed
+        beverageController = new BeverageController();
         beverageController.CloseManageBeverage();
-        System.exit(0);
+        this.dispose();
     }//GEN-LAST:event_buttonReturnActionPerformed
 
     private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelActionPerformed
@@ -398,7 +397,7 @@ public class ManageBeverage extends javax.swing.JFrame {
     
     
     private void buttonInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonInsertActionPerformed
-        
+        beverageModel = new BeverageModel();
         beverageController = new BeverageController();
         cmd = "insert";
         
@@ -476,6 +475,7 @@ public class ManageBeverage extends javax.swing.JFrame {
         if(cmd == "update"){
             //Comfirm code
             try{
+                
                 //Get updated data
                 String newName = textBeverageName.getText();
                 beverageModel.setName(newName);
