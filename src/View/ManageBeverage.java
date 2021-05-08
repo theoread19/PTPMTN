@@ -25,7 +25,8 @@ import javax.swing.table.DefaultTableModel;
 public class ManageBeverage extends javax.swing.JFrame {
 
     private BeverageController beverageController;
- 
+    private BeverageModel beverageModel;
+    private String cmd;
     
     private Font myFont = new Font("Times New Roman", Font.PLAIN, 22);
 
@@ -67,8 +68,6 @@ public class ManageBeverage extends javax.swing.JFrame {
             data[2] = item.getPrice();
             defaulttablemodel.addRow(data);
         }
- 
-        //tableBeverage.setModel(defaulttablemodel);
     }
     
     
@@ -179,12 +178,27 @@ public class ManageBeverage extends javax.swing.JFrame {
 
         buttonUpdate.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
         buttonUpdate.setText("Sửa");
+        buttonUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonUpdateActionPerformed(evt);
+            }
+        });
 
         buttonDelete.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
         buttonDelete.setText("Xóa");
+        buttonDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonDeleteActionPerformed(evt);
+            }
+        });
 
         buttonConfirm.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
         buttonConfirm.setText("Xác nhận");
+        buttonConfirm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonConfirmActionPerformed(evt);
+            }
+        });
 
         buttonCancel.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
         buttonCancel.setText("Hủy");
@@ -357,13 +371,17 @@ public class ManageBeverage extends javax.swing.JFrame {
     
 
     private void buttonReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonReturnActionPerformed
+        beverageController = new BeverageController();
         beverageController.CloseManageBeverage();
-        System.exit(0);
+        this.dispose();
     }//GEN-LAST:event_buttonReturnActionPerformed
 
     private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelActionPerformed
         textBeverageName.setText("");
         textPrice.setText("");
+        // Set cmd back to default
+        cmd = "";
+        //Disable buttons
     }//GEN-LAST:event_buttonCancelActionPerformed
 
     
@@ -379,30 +397,139 @@ public class ManageBeverage extends javax.swing.JFrame {
     
     
     private void buttonInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonInsertActionPerformed
-        String bName = textBeverageName.getText();
-        int bPrice = 0;
-        
-        try {
-            bPrice = Integer.parseInt(textPrice.getText());
-            
-            if(bPrice > 0){
-            //System.out.println("name: " + bName + ", price: " + bPrice);
-            beverageController = new BeverageController();
-            beverageController.post(bName, bPrice);
-            loadTable();
-            JOptionPane.showMessageDialog(this, "Đã thêm thức uống mới vào CSDL", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-            }else{
-            JOptionPane.showMessageDialog(this, "Giá phải lớn hơn 0", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-            }
-            }
-        catch (NumberFormatException e){
-            JOptionPane.showMessageDialog(this, "Giá phải là số nguyên", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-            e.printStackTrace();
-            }
-        
-        
+        beverageModel = new BeverageModel();
+        beverageController = new BeverageController();
+        cmd = "insert";
         
     }//GEN-LAST:event_buttonInsertActionPerformed
+
+    private void buttonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteActionPerformed
+        //Comfirm code
+        
+        //Get selected row
+        int selectedRow = -1;
+        selectedRow = tableBeverage.getSelectedRow();
+        
+        int selectedId = -1;
+        String selectedName = "";
+        int selectedPrice = -1;
+        //Get data from table
+        try{
+            selectedId = (int)tableBeverage.getValueAt(selectedRow, 0);
+            selectedName = (String)tableBeverage.getValueAt(selectedRow, 1);
+            selectedPrice = (int)tableBeverage.getValueAt(selectedRow, 2);
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(this, "Lỗi khi lấy dữ liệu từ bảng thức uống", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            e.printStackTrace();
+        }
+        
+        //Set data to textfield
+        textBeverageName.setText(selectedName);
+        textPrice.setText(String.valueOf(selectedPrice));
+        //Set id to beverageModel
+        beverageModel = new BeverageModel();
+        beverageModel.setId(selectedId);
+        
+        beverageController = new BeverageController();
+        beverageController.delete(beverageModel.getId());
+        //Empty 2 textfield
+        textBeverageName.setText("");
+        textPrice.setText("");
+        loadTable();
+    }//GEN-LAST:event_buttonDeleteActionPerformed
+
+    private void buttonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUpdateActionPerformed
+        //Get selected row
+        int selectedRow = -1;
+        selectedRow = tableBeverage.getSelectedRow();
+        
+        int selectedId = -1;
+        String selectedName = "";
+        int selectedPrice = -1;
+        //Get data from table
+        try{
+            selectedId = (int)tableBeverage.getValueAt(selectedRow, 0);
+            selectedName = (String)tableBeverage.getValueAt(selectedRow, 1);
+            selectedPrice = (int)tableBeverage.getValueAt(selectedRow, 2);
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(this, "Lỗi khi lấy dữ liệu từ bảng thức uống", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            e.printStackTrace();
+        }
+        
+        //Set data to textfield
+        textBeverageName.setText(selectedName);
+        textPrice.setText(String.valueOf(selectedPrice));
+        //Set id to beverageModel
+        beverageModel = new BeverageModel();
+        beverageModel.setId(selectedId);
+        
+        beverageController = new BeverageController();
+        cmd = "update";
+        
+    }//GEN-LAST:event_buttonUpdateActionPerformed
+
+    private void buttonConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConfirmActionPerformed
+        //Check what command(update/delete/insert) needed execution
+        if(cmd == "update"){
+            //Comfirm code
+            try{
+                
+                //Get updated data
+                String newName = textBeverageName.getText();
+                beverageModel.setName(newName);
+                
+                int newPrice = Integer.parseInt(textPrice.getText());
+                beverageModel.setPrice(newPrice);
+                
+                if(newPrice > 0){
+                    beverageController.put(beverageModel.getId(), beverageModel.getName(), beverageModel.getPrice());
+                    //Empty 2 textfield
+                    textBeverageName.setText("");
+                    textPrice.setText("");
+                    loadTable();
+                    JOptionPane.showMessageDialog(this, "Đã cập nhật thức uống vào CSDL", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            
+                }else{
+                    JOptionPane.showMessageDialog(this, "Giá phải lớn hơn 0", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                }
+ 
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(this, "Giá phải là số nguyên", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                e.printStackTrace();
+            }
+             
+        }else if(cmd == "insert"){
+            //Comfirm code
+            try {
+                //Get new data
+                String newName = textBeverageName.getText();
+                beverageModel.setName(newName);
+                
+                int newPrice = Integer.parseInt(textPrice.getText());
+                beverageModel.setPrice(newPrice);
+            
+                if(newPrice > 0){
+                    beverageController.post(beverageModel.getName(), beverageModel.getPrice());
+                    //Empty 2 textfield
+                    textBeverageName.setText("");
+                    textPrice.setText("");
+                    loadTable();
+                    JOptionPane.showMessageDialog(this, "Đã thêm thức uống mới vào CSDL", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            
+                }else{
+                    JOptionPane.showMessageDialog(this, "Giá phải lớn hơn 0", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }catch (NumberFormatException e){
+                JOptionPane.showMessageDialog(this, "Giá phải là số nguyên", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                e.printStackTrace();
+            }
+            
+        }else{
+            JOptionPane.showMessageDialog(this, "Chưa chọn chức năng để xác nhận thực thi", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_buttonConfirmActionPerformed
 
 
     /**
