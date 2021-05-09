@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+
 /**
  *
  * @author PC
@@ -20,9 +21,11 @@ public class BillModel {
     private float discount;
     private Timestamp createTime;
     private float total;
+    private float subTotal;
     private int totalAmount;
-    private int receivedMoney;
+    private float receivedMoney;
     private float changeMoney;
+
     private float subtotal;
     private List<BillDetailModel> beverages = new ArrayList<BillDetailModel>();
     
@@ -32,10 +35,12 @@ public class BillModel {
         discount = -1;
         createTime = null;
         total = -1;
+        subTotal = -1;
         totalAmount = -1;
         receivedMoney = -1;
         changeMoney = -1;
     }
+
 
     public float getSubtotal() {
         return subtotal;
@@ -93,11 +98,11 @@ public class BillModel {
         this.totalAmount = totalAmount;
     }
 
-    public int getReceivedMoney() {
+    public float getReceivedMoney() {
         return receivedMoney;
     }
 
-    public void setReceivedMoney(int receivedMoney) {
+    public void setReceivedMoney(float receivedMoney) {
         this.receivedMoney = receivedMoney;
     }
 
@@ -117,7 +122,5 @@ public class BillModel {
         this.beverages = beverages;
     }
 
-
-    
     
 }
