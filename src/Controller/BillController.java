@@ -8,9 +8,12 @@ package Controller;
 import Config.DBConnection;
 import Model.BillModel;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,14 +26,9 @@ public class BillController {
     private Connection con ;
     
     public BillController(){
-        try {
+
             connection = new DBConnection();
-            con = connection.connectDB();
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            
     }
     
     public float applyDiscount(float subTotal){
@@ -58,21 +56,72 @@ public class BillController {
     
     public void post(BillModel model){
 
-        String sql = "insert into bill (creatorId,discount,createTime,total,totalAmount,receivedMoney,changeMoney) "
-                + "values ('" + model.getCreatorId() + "','" + model.getDiscount() + "','" + model.getCreateTime()+ "','" + model.getTotal()+ "','" + model.getTotalAmount()+ "','" + model.getReceivedMoney()+ "','" + model.getChangeMoney()+ "' )";
-         
+        String sql = "insert into bill(creatorId,createTime,totalAmount,subTotal,discount,total,cash,`change`) "
+                + "values (" + model.getCreatorId() + ",'" + model.getCreateTime() + "'," + model.getTotalAmount()+ "," + model.getSubTotal()+ "," + model.getDiscount()+ "," + model.getTotal()+ "," + model.getReceivedMoney()+ "," + model.getChangeMoney()+ " )";
+
         try {
+            con = connection.connectDB();
             Statement stm = con.createStatement();
             stm.executeUpdate(sql);    
             con.close();
         } catch (SQLException ex) {
-            try {
-                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-                con.close();
-            } catch (SQLException ex1) {
-                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex1);
-            }
+            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        }
+    
+        public List<BillModel> get(){
+            List<BillModel> billModel = new ArrayList<>();
+            String sql = "select * from bill";
+            
+            try {
+                con = connection.connectDB();
+                Statement stm = con.createStatement();
+                BillDetailController billDetailController = new BillDetailController();
+                ResultSet rs = stm.executeQuery(sql);
+                while (rs.next()) {
+                    BillModel bModel = new BillModel();
+                    bModel.setId(rs.getInt("id"));
+                    bModel.setCreatorId(rs.getInt("creatorId"));
+                    bModel.setCreateTime(rs.getTimestamp("createTime"));
+                    bModel.setDiscount(rs.getFloat("discount"));
+                    bModel.setTotal(rs.getFloat("total"));
+                    bModel.setReceivedMoney(rs.getFloat("cash"));
+                    bModel.setChangeMoney(rs.getFloat("change"));
+                    bModel.setBeverages(billDetailController.get(bModel.getId()));
+                    billModel.add(bModel);
+            }   
+                con.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            return billModel;
+        }
+        
+        public int getLastBillModelID(){
+            int id = -1;
+            String sql = "SELECT max(id) as id FROM bill";
+            try{
+                con = connection.connectDB();
+                Statement stm = con.createStatement();
+                ResultSet rs = stm.executeQuery(sql); 
+                rs.next();
+                id = rs.getInt("id");
+                con.close();
+            }catch (SQLException ex) {
+                Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            return id;
+        }
+        
     }
     
-}
+
+    

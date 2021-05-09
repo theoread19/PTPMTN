@@ -27,14 +27,9 @@ public class BeverageController {
     private Connection con ;
     
     public BeverageController(){
-        try {
-            connection = new DBConnection();
-            con = connection.connectDB();
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+        connection = new DBConnection();
+            
     }
     
     public List<BeverageModel> get(){
@@ -42,6 +37,7 @@ public class BeverageController {
         String sql = "select * from beverage";
 
         try {
+            con = connection.connectDB();
             Statement stm = con.createStatement();
             ResultSet rs = stm.executeQuery(sql);
             
@@ -54,14 +50,12 @@ public class BeverageController {
             }    
             con.close();
         } catch (SQLException ex) {
-            try {
-                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-                con.close();
-                return null;
-            } catch (SQLException ex1) {
-                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex1);
-            }
+            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         return beverageModel;
     }
     
@@ -69,17 +63,14 @@ public class BeverageController {
         String sql = "delete from beverage where id = " + id;
         
         try {
+            con = connection.connectDB();
             Statement stm = con.createStatement();
-            stm.executeUpdate(sql);
-            
+            stm.executeUpdate(sql);    
             con.close();
         } catch (SQLException ex) {
-            try {
-                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-                con.close();
-            } catch (SQLException ex1) {
-                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex1);
-            }
+            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }
@@ -88,17 +79,14 @@ public class BeverageController {
         String sql = "update beverage set name = '" + name + "', price = " + price + " where id = " + id;
         
         try {
+            con = connection.connectDB();
             Statement stm = con.createStatement();
-            stm.executeUpdate(sql);
-            
+            stm.executeUpdate(sql);    
             con.close();
         } catch (SQLException ex) {
-            try {
-                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-                con.close();
-            } catch (SQLException ex1) {
-                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex1);
-            }
+            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }
@@ -107,16 +95,14 @@ public class BeverageController {
         String sql = "insert into beverage (name,price) values ('" + name + "', '" + price + "')";
          
         try {
+            con = connection.connectDB();
             Statement stm = con.createStatement();
             stm.executeUpdate(sql);    
             con.close();
         } catch (SQLException ex) {
-            try {
-                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-                con.close();
-            } catch (SQLException ex1) {
-                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex1);
-            }
+            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
