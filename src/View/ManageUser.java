@@ -7,12 +7,7 @@ package View;
 
 import Controller.UserController;
 import Model.UserModel;
-import java.awt.Font;
 import java.util.List;
-import javax.swing.DefaultCellEditor;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -20,8 +15,7 @@ import javax.swing.table.DefaultTableModel;
  * @author B1704721
  */
 public class ManageUser extends javax.swing.JFrame {
-
-    private Font myFont = new Font("Times New Roman", Font.PLAIN, 22);
+    
     private UserController userController;
     private UserModel userModel;
 
@@ -30,40 +24,33 @@ public class ManageUser extends javax.swing.JFrame {
      */
     public ManageUser() {
         initComponents();
-        initTable();
-        tableUser.getTableHeader().setFont(myFont);
-        ((DefaultTableCellRenderer) tableUser.getTableHeader().getDefaultRenderer())
-                .setHorizontalAlignment(JLabel.CENTER);
-        
-        tableUser.setRowHeight(30);
-        
-        JTextField myTextField = new JTextField();
-        myTextField.setFont(myFont);
-        
-        DefaultCellEditor cellEditor;
-        cellEditor = new DefaultCellEditor(myTextField);
-        tableUser.getColumnModel().getColumn(2).setCellEditor(cellEditor);
-
         setInterface();
-
+        setButton();
+        loadTable();
     }
 
-    
-    public void initTable(){
+    private void loadTable() {
+        // Clear old table
+        DefaultTableModel tableModel = (DefaultTableModel) tableUser.getModel();
+        int rowCount = tableModel.getRowCount();
+        while (rowCount > 0) {
+            tableModel.removeRow(0);
+            rowCount--;
+        }
+        
+        // Load new table
         userController = new UserController();
         List<UserModel> models = userController.get();
-        DefaultTableModel tableModel = (DefaultTableModel) tableUser.getModel();
-        tableModel.fireTableDataChanged();
-        for (UserModel item : models){
-            Object[] rs = new Object[4];
-            rs[0] = item.getId();
-            rs[1] = item.getUsername();
-            rs[2] = item.getPassword();
-            rs[3] = item.getRole();
-            tableModel.addRow((Object[]) rs);
+        for (UserModel item : models) {
+            Object[] data = new Object[4];
+            data[0] = item.getId();
+            data[1] = item.getUsername();
+            data[2] = item.getPassword();
+            data[3] = item.getRole();
+            tableModel.addRow(data);
         }
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -295,7 +282,7 @@ public class ManageUser extends javax.swing.JFrame {
                 java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, true, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -304,6 +291,11 @@ public class ManageUser extends javax.swing.JFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        tableUser.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableUserMouseClicked(evt);
             }
         });
         scrollPaneTable.setViewportView(tableUser);
@@ -347,71 +339,127 @@ public class ManageUser extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-
-    public void loadTable(){
-        DefaultTableModel dm = (DefaultTableModel) tableUser.getModel();
-        int rowCount = dm.getRowCount();
-        while(rowCount > 0){
-            dm.removeRow(0);
-            rowCount--;
-        }
-        initTable();
-        //load lai tat ca cac nut va textbox
-    }
-    
-    private void buttonInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonInsertActionPerformed
-        userModel = new UserModel();
-    }//GEN-LAST:event_buttonInsertActionPerformed
-
-    private void buttonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteActionPerformed
-        int index = tableUser.getSelectedRow();
-        userController.delete((int) tableUser.getValueAt(index, 0));
-        loadTable();
-    }//GEN-LAST:event_buttonDeleteActionPerformed
-
-    private void buttonConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConfirmActionPerformed
-        userModel.setUsername(textUsername.getText());
-        userModel.setPassword(textPassword.getText());
-        userModel.setRole((String) comboBoxRole.getSelectedItem());
-        if (userModel.getId() > 0){
-            userController.put(userModel);
-        }else{
-            userController.post(userModel);
-        }
-        loadTable();
-    }//GEN-LAST:event_buttonConfirmActionPerformed
-
-    private void buttonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUpdateActionPerformed
-        userModel = new UserModel();
-        int index = tableUser.getSelectedRow();
-        userModel.setId((int) tableUser.getValueAt(index, 0));
-        textUsername.setText((String) tableUser.getValueAt(index, 1));
-        textPassword.setText((String) tableUser.getValueAt(index, 2));
-        comboBoxRole.setSelectedItem((String) tableUser.getValueAt(index, 3));
-    }//GEN-LAST:event_buttonUpdateActionPerformed
-
-    private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelActionPerformed
-        userModel = new UserModel();//load bien toan cuc
-        //Load lai het :v
-    }//GEN-LAST:event_buttonCancelActionPerformed
-
-    private void buttonReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonReturnActionPerformed
-        this.dispose(); 
-    }//GEN-LAST:event_buttonReturnActionPerformed
-
     private void setInterface() {
         // Set frame interface
         Settings.setFrameInterface(this);
-        
+
         // Set table interface
         Settings.setTableInterface(tableUser, scrollPaneTable);
-        
+
         // Set components
         panelLeft.setBackground(Settings.contponentBackgroundColor);
         panelTopLeft.setBackground(Settings.contponentBackgroundColor);
         panelBottomLeft.setBackground(Settings.contponentBackgroundColor);
     }
     
+    private void setButton() {
+        textUsername.setText("");
+        textUsername.setEnabled(false);
+        textPassword.setText("");
+        textPassword.setEnabled(false);
+        comboBoxRole.setEnabled(false);
+        buttonInsert.setEnabled(true);
+        buttonUpdate.setEnabled(false);
+        buttonDelete.setEnabled(false);
+        buttonConfirm.setEnabled(false);
+        buttonCancel.setEnabled(false);
+        tableUser.setEnabled(true);
+    }
+
+    private void buttonInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonInsertActionPerformed
+        // Set buttons
+        textUsername.setEnabled(true);
+        textPassword.setEnabled(true);
+        comboBoxRole.setEnabled(true);
+        buttonConfirm.setEnabled(true);
+        buttonCancel.setEnabled(true);
+        buttonUpdate.setEnabled(false);
+        buttonDelete.setEnabled(false);
+        tableUser.setEnabled(false);
+        
+        // Other stuffs
+        userModel = new UserModel();
+    }//GEN-LAST:event_buttonInsertActionPerformed
+
+    private void buttonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteActionPerformed
+        // Other stuffs
+        int selectedRow = tableUser.getSelectedRow();
+        userController.delete((int) tableUser.getValueAt(selectedRow, 0));
+        
+        // Reload table
+        loadTable();
+        
+        // Set buttons
+        setButton();
+    }//GEN-LAST:event_buttonDeleteActionPerformed
+
+    private void buttonConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConfirmActionPerformed
+        // Other stuffs
+        String username = textUsername.getText();
+        String password = textPassword.getText();
+        String role = (String) comboBoxRole.getSelectedItem();
+        
+        if (username.equals("") || password.equals("")) {
+            String title = "Lỗi";
+            String message = "Tên người dùng và mật khẩu không được để trống!";
+            OptionPane.showMessageDialog(title, message);
+            return;
+        }
+        
+        userModel.setUsername(username);
+        userModel.setPassword(password);
+        userModel.setRole(role);
+        
+        if (userModel.getId() > 0) {
+            userController.put(userModel);
+        } else {
+            userController.post(userModel);
+        }
+        
+        // Reload table
+        loadTable();
+        
+        // Set buttons
+        setButton();
+    }//GEN-LAST:event_buttonConfirmActionPerformed
+
+    private void buttonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUpdateActionPerformed
+        // Set buttons
+        textUsername.setEnabled(true);
+        textPassword.setEnabled(true);
+        comboBoxRole.setEnabled(true);
+        buttonDelete.setEnabled(false);
+        buttonConfirm.setEnabled(true);
+        buttonCancel.setEnabled(true);
+        tableUser.setEnabled(false);
+        
+        // Other stuffs
+        userModel = new UserModel();
+        int selectedRow = tableUser.getSelectedRow();
+        userModel.setId((int) tableUser.getValueAt(selectedRow, 0));
+        textUsername.setText((String) tableUser.getValueAt(selectedRow, 1));
+        textPassword.setText((String) tableUser.getValueAt(selectedRow, 2));
+        comboBoxRole.setSelectedItem((String) tableUser.getValueAt(selectedRow, 3));
+    }//GEN-LAST:event_buttonUpdateActionPerformed
+
+    private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelActionPerformed
+        // Reset buttons
+        setButton();
+    }//GEN-LAST:event_buttonCancelActionPerformed
+
+    private void buttonReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonReturnActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_buttonReturnActionPerformed
+
+    private void tableUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableUserMouseClicked
+        int selectedRow = -1;
+        selectedRow = tableUser.getSelectedRow();
+
+        if (selectedRow != -1) {
+            buttonUpdate.setEnabled(true);
+            buttonDelete.setEnabled(true);
+        }
+    }//GEN-LAST:event_tableUserMouseClicked
 
     /**
      * @param args the command line arguments

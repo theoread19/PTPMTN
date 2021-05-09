@@ -21,7 +21,7 @@ import javax.swing.table.DefaultTableCellRenderer;
  * @author B1704721
  */
 public class Settings {
-    
+
     public static Font myFont = new Font("Times New Roman", Font.PLAIN, 22);
     public static Color backgroundColor = new Color(255, 204, 213);
     public static Color contponentBackgroundColor = new Color(255, 230, 234);
@@ -31,7 +31,7 @@ public class Settings {
     public static ImageIcon manageBillIcon = new ImageIcon("src\\images\\icon-manage-bill.png");
     public static ImageIcon manageBeverageIcon = new ImageIcon("src\\images\\icon-manage-beverage.png");
     public static ImageIcon signOutIcon = new ImageIcon("src\\images\\icon-sign-out.png");
-    
+
     public static void setFrameInterface(JFrame frame) {
         // Set frame's icon
         frame.setIconImage(icon.getImage());
@@ -39,7 +39,7 @@ public class Settings {
         // Set background color
         frame.getContentPane().setBackground(backgroundColor);
     }
-    
+
     public static void setTableInterface(JTable table, JScrollPane scrollPane) {
         // Set table's font
         table.getTableHeader().setFont(myFont);
@@ -48,14 +48,14 @@ public class Settings {
         table.setOpaque(false);
         table.setFillsViewportHeight(true);
         scrollPane.getViewport().setBackground(contponentBackgroundColor);
-        
+
         // Set table's font
         table.getTableHeader().setFont(myFont);
 
         // Set table's text alignment
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-        
+
         table.getTableHeader().setDefaultRenderer(centerRenderer);
         table.setDefaultRenderer(String.class, centerRenderer);
         table.setDefaultRenderer(Integer.class, centerRenderer);
@@ -69,7 +69,7 @@ public class Settings {
 
         DefaultCellEditor cellEditor;
         cellEditor = new DefaultCellEditor(myTextField);
-        
+
         for (int columnIndex = 0; columnIndex < table.getColumnCount(); columnIndex++) {
             table.getColumnModel().getColumn(columnIndex).setCellEditor(cellEditor);
         }

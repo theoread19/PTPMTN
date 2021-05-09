@@ -11,11 +11,8 @@ import Controller.BillDetailController;
 import Model.BeverageModel;
 import Model.BillDetailModel;
 import Model.BillModel;
-import java.awt.Color;
-import java.awt.Font;
 import java.sql.Timestamp;
 import java.util.List;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -24,12 +21,14 @@ import javax.swing.table.DefaultTableModel;
  * @author B1704721
  */
 public class CreateBill extends javax.swing.JFrame {
+
     private BeverageController beverageController;
     private BeverageModel beverageModel;
     private BillModel billModel;
     private BillController billController;
     private BillDetailController billDetailController;
     private BillDetailModel billDetailModel;
+
     /**
      * Creates new form
      */
@@ -38,20 +37,28 @@ public class CreateBill extends javax.swing.JFrame {
         setInterface();
         initTable();
     }
-    
-    public void initTable(){
+
+    private void initTable() {
         beverageController = new BeverageController();
         List<BeverageModel> bModel = beverageController.get();
+
         DefaultTableModel defaulttablemodel = (DefaultTableModel)tableBeverage.getModel();
         for(BeverageModel item : bModel){
             Object[] data = new Object[3];
             data[0] = item.getId();
             data[1] = item.getName();
             data[2] = item.getPrice();
+
+//        DefaultTableModel defaulttablemodel = (DefaultTableModel) tableBeverage.getModel();
+//        for (BeverageModel item : bModel) {
+//            Object[] data = new Object[2];
+//            data[0] = item.getName();
+//            data[1] = item.getPrice();
+
             defaulttablemodel.addRow(data);
         }
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -67,16 +74,16 @@ public class CreateBill extends javax.swing.JFrame {
         labelBill = new javax.swing.JLabel();
         labelTotalAmount = new javax.swing.JLabel();
         textTotalAmount = new javax.swing.JTextField();
-        labelTotal = new javax.swing.JLabel();
-        textTotal = new javax.swing.JTextField();
+        labelSubtotal = new javax.swing.JLabel();
+        textSubtotal = new javax.swing.JTextField();
         labelDiscount = new javax.swing.JLabel();
         textDiscount = new javax.swing.JTextField();
-        labelMoneyToPay = new javax.swing.JLabel();
-        textMoneyToPay = new javax.swing.JTextField();
-        labelReceivedMoney = new javax.swing.JLabel();
-        textReceivedMoney = new javax.swing.JTextField();
-        labelChangeMoney = new javax.swing.JLabel();
-        textChangeMoney = new javax.swing.JTextField();
+        labelTotal = new javax.swing.JLabel();
+        textTotal = new javax.swing.JTextField();
+        labelCash = new javax.swing.JLabel();
+        textCash = new javax.swing.JTextField();
+        labelChange = new javax.swing.JLabel();
+        textChange = new javax.swing.JTextField();
         panelLeftSeparator = new javax.swing.JSeparator();
         panelBottomLeft = new javax.swing.JPanel();
         buttonInsert = new javax.swing.JButton();
@@ -107,11 +114,11 @@ public class CreateBill extends javax.swing.JFrame {
         textTotalAmount.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
         textTotalAmount.setEnabled(false);
 
-        labelTotal.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
-        labelTotal.setText("Tổng tiền:");
+        labelSubtotal.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        labelSubtotal.setText("Tổng tiền:");
 
-        textTotal.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
-        textTotal.setEnabled(false);
+        textSubtotal.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        textSubtotal.setEnabled(false);
 
         labelDiscount.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
         labelDiscount.setText("Khuyến mãi:");
@@ -120,22 +127,22 @@ public class CreateBill extends javax.swing.JFrame {
         textDiscount.setText("0");
         textDiscount.setEnabled(false);
 
-        labelMoneyToPay.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
-        labelMoneyToPay.setText("Tiền phải trả:");
+        labelTotal.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        labelTotal.setText("Tiền phải trả:");
 
-        textMoneyToPay.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
-        textMoneyToPay.setEnabled(false);
+        textTotal.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        textTotal.setEnabled(false);
 
-        labelReceivedMoney.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
-        labelReceivedMoney.setText("Tiền nhận:");
+        labelCash.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        labelCash.setText("Tiền nhận:");
 
-        textReceivedMoney.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        textCash.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
 
-        labelChangeMoney.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
-        labelChangeMoney.setText("Tiền thối lại:");
+        labelChange.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        labelChange.setText("Tiền thối lại:");
 
-        textChangeMoney.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
-        textChangeMoney.setEnabled(false);
+        textChange.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        textChange.setEnabled(false);
 
         javax.swing.GroupLayout panelTopLeftLayout = new javax.swing.GroupLayout(panelTopLeft);
         panelTopLeft.setLayout(panelTopLeftLayout);
@@ -145,33 +152,33 @@ public class CreateBill extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(panelTopLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelTopLeftLayout.createSequentialGroup()
-                        .addComponent(labelTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(labelSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(textTotal))
+                        .addComponent(textSubtotal))
                     .addComponent(labelBill, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panelTopLeftLayout.createSequentialGroup()
                         .addGroup(panelTopLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(panelTopLeftLayout.createSequentialGroup()
-                                .addComponent(labelChangeMoney, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(labelChange, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(textChangeMoney, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE))
+                                .addComponent(textChange, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE))
                             .addGroup(panelTopLeftLayout.createSequentialGroup()
                                 .addGroup(panelTopLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(labelDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(labelMoneyToPay, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(labelReceivedMoney, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(labelTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(labelCash, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(labelTotalAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(panelTopLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(textReceivedMoney)
+                                    .addComponent(textCash)
                                     .addComponent(textTotalAmount)
                                     .addComponent(textDiscount)
-                                    .addComponent(textMoneyToPay, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE))))
+                                    .addComponent(textTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(18, 18, 18))
         );
 
-        panelTopLeftLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {labelDiscount, labelMoneyToPay, labelReceivedMoney, labelTotalAmount});
+        panelTopLeftLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {labelCash, labelDiscount, labelTotal, labelTotalAmount});
 
         panelTopLeftLayout.setVerticalGroup(
             panelTopLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -184,30 +191,30 @@ public class CreateBill extends javax.swing.JFrame {
                     .addComponent(textTotalAmount))
                 .addGap(18, 18, 18)
                 .addGroup(panelTopLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textTotal))
+                    .addComponent(labelSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textSubtotal))
                 .addGap(18, 18, 18)
                 .addGroup(panelTopLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTopLeftLayout.createSequentialGroup()
                         .addComponent(labelDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(labelMoneyToPay, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(labelTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelTopLeftLayout.createSequentialGroup()
                         .addComponent(textDiscount)
                         .addGap(18, 18, 18)
-                        .addComponent(textMoneyToPay)))
+                        .addComponent(textTotal)))
                 .addGap(18, 18, 18)
                 .addGroup(panelTopLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(textReceivedMoney)
-                    .addComponent(labelReceivedMoney, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textCash)
+                    .addComponent(labelCash, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(panelTopLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(textChangeMoney)
-                    .addComponent(labelChangeMoney, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textChange)
+                    .addComponent(labelChange, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18))
         );
 
-        panelTopLeftLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {labelDiscount, labelMoneyToPay, labelReceivedMoney, labelTotalAmount});
+        panelTopLeftLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {labelCash, labelDiscount, labelTotal, labelTotalAmount});
 
         buttonInsert.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
         buttonInsert.setText("Tạo");
@@ -375,80 +382,107 @@ public class CreateBill extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    
-    
     private void buttonInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonInsertActionPerformed
         float subTotal = 0;
         int totalAllAmount = 0;
         float total = 0;
-        
+
         boolean checkInput = true;
         //Check amount input
-        for(int i = 0; i < tableBeverage.getRowCount(); i++){
-            try{
+        for (int i = 0; i < tableBeverage.getRowCount(); i++) {
+            try {
                 //Check non null rows
+
                 if(tableBeverage.getValueAt(i, 3) != null){
                     //Convert to int
                     int amount = Integer.valueOf((String) tableBeverage.getValueAt(i, 3));
                     if(amount <= 0){
+
+//                if (tableBeverage.getValueAt(i, 2) != null) {
+//                    //Convert to int
+//                    int amount = Integer.valueOf((String) tableBeverage.getValueAt(i, 2));
+//                    if (amount <= 0) {
+
                         checkInput = false;
                         JOptionPane.showMessageDialog(this, "Số lượng phải lớn hơn 0", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                         //Empty all text field
-                        textTotal.setText("");
+                        textSubtotal.setText("");
                         textTotalAmount.setText("");
                         textDiscount.setText("0");
-                        textMoneyToPay.setText("");
-                        textReceivedMoney.setText("");
+                        textTotal.setText("");
+                        textCash.setText("");
                         //Empty row
                         tableBeverage.setValueAt(null, i, 3);
                     }
                 }
-            }catch(Exception e){
+            } catch (Exception e) {
                 checkInput = false;
                 JOptionPane.showMessageDialog(this, "Số lượng phải là số nguyên", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                 //Empty all text field
-                textTotal.setText("");
+                textSubtotal.setText("");
                 textTotalAmount.setText("");
                 textDiscount.setText("0");
-                textMoneyToPay.setText("");
-                textReceivedMoney.setText("");
+                textTotal.setText("");
+                textCash.setText("");
                 //Empty row
+
                 tableBeverage.setValueAt(null, i, 3);
                 }
+
+//                tableBeverage.setValueAt(null, i, 2);
+//            }
+
         }
-        
-        if(checkInput == true){
-            try{
+
+        if (checkInput == true) {
+            try {
                 //Calculate total money and total amount
+
                 for(int i = 0; i < tableBeverage.getRowCount(); i++){
                     if(tableBeverage.getValueAt(i, 3) != null){
                         float rowTotal = 0;//Total of a beverage
                        
                         rowTotal = (int)tableBeverage.getValueAt(i, 2)  * Integer.valueOf(tableBeverage.getValueAt(i, 3).toString());
                     
+
+//                for (int i = 0; i < tableBeverage.getRowCount(); i++) {
+//                    if (tableBeverage.getValueAt(i, 2) != null) {
+//                        float rowTotal = 0;//Total of a beverage
+//                        rowTotal = (int) tableBeverage.getValueAt(i, 1) * Integer.valueOf((String) tableBeverage.getValueAt(i, 2));
+//
+
                         subTotal = subTotal + rowTotal;
                         totalAllAmount = totalAllAmount + Integer.valueOf((String) tableBeverage.getValueAt(i, 3));
                     }
-                
+
                 }
+
             
-                textTotal.setText(Float.toString(subTotal));//Show subtotal
+ //               textTotal.setText(Float.toString(subTotal));//Show subtotal
+                
+                textSubtotal.setText(String.valueOf(subTotal));//Show subtotal
+
                 textTotalAmount.setText(String.valueOf(totalAllAmount));//show total amount
-            
+
                 billController = new BillController();
-            
+
                 total = billController.applyDiscount(subTotal);
-                textMoneyToPay.setText(Float.toString(total));//Show total
+
+ //               textTotal.setText(Float.toString(total));//Show total
             
+
+                textTotal.setText(String.valueOf(total));//Show total
+
+
                 String discount = billController.calculateDiscount(subTotal);
                 textDiscount.setText(discount);//Show discount
-            
-            }catch(Exception e){
+
+            } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, "Lỗi khi lấy dữ liệu từ bảng thức uống", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                 e.printStackTrace();
             }
         }
-        
+
     }//GEN-LAST:event_buttonInsertActionPerformed
 
     private void buttonReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonReturnActionPerformed
@@ -458,33 +492,48 @@ public class CreateBill extends javax.swing.JFrame {
 
     private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelActionPerformed
         //Empty all text field
-        textTotal.setText("");
+        textSubtotal.setText("");
         textTotalAmount.setText("");
         textDiscount.setText("0");
-        textMoneyToPay.setText("");
-        textReceivedMoney.setText("");
-        
+        textTotal.setText("");
+        textCash.setText("");
+
         //Empty table
+
         for(int i = 0; i < tableBeverage.getRowCount(); i++){
             tableBeverage.setValueAt(null, i, 3);
+//
+//        for (int i = 0; i < tableBeverage.getRowCount(); i++) {
+//            tableBeverage.setValueAt(null, i, 2);
+
         }
     }//GEN-LAST:event_buttonCancelActionPerformed
 
     private void buttonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUpdateActionPerformed
-        
+
         billModel = new BillModel();
+
         
-        float changeMoney = Float.valueOf(textReceivedMoney.getText()) - Float.valueOf(textMoneyToPay.getText());
-        textChangeMoney.setText(Float.toString(changeMoney));
+        float changeMoney = Float.valueOf(textCash.getText()) - Float.valueOf(textTotal.getText());
+        textChange.setText(Float.toString(changeMoney));
         java.util.Date date= new java.util.Date();
         Timestamp ts = new Timestamp(date.getTime());
         //Set data to billmodel
+
+//
+//        float changeMoney = Float.valueOf(textCash.getText()) - Float.valueOf(textTotal.getText());
+//
+//        java.util.Date date = new java.util.Date();
+//        Timestamp ts = new Timestamp(date.getTime());
+
+
         billModel.setCreatorId(1);
         billModel.setTotalAmount(Integer.valueOf(textTotalAmount.getText()));
         billModel.setSubtotal(Float.valueOf(textTotal.getText()));
         billModel.setDiscount(Float.valueOf(textDiscount.getText()));
-        billModel.setTotal(Float.valueOf(textMoneyToPay.getText()));
-        billModel.setReceivedMoney(Float.valueOf(textReceivedMoney.getText()));
+
+        billModel.setTotal(Float.valueOf(textTotal.getText()));
+        billModel.setReceivedMoney(Float.valueOf(textCash.getText()));
         billModel.setChangeMoney(changeMoney);
         billModel.setCreateTime(ts);
         
@@ -508,6 +557,16 @@ public class CreateBill extends javax.swing.JFrame {
             }
         }
         
+
+//        billModel.setTotal(Float.valueOf(textTotal.getText()));
+//        billModel.setReceivedMoney(Integer.valueOf(textCash.getText()));
+//        billModel.setChangeMoney(changeMoney);
+//        billModel.setCreateTime(ts);
+//
+//        billController = new BillController();
+//        billController.post(billModel);
+//
+//>>>>>>> view
     }//GEN-LAST:event_buttonUpdateActionPerformed
 
     private void setInterface() {
@@ -568,10 +627,10 @@ public class CreateBill extends javax.swing.JFrame {
     private javax.swing.JButton buttonReturn;
     private javax.swing.JButton buttonUpdate;
     private javax.swing.JLabel labelBill;
-    private javax.swing.JLabel labelChangeMoney;
+    private javax.swing.JLabel labelCash;
+    private javax.swing.JLabel labelChange;
     private javax.swing.JLabel labelDiscount;
-    private javax.swing.JLabel labelMoneyToPay;
-    private javax.swing.JLabel labelReceivedMoney;
+    private javax.swing.JLabel labelSubtotal;
     private javax.swing.JLabel labelTitle;
     private javax.swing.JLabel labelTotal;
     private javax.swing.JLabel labelTotalAmount;
@@ -582,10 +641,10 @@ public class CreateBill extends javax.swing.JFrame {
     private javax.swing.JPanel panelTopLeft;
     private javax.swing.JScrollPane scrollPaneTable;
     private javax.swing.JTable tableBeverage;
-    private javax.swing.JTextField textChangeMoney;
+    private javax.swing.JTextField textCash;
+    private javax.swing.JTextField textChange;
     private javax.swing.JTextField textDiscount;
-    private javax.swing.JTextField textMoneyToPay;
-    private javax.swing.JTextField textReceivedMoney;
+    private javax.swing.JTextField textSubtotal;
     private javax.swing.JTextField textTotal;
     private javax.swing.JTextField textTotalAmount;
     // End of variables declaration//GEN-END:variables
