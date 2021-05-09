@@ -6,7 +6,8 @@
 package Model;
 
 import java.sql.Timestamp;
-
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -22,6 +23,8 @@ public class BillModel {
     private int totalAmount;
     private int receivedMoney;
     private float changeMoney;
+    private float subtotal;
+    private List<BillDetailModel> beverages = new ArrayList<BillDetailModel>();
     
     public BillModel(){
         id = -1;
@@ -32,6 +35,14 @@ public class BillModel {
         totalAmount = -1;
         receivedMoney = -1;
         changeMoney = -1;
+    }
+
+    public float getSubtotal() {
+        return subtotal;
+    }
+
+    public void setSubtotal(float subtotal) {
+        this.subtotal = subtotal;
     }
     
     public int getId() {
@@ -97,6 +108,16 @@ public class BillModel {
     public void setChangeMoney(float changeMoney) {
         this.changeMoney = changeMoney;
     }
+
+    public List<BillDetailModel> getBeverages() {
+        return beverages;
+    }
+
+    public void setBeverages(List<BillDetailModel> beverages) {
+        this.beverages = beverages;
+    }
+
+
     
     
 }

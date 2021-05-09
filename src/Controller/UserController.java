@@ -28,7 +28,7 @@ public class UserController {
     private Connection con;
 
     public UserController() {
-        connection = new DBConnection();
+       connection = new DBConnection();
     }
 
     public List<UserModel> get() {
@@ -55,6 +55,28 @@ public class UserController {
         }
 
         return userModels;
+    }
+    
+    public UserModel get(int id){
+        UserModel model = new UserModel();
+        try {    
+            String sql = "select * form user where id =" + id;
+            con = connection.connectDB();
+            Statement stm = con.createStatement();
+            ResultSet rs = stm.executeQuery(sql);
+            model.setId(rs.getInt("id"));
+            model.setUsername(rs.getString("username"));
+            model.setPassword(rs.getString("password"));
+            model.setRole(rs.getString("role"));
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } catch (SQLException ex) {
+            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+        return model;
     }
 
     public void post(UserModel model) {

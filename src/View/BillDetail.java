@@ -5,18 +5,29 @@
  */
 package View;
 
+import Controller.BillController;
+import Controller.BillDetailsController;
+import Controller.UserController;
+import Model.BillDetailModel;
+import Model.BillModel;
+import Model.UserModel;
+import java.util.List;
+
 /**
  *
  * @author B1704721
  */
 public class BillDetail extends javax.swing.JFrame {
-
+    private BillController billController;
+    private BillDetailsController buildDetailController;
+    private UserController userController;
     /**
      * Creates new form
      */
     public BillDetail() {
         initComponents();
         setInterface();
+        
     }
 
     /**
@@ -263,6 +274,22 @@ public class BillDetail extends javax.swing.JFrame {
         
         // Set table interface
         Settings.setTableInterface(tableBeverageList, scrollPaneTable);
+    }
+    
+    public void setBillDetail(BillModel model){
+        List<BillDetailModel> billDetail = buildDetailController.get(model.getId());
+        labelBillIdValue.setText(String.valueOf(model.getId()));
+        labelAmountTotalValue.setText(String.valueOf(model.getTotalAmount()));
+        labelChangeMoneyValue.setText(String.valueOf(model.getChangeMoney()));
+        labelCreateTimeValue.setText(String.valueOf(model.getCreateTime()));
+        UserModel userModel = new UserModel();
+        userModel =  userController.get(model.getCreatorId());
+        labelCreatorIdValue.setText(userModel.getUsername());
+        labelDiscountValue.setText(String.valueOf(model.getDiscount()*100));
+        //chua co gia tri
+        labelMoneyToPayValue.setText(String.valueOf(""));
+        labelReceivedMoneyValue.setText(String.valueOf(model.getReceivedMoney()));
+        labelTotalValue.setText(String.valueOf(model.getTotal()));
     }
     
     private void buttonReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonReturnActionPerformed

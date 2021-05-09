@@ -5,12 +5,15 @@
  */
 package View;
 
+import Controller.BillController;
+import Model.BillModel;
+
 /**
  *
  * @author B1704721
  */
 public class ViewBillHistory extends javax.swing.JFrame {
-
+    private BillController billController;
     /**
      * Creates new form
      */
@@ -50,10 +53,7 @@ public class ViewBillHistory extends javax.swing.JFrame {
         tableBillHistory.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
         tableBillHistory.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                { new Integer(1), "Yo", "01/01",  new Integer(1000)},
-                { new Integer(2), "What", "02/02",  new Integer(2000)},
-                { new Integer(3), "The", "03/03",  new Integer(3000)},
-                { new Integer(4), "Fuck", "04/04",  new Integer(4000)}
+
             },
             new String [] {
                 "ID", "Người tạo", "Thời gian tạo", "Tổng tiền"
@@ -123,6 +123,12 @@ public class ViewBillHistory extends javax.swing.JFrame {
         // Set table interface
         Settings.setTableInterface(tableBillHistory, scrollPaneTable);
     }
+    
+    
+    public void setBill(BillModel model){
+        
+    }
+    
     
     /**
      * @param args the command line arguments
