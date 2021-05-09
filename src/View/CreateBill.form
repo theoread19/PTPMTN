@@ -106,31 +106,31 @@
                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="labelTotal" min="-2" pref="144" max="-2" attributes="0"/>
+                              <Component id="labelSubtotal" min="-2" pref="144" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="textTotal" max="32767" attributes="0"/>
+                              <Component id="textSubtotal" max="32767" attributes="0"/>
                           </Group>
                           <Component id="labelBill" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                   <Group type="102" attributes="0">
-                                      <Component id="labelChangeMoney" min="-2" pref="144" max="-2" attributes="0"/>
+                                      <Component id="labelChange" min="-2" pref="144" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="textChangeMoney" pref="250" max="32767" attributes="0"/>
+                                      <Component id="textChange" pref="250" max="32767" attributes="0"/>
                                   </Group>
                                   <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="labelDiscount" linkSize="3" min="-2" pref="144" max="-2" attributes="0"/>
-                                          <Component id="labelMoneyToPay" linkSize="3" min="-2" pref="144" max="-2" attributes="0"/>
-                                          <Component id="labelReceivedMoney" linkSize="3" min="-2" pref="144" max="-2" attributes="0"/>
+                                          <Component id="labelTotal" linkSize="3" min="-2" pref="144" max="-2" attributes="0"/>
+                                          <Component id="labelCash" linkSize="3" min="-2" pref="144" max="-2" attributes="0"/>
                                           <Component id="labelTotalAmount" linkSize="3" alignment="0" min="-2" pref="144" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="textReceivedMoney" max="32767" attributes="0"/>
+                                          <Component id="textCash" max="32767" attributes="0"/>
                                           <Component id="textTotalAmount" max="32767" attributes="0"/>
                                           <Component id="textDiscount" max="32767" attributes="0"/>
-                                          <Component id="textMoneyToPay" alignment="0" pref="250" max="32767" attributes="0"/>
+                                          <Component id="textTotal" alignment="0" pref="250" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -153,31 +153,31 @@
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="labelTotal" alignment="0" min="-2" pref="35" max="-2" attributes="0"/>
-                          <Component id="textTotal" alignment="0" max="32767" attributes="0"/>
+                          <Component id="labelSubtotal" alignment="0" min="-2" pref="35" max="-2" attributes="0"/>
+                          <Component id="textSubtotal" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="labelDiscount" linkSize="4" min="-2" pref="35" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="labelMoneyToPay" linkSize="4" min="-2" pref="37" max="-2" attributes="0"/>
+                              <Component id="labelTotal" linkSize="4" min="-2" pref="37" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <Component id="textDiscount" max="32767" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="textMoneyToPay" max="32767" attributes="0"/>
+                              <Component id="textTotal" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="textReceivedMoney" alignment="0" max="32767" attributes="0"/>
-                          <Component id="labelReceivedMoney" linkSize="4" alignment="0" min="-2" pref="35" max="-2" attributes="0"/>
+                          <Component id="textCash" alignment="0" max="32767" attributes="0"/>
+                          <Component id="labelCash" linkSize="4" alignment="0" min="-2" pref="35" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="textChangeMoney" alignment="0" max="32767" attributes="0"/>
-                          <Component id="labelChangeMoney" alignment="0" min="-2" pref="35" max="-2" attributes="0"/>
+                          <Component id="textChange" alignment="0" max="32767" attributes="0"/>
+                          <Component id="labelChange" alignment="0" min="-2" pref="35" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                   </Group>
@@ -210,7 +210,7 @@
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="labelTotal">
+            <Component class="javax.swing.JLabel" name="labelSubtotal">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Times New Roman" size="22" style="0"/>
@@ -218,7 +218,7 @@
                 <Property name="text" type="java.lang.String" value="T&#x1ed5;ng ti&#x1ec1;n:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="textTotal">
+            <Component class="javax.swing.JTextField" name="textSubtotal">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Times New Roman" size="22" style="0"/>
@@ -243,7 +243,7 @@
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="labelMoneyToPay">
+            <Component class="javax.swing.JLabel" name="labelTotal">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Times New Roman" size="22" style="0"/>
@@ -251,7 +251,7 @@
                 <Property name="text" type="java.lang.String" value="Ti&#x1ec1;n ph&#x1ea3;i tr&#x1ea3;:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="textMoneyToPay">
+            <Component class="javax.swing.JTextField" name="textTotal">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Times New Roman" size="22" style="0"/>
@@ -259,7 +259,7 @@
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="labelReceivedMoney">
+            <Component class="javax.swing.JLabel" name="labelCash">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Times New Roman" size="22" style="0"/>
@@ -267,14 +267,14 @@
                 <Property name="text" type="java.lang.String" value="Ti&#x1ec1;n nh&#x1ead;n:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="textReceivedMoney">
+            <Component class="javax.swing.JTextField" name="textCash">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Times New Roman" size="22" style="0"/>
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="labelChangeMoney">
+            <Component class="javax.swing.JLabel" name="labelChange">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Times New Roman" size="22" style="0"/>
@@ -282,7 +282,7 @@
                 <Property name="text" type="java.lang.String" value="Ti&#x1ec1;n th&#x1ed1;i l&#x1ea1;i:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="textChangeMoney">
+            <Component class="javax.swing.JTextField" name="textChange">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Times New Roman" size="22" style="0"/>
@@ -431,14 +431,20 @@
                   <Font name="Times New Roman" size="22" style="0"/>
                 </Property>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="3" rowCount="0">
+                  <Table columnCount="4" rowCount="0">
+                    <Column editable="false" title="ID" type="java.lang.Integer"/>
                     <Column editable="false" title="T&#xea;n th&#x1ee9;c u&#x1ed1;ng" type="java.lang.String"/>
-                    <Column editable="true" title="Gi&#xe1;" type="java.lang.Integer"/>
+                    <Column editable="false" title="Gi&#xe1;" type="java.lang.Integer"/>
                     <Column editable="true" title="S&#x1ed1; l&#x1b0;&#x1ee3;ng" type="java.lang.Integer"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                   <TableColumnModel selectionModel="0">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                       <Title/>
                       <Editor/>

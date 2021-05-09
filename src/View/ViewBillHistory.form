@@ -110,7 +110,7 @@
                   <Data value="The"/>
                   <Data value="Fuck"/>
                 </Column>
-                <Column editable="true" title="Th&#x1edd;i gian t&#x1ea1;o" type="java.lang.String">
+                <Column editable="false" title="Th&#x1edd;i gian t&#x1ea1;o" type="java.lang.String">
                   <Data value="01/01"/>
                   <Data value="02/02"/>
                   <Data value="03/03"/>

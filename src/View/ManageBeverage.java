@@ -5,18 +5,10 @@
  */
 package View;
 
-
 import Controller.BeverageController;
 import Model.BeverageModel;
-import java.awt.Font;
 import java.util.List;
-import javax.swing.DefaultCellEditor;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-
 
 /**
  *
@@ -26,52 +18,38 @@ public class ManageBeverage extends javax.swing.JFrame {
 
     private BeverageController beverageController;
     private BeverageModel beverageModel;
-    private String cmd;
     
-    private Font myFont = new Font("Times New Roman", Font.PLAIN, 22);
-
-
     /**
      * Creates new form
      */
     public ManageBeverage() {
         initComponents();
-
         setInterface();
-
-
-        tableBeverage.getTableHeader().setFont(myFont);
-        ((DefaultTableCellRenderer) tableBeverage.getTableHeader().getDefaultRenderer())
-                .setHorizontalAlignment(JLabel.CENTER);
-        
-        tableBeverage.setRowHeight(30);
-        
-        JTextField myTextField = new JTextField();
-        myTextField.setFont(myFont);
-        
-        DefaultCellEditor cellEditor;
-        cellEditor = new DefaultCellEditor(myTextField);
-        tableBeverage.getColumnModel().getColumn(2).setCellEditor(cellEditor);
-        
-        initTable();
-
+        setButton();
+        loadTable();
     }
 
-    public void initTable(){
+    private void loadTable() {
+        // Clear old table
+        DefaultTableModel tableModel = (DefaultTableModel) tableBeverage.getModel();
+        int rowCount = tableModel.getRowCount();
+        while (rowCount > 0) {
+            tableModel.removeRow(0);
+            rowCount--;
+        }
+
+        // Load new table
         beverageController = new BeverageController();
-        List<BeverageModel> bModel = beverageController.get();
-        DefaultTableModel defaulttablemodel = (DefaultTableModel)tableBeverage.getModel();
-        for(BeverageModel item : bModel){
+        List<BeverageModel> models = beverageController.get();
+        for (BeverageModel item : models) {
             Object[] data = new Object[3];
             data[0] = item.getId();
             data[1] = item.getName();
             data[2] = item.getPrice();
-            defaulttablemodel.addRow(data);
+            tableModel.addRow(data);
         }
     }
-    
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -300,7 +278,7 @@ public class ManageBeverage extends javax.swing.JFrame {
                 java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, true, false
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -312,6 +290,11 @@ public class ManageBeverage extends javax.swing.JFrame {
             }
         });
         tableBeverage.getTableHeader().setReorderingAllowed(false);
+        tableBeverage.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableBeverageMouseClicked(evt);
+            }
+        });
         scrollPaneTable.setViewportView(tableBeverage);
 
         javax.swing.GroupLayout panelRightLayout = new javax.swing.GroupLayout(panelRight);
@@ -355,182 +338,130 @@ public class ManageBeverage extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-
     private void setInterface() {
         // Set frame interface
         Settings.setFrameInterface(this);
-        
+
         // Set table interface
         Settings.setTableInterface(tableBeverage, scrollPaneTable);
-        
+
         // Set components
         panelLeft.setBackground(Settings.contponentBackgroundColor);
         panelTopLeft.setBackground(Settings.contponentBackgroundColor);
         panelBottomLeft.setBackground(Settings.contponentBackgroundColor);
     }
-    
+
+    private void setButton() {
+        textBeverageName.setText("");
+        textBeverageName.setEnabled(false);
+        textPrice.setText("");
+        textPrice.setEnabled(false);
+        buttonInsert.setEnabled(true);
+        buttonUpdate.setEnabled(false);
+        buttonDelete.setEnabled(false);
+        buttonConfirm.setEnabled(false);
+        buttonCancel.setEnabled(false);
+        tableBeverage.setEnabled(true);
+    }
 
     private void buttonReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonReturnActionPerformed
-        beverageController = new BeverageController();
-        beverageController.CloseManageBeverage();
         this.dispose();
     }//GEN-LAST:event_buttonReturnActionPerformed
 
     private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelActionPerformed
-        textBeverageName.setText("");
-        textPrice.setText("");
-        // Set cmd back to default
-        cmd = "";
-        //Disable buttons
+        // Reset buttons
+        setButton();
     }//GEN-LAST:event_buttonCancelActionPerformed
 
-    
-    public void loadTable(){
-        DefaultTableModel dm = (DefaultTableModel) tableBeverage.getModel();
-        int rowCount = dm.getRowCount();
-        while(rowCount > 0){
-            dm.removeRow(0);
-            rowCount--;
-        }
-        initTable();
-    }
-    
-    
     private void buttonInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonInsertActionPerformed
+        // Set buttons
+        textBeverageName.setEnabled(true);
+        textPrice.setEnabled(true);
+        buttonConfirm.setEnabled(true);
+        buttonCancel.setEnabled(true);
+        buttonUpdate.setEnabled(false);
+        buttonDelete.setEnabled(false);
+        tableBeverage.setEnabled(false);
+
+        // Other stuffs
         beverageModel = new BeverageModel();
-        beverageController = new BeverageController();
-        cmd = "insert";
-        
     }//GEN-LAST:event_buttonInsertActionPerformed
 
     private void buttonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteActionPerformed
-        //Comfirm code
-        
-        //Get selected row
-        int selectedRow = -1;
-        selectedRow = tableBeverage.getSelectedRow();
-        
-        int selectedId = -1;
-        String selectedName = "";
-        int selectedPrice = -1;
-        //Get data from table
-        try{
-            selectedId = (int)tableBeverage.getValueAt(selectedRow, 0);
-            selectedName = (String)tableBeverage.getValueAt(selectedRow, 1);
-            selectedPrice = (int)tableBeverage.getValueAt(selectedRow, 2);
-        }
-        catch(Exception e){
-            JOptionPane.showMessageDialog(this, "Lỗi khi lấy dữ liệu từ bảng thức uống", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-            e.printStackTrace();
-        }
-        
-        //Set data to textfield
-        textBeverageName.setText(selectedName);
-        textPrice.setText(String.valueOf(selectedPrice));
-        //Set id to beverageModel
-        beverageModel = new BeverageModel();
-        beverageModel.setId(selectedId);
-        
-        beverageController = new BeverageController();
-        beverageController.delete(beverageModel.getId());
-        //Empty 2 textfield
-        textBeverageName.setText("");
-        textPrice.setText("");
+        // Other stuffs
+        int selectedRow = tableBeverage.getSelectedRow();
+        beverageController.delete((int) tableBeverage.getValueAt(selectedRow, 0));
+
+        // Reload table
         loadTable();
+        
+        // Set buttons
+        setButton();
     }//GEN-LAST:event_buttonDeleteActionPerformed
 
     private void buttonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUpdateActionPerformed
-        //Get selected row
-        int selectedRow = -1;
-        selectedRow = tableBeverage.getSelectedRow();
-        
-        int selectedId = -1;
-        String selectedName = "";
-        int selectedPrice = -1;
-        //Get data from table
-        try{
-            selectedId = (int)tableBeverage.getValueAt(selectedRow, 0);
-            selectedName = (String)tableBeverage.getValueAt(selectedRow, 1);
-            selectedPrice = (int)tableBeverage.getValueAt(selectedRow, 2);
-        }
-        catch(Exception e){
-            JOptionPane.showMessageDialog(this, "Lỗi khi lấy dữ liệu từ bảng thức uống", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-            e.printStackTrace();
-        }
-        
-        //Set data to textfield
-        textBeverageName.setText(selectedName);
-        textPrice.setText(String.valueOf(selectedPrice));
-        //Set id to beverageModel
-        beverageModel = new BeverageModel();
-        beverageModel.setId(selectedId);
-        
-        beverageController = new BeverageController();
-        cmd = "update";
-        
+        // Set buttons
+        textBeverageName.setEnabled(true);
+        textPrice.setEnabled(true);
+        buttonDelete.setEnabled(false);
+        buttonConfirm.setEnabled(true);
+        buttonCancel.setEnabled(true);
+        tableBeverage.setEnabled(false);
+
+        // Other stuffs
+        int selectedRow = tableBeverage.getSelectedRow();
+        int id = (int) tableBeverage.getValueAt(selectedRow, 0);
+        beverageModel.setId(id);
+        textBeverageName.setText((String) tableBeverage.getValueAt(selectedRow, 1));
+        textPrice.setText(tableBeverage.getValueAt(selectedRow, 2).toString());
     }//GEN-LAST:event_buttonUpdateActionPerformed
 
     private void buttonConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConfirmActionPerformed
-        //Check what command(update/delete/insert) needed execution
-        if(cmd == "update"){
-            //Comfirm code
-            try{
-                
-                //Get updated data
-                String newName = textBeverageName.getText();
-                beverageModel.setName(newName);
-                
-                int newPrice = Integer.parseInt(textPrice.getText());
-                beverageModel.setPrice(newPrice);
-                
-                if(newPrice > 0){
-                    beverageController.put(beverageModel.getId(), beverageModel.getName(), beverageModel.getPrice());
-                    //Empty 2 textfield
-                    textBeverageName.setText("");
-                    textPrice.setText("");
-                    loadTable();
-                    JOptionPane.showMessageDialog(this, "Đã cập nhật thức uống vào CSDL", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-            
-                }else{
-                    JOptionPane.showMessageDialog(this, "Giá phải lớn hơn 0", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                }
- 
-            }catch(Exception e){
-                JOptionPane.showMessageDialog(this, "Giá phải là số nguyên", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                e.printStackTrace();
-            }
-             
-        }else if(cmd == "insert"){
-            //Comfirm code
-            try {
-                //Get new data
-                String newName = textBeverageName.getText();
-                beverageModel.setName(newName);
-                
-                int newPrice = Integer.parseInt(textPrice.getText());
-                beverageModel.setPrice(newPrice);
-            
-                if(newPrice > 0){
-                    beverageController.post(beverageModel.getName(), beverageModel.getPrice());
-                    //Empty 2 textfield
-                    textBeverageName.setText("");
-                    textPrice.setText("");
-                    loadTable();
-                    JOptionPane.showMessageDialog(this, "Đã thêm thức uống mới vào CSDL", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-            
-                }else{
-                    JOptionPane.showMessageDialog(this, "Giá phải lớn hơn 0", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                }
-            }catch (NumberFormatException e){
-                JOptionPane.showMessageDialog(this, "Giá phải là số nguyên", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                e.printStackTrace();
-            }
-            
-        }else{
-            JOptionPane.showMessageDialog(this, "Chưa chọn chức năng để xác nhận thực thi", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        // Other stuffs
+        String name = textBeverageName.getText();
+        String priceText = textPrice.getText();
+        int price = 0;
+        try {
+            price = Integer.valueOf(priceText);
+        } catch (NumberFormatException ex) {
+            String title = "Lỗi";
+            String message = "Giá thức uống phải là số nguyên!";
+            OptionPane.showMessageDialog(title, message);
+            return;
         }
+        
+        if (name.equals("") || priceText.equals("")) {
+            String title = "Lỗi";
+            String message = "Tên thức uống và giá không được để trống!";
+            OptionPane.showMessageDialog(title, message);
+            return;
+        }
+        
+        beverageModel.setName(name);
+        beverageModel.setPrice(price);
+        
+//        if (beverageModel.getId() > 0) {
+//            beverageController.put(beverageModel);
+//        } else {
+//            beverageController.post(beverageModel);
+//        }
+        
+        // Reload table
+        loadTable();
+        
+        // Set buttons
+        setButton();
     }//GEN-LAST:event_buttonConfirmActionPerformed
 
+    private void tableBeverageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableBeverageMouseClicked
+        int selectedRow = -1;
+        selectedRow = tableBeverage.getSelectedRow();
+
+        if (selectedRow != -1) {
+            buttonUpdate.setEnabled(true);
+            buttonDelete.setEnabled(true);
+        }
+    }//GEN-LAST:event_tableBeverageMouseClicked
 
     /**
      * @param args the command line arguments

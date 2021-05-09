@@ -15,43 +15,37 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author PC
  */
 public class BeverageController {
-    
+
     private DBConnection connection;
-    private Connection con ;
-    
-    public BeverageController(){
-        try {
-            connection = new DBConnection();
-            con = connection.connectDB();
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    private Connection con;
+
+    public BeverageController() {
+        connection = new DBConnection();
     }
-    
-    public List<BeverageModel> get(){
+
+    public List<BeverageModel> get() {
         List<BeverageModel> beverageModel = new ArrayList<>();
         String sql = "select * from beverage";
 
         try {
+            con = connection.connectDB();
             Statement stm = con.createStatement();
             ResultSet rs = stm.executeQuery(sql);
-            
-            while(rs.next()){
+
+            while (rs.next()) {
                 BeverageModel bModel = new BeverageModel();
                 bModel.setId(rs.getInt("id"));
                 bModel.setName(rs.getString("name"));
                 bModel.setPrice(rs.getInt("price"));
                 beverageModel.add(bModel);
-            }    
+            }
+            
             con.close();
         } catch (SQLException ex) {
             try {
@@ -61,17 +55,22 @@ public class BeverageController {
             } catch (SQLException ex1) {
                 Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex1);
             }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(BeverageController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return beverageModel;
     }
-    
-    public void delete(int id){
+
+    public void delete(int id) {
         String sql = "delete from beverage where id = " + id;
-        
+
         try {
+
+            con = connection.connectDB();
+
             Statement stm = con.createStatement();
             stm.executeUpdate(sql);
-            
+
             con.close();
         } catch (SQLException ex) {
             try {
@@ -80,17 +79,20 @@ public class BeverageController {
             } catch (SQLException ex1) {
                 Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex1);
             }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(BeverageController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
-    
-    public void put(int id, String name, int price){
+
+    public void put(int id, String name, int price) {
         String sql = "update beverage set name = '" + name + "', price = " + price + " where id = " + id;
-        
+
         try {
+            con = connection.connectDB();
             Statement stm = con.createStatement();
             stm.executeUpdate(sql);
-            
+
             con.close();
         } catch (SQLException ex) {
             try {
@@ -99,16 +101,19 @@ public class BeverageController {
             } catch (SQLException ex1) {
                 Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex1);
             }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(BeverageController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
-    
-    public void post(String name, int price){
+
+    public void post(String name, int price) {
         String sql = "insert into beverage (name,price) values ('" + name + "', '" + price + "')";
-         
+
         try {
+            con = connection.connectDB();
             Statement stm = con.createStatement();
-            stm.executeUpdate(sql);    
+            stm.executeUpdate(sql);
             con.close();
         } catch (SQLException ex) {
             try {
@@ -117,15 +122,17 @@ public class BeverageController {
             } catch (SQLException ex1) {
                 Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex1);
             }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(BeverageController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void CloseManageBeverage(){
+
+    public void CloseManageBeverage() {
         try {
             con.close();
         } catch (SQLException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
 }

@@ -129,38 +129,35 @@ public class SignIn extends javax.swing.JFrame {
     private void setInterface() {
         // Set frame interface
         Settings.setFrameInterface(this);
-        
+
         // Set components
         labelLogo.setIcon(Settings.logo);
     }
 
     private void buttonSignInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSignInActionPerformed
-
-
-        String message = "Tên đăng nhập hoặc mật khẩu không đúng!";
-        String title = "Thông báo";
         UserModel model = new UserModel();
         model = loginController.handleLogin(textUsername.getText(), String.valueOf(textPassword.getPassword()));
-
-        
-        if (model.getUsername() != ""){
-            if(model.getRole().equals("admin")){
-                HomeAdmin homeAdmin = new HomeAdmin();
-                homeAdmin.setUser(model);
-                homeAdmin.setVisible(true);
-                this.setVisible(false);
-            }else if(model.getRole().equals("staff")){
-                CreateBill createBill = new CreateBill();
-                createBill.setVisible(true);
-                this.setVisible(false);
+                
+        if (!model.getUsername().equals("")) {
+            if (model.getRole().equals("admin")) {
+                HomeAdmin form = new HomeAdmin();
+                form.setUser(model);
+                form.setVisible(true);
+                this.dispose();
+            } else if (model.getRole().equals("staff")) {
+                HomeStaff form = new HomeStaff();
+                form.setUser(model);
+                form.setVisible(true);
+                this.dispose();
             }
         } else {
-            JOptionPane.showMessageDialog(this, message, title, JOptionPane.INFORMATION_MESSAGE);
+            String title = "Thông báo";
+            String message = "Tên đăng nhập hoặc mật khẩu không đúng!";
+            OptionPane.showMessageDialog(title, message);
         }
     }//GEN-LAST:event_buttonSignInActionPerformed
 
     private void buttonQuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonQuitActionPerformed
-        loginController.closeLogin();
         System.exit(0);
     }//GEN-LAST:event_buttonQuitActionPerformed
 

@@ -5,11 +5,8 @@
  */
 package View;
 
-
 import Controller.AdminController;
 import Model.UserModel;
-import java.awt.Color;
-import javax.swing.ImageIcon;
 
 /**
  *
@@ -17,11 +14,6 @@ import javax.swing.ImageIcon;
  */
 public class HomeAdmin extends javax.swing.JFrame {
 
-
-    private ImageIcon icon1 = new ImageIcon("src\\Images\\icon-manage-user.png");
-    private ImageIcon icon2 = new ImageIcon("src\\Images\\icon-manage-bill.png");
-    private ImageIcon icon3 = new ImageIcon("src\\Images\\icon-manage-beverage.png");
-    private ImageIcon icon4 = new ImageIcon("src\\Images\\icon-sign-out.png");
     private AdminController adminController = new AdminController();
     private UserModel userModel = new UserModel();
 
@@ -29,17 +21,8 @@ public class HomeAdmin extends javax.swing.JFrame {
      * Creates new form
      */
     public HomeAdmin() {
-
-        initComponents();   
-        buttonManageUser.setIcon(icon1);
-        buttonCreateBill.setIcon(icon2);
-        buttonManageBeverage.setIcon(icon3);
-        buttonSignOut.setIcon(icon4);
-        labelTitle.requestFocus();
-
         initComponents();
         setInterface();
-
     }
 
     /**
@@ -57,6 +40,7 @@ public class HomeAdmin extends javax.swing.JFrame {
         buttonManageBeverage = new javax.swing.JButton();
         buttonSignOut = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
+        menuManageUser = new javax.swing.JMenu();
         menuManageBill = new javax.swing.JMenu();
         menuItemCreateBill = new javax.swing.JMenuItem();
         menuItemViewBillHistory = new javax.swing.JMenuItem();
@@ -106,6 +90,15 @@ public class HomeAdmin extends javax.swing.JFrame {
 
         menuBar.setToolTipText("");
         menuBar.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+
+        menuManageUser.setText("Quản lý người dùng   ");
+        menuManageUser.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        menuManageUser.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuManageUserMouseClicked(evt);
+            }
+        });
+        menuBar.add(menuManageUser);
 
         menuManageBill.setText("Quản lý hóa đơn   ");
         menuManageBill.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
@@ -159,7 +152,7 @@ public class HomeAdmin extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labelTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 747, Short.MAX_VALUE)
+            .addComponent(labelTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -196,27 +189,28 @@ public class HomeAdmin extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-
     /**
      * Lay username o day
-     * @param model 
+     *
+     * @param model
      */
-    public void setUser(UserModel model){
+    public void setUser(UserModel model) {
         userModel = adminController.get(model);
+        menuUser.setText(model.getUsername());
     }
+
     private void setInterface() {
         // Set frame interface
         Settings.setFrameInterface(this);
-        
+
         // Set components
         buttonManageUser.setIcon(Settings.manageUserIcon);
         buttonCreateBill.setIcon(Settings.manageBillIcon);
         buttonManageBeverage.setIcon(Settings.manageBeverageIcon);
         buttonSignOut.setIcon(Settings.signOutIcon);
         labelTitle.requestFocus();
-
     }
-    
+
     private void buttonCreateBillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCreateBillActionPerformed
         CreateBill form = new CreateBill();
         form.setVisible(true);
@@ -229,7 +223,8 @@ public class HomeAdmin extends javax.swing.JFrame {
 
     private void buttonSignOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSignOutActionPerformed
         this.dispose();
-        this.getParent().setVisible(true);
+        SignIn form = new SignIn();
+        form.setVisible(true);
     }//GEN-LAST:event_buttonSignOutActionPerformed
 
     private void menuItemCreateBillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCreateBillActionPerformed
@@ -253,8 +248,15 @@ public class HomeAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonManageUserActionPerformed
 
     private void menuItemSIgnOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemSIgnOutActionPerformed
-        // Sign out
+        this.dispose();
+        SignIn form = new SignIn();
+        form.setVisible(true);
     }//GEN-LAST:event_menuItemSIgnOutActionPerformed
+
+    private void menuManageUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuManageUserMouseClicked
+        ManageUser form = new ManageUser();
+        form.setVisible(true);
+    }//GEN-LAST:event_menuManageUserMouseClicked
 
     /**
      * @param args the command line arguments
@@ -303,6 +305,7 @@ public class HomeAdmin extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemViewBillHistory;
     private javax.swing.JMenu menuManageBeverage;
     private javax.swing.JMenu menuManageBill;
+    private javax.swing.JMenu menuManageUser;
     private javax.swing.JMenu menuUser;
     // End of variables declaration//GEN-END:variables
 }
