@@ -19,44 +19,20 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author PC
+ * @author asus
  */
 public class BillDetailController {
-    private DBConnection connection;
-    private Connection con ;
-    
-    public BillDetailController(){
+
+    private final DBConnection connection;
+    private Connection con;
+
+    public BillDetailController() {
         connection = new DBConnection();
     }
-    
-    public void closeBillDetail(){
-        try {
-            con.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    public void post(BillDetailModel model){
 
-        String sql = "insert into billdetail (billId, beverageId, amount) "
-                + "values ('" + model.getBillId()+ "','" + model.getBeverageId() + "','" + model.getAmount()+ "' )";
-         
-        try {
-            con = connection.connectDB();
-            Statement stm = con.createStatement();
-            stm.executeUpdate(sql);    
-            con.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    public List<BillDetailModel> get(int billID){
+    public List<BillDetailModel> get(int billID) {
         List<BillDetailModel> billDetailModel = new ArrayList<>();
-        String sql = "select * form billdetail where billid =" + billID;
+        String sql = "select * from billdetail where billId =" + billID;
         try {
             con = connection.connectDB();
             Statement stm = con.createStatement();
@@ -77,5 +53,23 @@ public class BillDetailController {
         }
         return billDetailModel;
     }
-    
+
+    public void post(BillDetailModel model) {
+        String sql = "insert into billdetail (billId, beverageId, amount) "
+                + "values ('" + model.getBillId() + "','" + model.getBeverageId() + "','" + model.getAmount() + "' )";
+
+        try {
+            Statement stm = con.createStatement();
+            stm.executeUpdate(sql);
+            con.close();
+        } catch (SQLException ex) {
+            try {
+                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+                con.close();
+            } catch (SQLException ex1) {
+                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        }
+    }
+
 }

@@ -24,8 +24,7 @@ public class BeverageController {
 
     private DBConnection connection;
 
-    private Connection con ;
-    
+    private Connection con;
 
     public BeverageController() {
         connection = new DBConnection();
@@ -47,7 +46,7 @@ public class BeverageController {
                 bModel.setPrice(rs.getInt("price"));
                 beverageModel.add(bModel);
             }
-            
+
             con.close();
         } catch (SQLException ex) {
             try {
@@ -61,8 +60,39 @@ public class BeverageController {
             Logger.getLogger(BeverageController.class.getName()).log(Level.SEVERE, null, ex);
 
         }
-        
+
         return beverageModel;
+    }
+
+    public BeverageModel get(int id) {
+        BeverageModel bModel = new BeverageModel();
+        String sql = "select * from beverage where id = " + id;
+
+        try {
+            con = connection.connectDB();
+            Statement stm = con.createStatement();
+            ResultSet rs = stm.executeQuery(sql);
+            rs.next();
+
+            bModel.setId(rs.getInt("id"));
+            bModel.setName(rs.getString("name"));
+            bModel.setPrice(rs.getInt("price"));
+
+            con.close();
+        } catch (SQLException ex) {
+            try {
+                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+                con.close();
+                return null;
+            } catch (SQLException ex1) {
+                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(BeverageController.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+
+        return bModel;
     }
 
     public void delete(int id) {
@@ -72,7 +102,7 @@ public class BeverageController {
 
             con = connection.connectDB();
             Statement stm = con.createStatement();
-            stm.executeUpdate(sql);    
+            stm.executeUpdate(sql);
             con.close();
         } catch (SQLException ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
@@ -89,7 +119,7 @@ public class BeverageController {
             con = connection.connectDB();
             Statement stm = con.createStatement();
 
-            stm.executeUpdate(sql);    
+            stm.executeUpdate(sql);
             con.close();
         } catch (SQLException ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);

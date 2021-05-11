@@ -23,7 +23,7 @@ public class BillModel {
     private float total;
     private float subTotal;
     private int totalAmount;
-    private float receivedMoney;
+    private float cash;
     private float changeMoney;
 
     private float subtotal;
@@ -37,7 +37,7 @@ public class BillModel {
         total = -1;
         subTotal = -1;
         totalAmount = -1;
-        receivedMoney = -1;
+        cash = -1;
         changeMoney = -1;
     }
 
@@ -98,12 +98,12 @@ public class BillModel {
         this.totalAmount = totalAmount;
     }
 
-    public float getReceivedMoney() {
-        return receivedMoney;
+    public float getCash() {
+        return cash;
     }
 
-    public void setReceivedMoney(float receivedMoney) {
-        this.receivedMoney = receivedMoney;
+    public void setCash(float receivedMoney) {
+        this.cash = receivedMoney;
     }
 
     public float getChangeMoney() {

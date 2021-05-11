@@ -59,12 +59,14 @@ public class UserController {
     
     public UserModel get(int id){
         UserModel model = new UserModel();
+        System.out.print(model.getId());
         try {    
-            String sql = "select * form user where id =" + id;
+            String sql = "select * from user where id =" + id;
             con = connection.connectDB();
             Statement stm = con.createStatement();
             ResultSet rs = stm.executeQuery(sql);
-            model.setId(rs.getInt("id"));
+            rs.next();
+            model.setId(id);
             model.setUsername(rs.getString("username"));
             model.setPassword(rs.getString("password"));
             model.setRole(rs.getString("role"));

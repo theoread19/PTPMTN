@@ -533,7 +533,7 @@ public class CreateBill extends javax.swing.JFrame {
         billModel.setDiscount(Float.valueOf(textDiscount.getText()));
 
         billModel.setTotal(Float.valueOf(textTotal.getText()));
-        billModel.setReceivedMoney(Float.valueOf(textCash.getText()));
+        billModel.setCash(Float.valueOf(textCash.getText()));
         billModel.setChangeMoney(changeMoney);
         billModel.setCreateTime(ts);
         

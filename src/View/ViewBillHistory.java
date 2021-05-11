@@ -6,7 +6,11 @@
 package View;
 
 import Controller.BillController;
+
 import Model.BillModel;
+
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -46,6 +50,11 @@ public class ViewBillHistory extends javax.swing.JFrame {
 
         buttonDetail.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
         buttonDetail.setText("Xem chi tiết");
+        buttonDetail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonDetailActionPerformed(evt);
+            }
+        });
 
         buttonReturn.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
         buttonReturn.setText("Trở về");
@@ -63,7 +72,7 @@ public class ViewBillHistory extends javax.swing.JFrame {
                 java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -116,16 +125,40 @@ public class ViewBillHistory extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void buttonDetailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDetailActionPerformed
+        int selectedRow = tableBillHistory.getSelectedRow();
+        int id = (int) tableBillHistory.getValueAt(selectedRow, 0);
+        BillDetail billDetail = new BillDetail();
+        billDetail.setBillDetail(billController.get(id));
+        billDetail.setVisible(true);
+    }//GEN-LAST:event_buttonDetailActionPerformed
+
     private void setInterface() {
         // Set frame interface
         Settings.setFrameInterface(this);
-        
+        loadTable();
         // Set table interface
         Settings.setTableInterface(tableBillHistory, scrollPaneTable);
     }
     
     
-    public void setBill(BillModel model){
+    public void loadTable(){
+       DefaultTableModel tableModel = (DefaultTableModel) tableBillHistory.getModel();
+        int rowCount = tableModel.getRowCount();
+        while (rowCount > 0) {
+            tableModel.removeRow(0);
+            rowCount--;
+        }
+        billController = new BillController();
+        List<BillModel> models = billController.get();
+        for (BillModel item : models) {
+            Object[] data = new Object[4];
+            data[0] = item.getId();
+            data[1] = item.getCreatorId();
+            data[2] = item.getCreateTime();
+            data[3] = item.getTotal();
+            tableModel.addRow(data);
+        }
         
     }
     

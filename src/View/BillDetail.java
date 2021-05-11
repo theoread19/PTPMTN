@@ -5,22 +5,25 @@
  */
 package View;
 
+import Controller.BeverageController;
 import Controller.BillController;
-import Controller.BillDetailsController;
+import Controller.BillDetailController;
 import Controller.UserController;
+import Model.BeverageModel;
 import Model.BillDetailModel;
 import Model.BillModel;
 import Model.UserModel;
 import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author B1704721
  */
 public class BillDetail extends javax.swing.JFrame {
-    private BillController billController;
-    private BillDetailsController buildDetailController;
+    private BillDetailController billDetailController;
     private UserController userController;
+    private BeverageController beverageController;
     /**
      * Creates new form
      */
@@ -117,8 +120,7 @@ public class BillDetail extends javax.swing.JFrame {
         tableBeverageList.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
         tableBeverageList.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Name", "10000",  new Integer(4), null},
-                {"Name", "20000",  new Integer(2), null}
+
             },
             new String [] {
                 "Thức uống", "Đơn giá", "Số lượng", "Thành tiền"
@@ -277,18 +279,34 @@ public class BillDetail extends javax.swing.JFrame {
     }
     
     public void setBillDetail(BillModel model){
-        List<BillDetailModel> billDetail = buildDetailController.get(model.getId());
+        userController = new UserController();
+        billDetailController =  new BillDetailController();
+        beverageController = new BeverageController();
+        
+        List<BillDetailModel> billDetail = billDetailController.get(model.getId());
         labelBillIdValue.setText(String.valueOf(model.getId()));
         labelAmountTotalValue.setText(String.valueOf(model.getTotalAmount()));
         labelChangeMoneyValue.setText(String.valueOf(model.getChangeMoney()));
         labelCreateTimeValue.setText(String.valueOf(model.getCreateTime()));
         UserModel userModel = new UserModel();
-        userModel =  userController.get(model.getCreatorId());
+        userModel = userController.get(model.getCreatorId());
         labelCreatorIdValue.setText(userModel.getUsername());
         labelDiscountValue.setText(String.valueOf(model.getDiscount()*100));
-        //chua co gia tri
-        labelMoneyToPayValue.setText(String.valueOf(""));
-        labelReceivedMoneyValue.setText(String.valueOf(model.getReceivedMoney()));
+        
+        DefaultTableModel tableModel = (DefaultTableModel) tableBeverageList.getModel();
+         for (BillDetailModel item : billDetail) {
+            BeverageModel beverageModel = new BeverageModel();
+            beverageModel = beverageController.get(item.getBeverageId());
+            Object[] data = new Object[4];
+            data[0] = beverageModel.getName();
+            data[1] = beverageModel.getPrice();
+            data[2] = item.getAmount();
+            data[3] = beverageModel.getPrice() * item.getAmount();
+            tableModel.addRow(data);
+        }
+        
+        labelMoneyToPayValue.setText(String.valueOf(model.getSubtotal()));
+        labelReceivedMoneyValue.setText(String.valueOf(model.getCash()));
         labelTotalValue.setText(String.valueOf(model.getTotal()));
     }
     
