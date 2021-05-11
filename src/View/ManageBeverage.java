@@ -440,11 +440,11 @@ public class ManageBeverage extends javax.swing.JFrame {
         beverageModel.setName(name);
         beverageModel.setPrice(price);
         
-//        if (beverageModel.getId() > 0) {
-//            beverageController.put(beverageModel);
-//        } else {
-//            beverageController.post(beverageModel);
-//        }
+        if (beverageModel.getId() > 0) {
+            beverageController.put(beverageModel);
+        } else {
+            beverageController.post(beverageModel);
+        }
         
         // Reload table
         loadTable();

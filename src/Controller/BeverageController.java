@@ -26,12 +26,6 @@ public class BeverageController {
 
     private Connection con ;
     
-//    public BeverageController(){
-//
-//        connection = new DBConnection();
-//            
-//
-//    private Connection con;
 
     public BeverageController() {
         connection = new DBConnection();
@@ -56,12 +50,6 @@ public class BeverageController {
             
             con.close();
         } catch (SQLException ex) {
-//<<<<<<< HEAD
-//            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
-//            return null;
-//        } catch (ClassNotFoundException ex) {
-//            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
-//=======
             try {
                 Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
                 con.close();
@@ -90,30 +78,12 @@ public class BeverageController {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
-//=======
-//
-//            con = connection.connectDB();
-//
-//            Statement stm = con.createStatement();
-//            stm.executeUpdate(sql);
-//
-//            con.close();
-//        } catch (SQLException ex) {
-//            try {
-//                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-//                con.close();
-//            } catch (SQLException ex1) {
-//                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex1);
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            Logger.getLogger(BeverageController.class.getName()).log(Level.SEVERE, null, ex);
-//>>>>>>> view
         }
 
     }
 
-    public void put(int id, String name, int price) {
-        String sql = "update beverage set name = '" + name + "', price = " + price + " where id = " + id;
+    public void put(BeverageModel model) {
+        String sql = "update beverage set name = '" + model.getName() + "', price = " + model.getPrice() + " where id = " + model.getId();
 
         try {
             con = connection.connectDB();
@@ -125,26 +95,12 @@ public class BeverageController {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
-//=======
-//            stm.executeUpdate(sql);
-//
-//            con.close();
-//        } catch (SQLException ex) {
-//            try {
-//                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-//                con.close();
-//            } catch (SQLException ex1) {
-//                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex1);
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            Logger.getLogger(BeverageController.class.getName()).log(Level.SEVERE, null, ex);
-//>>>>>>> view
         }
 
     }
 
-    public void post(String name, int price) {
-        String sql = "insert into beverage (name,price) values ('" + name + "', '" + price + "')";
+    public void post(BeverageModel model) {
+        String sql = "insert into beverage (name,price) values ('" + model.getName() + "', '" + model.getPrice() + "')";
 
         try {
             con = connection.connectDB();
@@ -155,17 +111,7 @@ public class BeverageController {
 
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-//            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
-//=======
-//            try {
-//                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-//                con.close();
-//            } catch (SQLException ex1) {
-//                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex1);
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            Logger.getLogger(BeverageController.class.getName()).log(Level.SEVERE, null, ex);
-//>>>>>>> view
+
         }
     }
 
