@@ -7,7 +7,7 @@ package View;
 
 import Controller.LoginController;
 import Model.UserModel;
-import javax.swing.JOptionPane;
+import java.awt.event.KeyEvent;
 
 /**
  *
@@ -56,8 +56,18 @@ public class SignIn extends javax.swing.JFrame {
         labelPassword.setText("Mật khẩu:");
 
         textUsername.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        textUsername.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                textUsernameKeyPressed(evt);
+            }
+        });
 
         textPassword.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        textPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                textPasswordKeyPressed(evt);
+            }
+        });
 
         buttonSignIn.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
         buttonSignIn.setText("Đăng nhập");
@@ -133,11 +143,11 @@ public class SignIn extends javax.swing.JFrame {
         // Set components
         labelLogo.setIcon(Settings.logo);
     }
-
-    private void buttonSignInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSignInActionPerformed
+    
+    private void signIn() {
         UserModel model = new UserModel();
         model = loginController.handleLogin(textUsername.getText(), String.valueOf(textPassword.getPassword()));
-                
+
         if (!model.getUsername().equals("")) {
             if (model.getRole().equals("admin")) {
                 HomeAdmin form = new HomeAdmin();
@@ -155,11 +165,27 @@ public class SignIn extends javax.swing.JFrame {
             String message = "Tên đăng nhập hoặc mật khẩu không đúng!";
             OptionPane.showMessageDialog(title, message);
         }
+    }
+
+    private void buttonSignInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSignInActionPerformed
+        signIn();
     }//GEN-LAST:event_buttonSignInActionPerformed
 
     private void buttonQuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonQuitActionPerformed
         System.exit(0);
     }//GEN-LAST:event_buttonQuitActionPerformed
+
+    private void textUsernameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textUsernameKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            textPassword.grabFocus();
+        }
+    }//GEN-LAST:event_textUsernameKeyPressed
+
+    private void textPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textPasswordKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            signIn();
+        }
+    }//GEN-LAST:event_textPasswordKeyPressed
 
     /**
      * @param args the command line arguments

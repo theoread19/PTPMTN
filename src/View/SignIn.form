@@ -104,6 +104,9 @@
           <Font name="Times New Roman" size="22" style="0"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="textUsernameKeyPressed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JPasswordField" name="textPassword">
       <Properties>
@@ -111,6 +114,9 @@
           <Font name="Times New Roman" size="22" style="0"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="textPasswordKeyPressed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="buttonSignIn">
       <Properties>
