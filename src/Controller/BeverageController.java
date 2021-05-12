@@ -89,7 +89,6 @@ public class BeverageController {
             }
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(BeverageController.class.getName()).log(Level.SEVERE, null, ex);
-
         }
 
         return bModel;
@@ -99,17 +98,13 @@ public class BeverageController {
         String sql = "delete from beverage where id = " + id;
 
         try {
-
             con = connection.connectDB();
             Statement stm = con.createStatement();
             stm.executeUpdate(sql);
             con.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
     public void put(BeverageModel model) {
@@ -121,12 +116,9 @@ public class BeverageController {
 
             stm.executeUpdate(sql);
             con.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
     public void post(BeverageModel model) {
@@ -137,11 +129,8 @@ public class BeverageController {
             Statement stm = con.createStatement();
             stm.executeUpdate(sql);
             con.close();
-        } catch (SQLException ex) {
-
+        } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-
         }
     }
 

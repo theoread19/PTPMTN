@@ -10,16 +10,17 @@ package Model;
  * @author PC
  */
 public class BillDetailModel {
+
     private int billId;
     private int beverageId;
     private int amount;
-    
-    public BillDetailModel(){
+
+    public BillDetailModel() {
         billId = -1;
         beverageId = -1;
         amount = -1;
     }
-    
+
     public int getBillId() {
         return billId;
     }
@@ -43,6 +44,5 @@ public class BillDetailModel {
     public void setAmount(int amount) {
         this.amount = amount;
     }
-    
-    
+
 }

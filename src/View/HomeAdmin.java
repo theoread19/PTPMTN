@@ -5,7 +5,6 @@
  */
 package View;
 
-import Controller.AdminController;
 import Model.UserModel;
 
 /**
@@ -13,8 +12,7 @@ import Model.UserModel;
  * @author B1704721
  */
 public class HomeAdmin extends javax.swing.JFrame {
-
-    private AdminController adminController = new AdminController();
+    
     private UserModel userModel = new UserModel();
 
     /**
@@ -46,7 +44,7 @@ public class HomeAdmin extends javax.swing.JFrame {
         menuItemViewBillHistory = new javax.swing.JMenuItem();
         menuManageBeverage = new javax.swing.JMenu();
         menuUser = new javax.swing.JMenu();
-        menuItemSIgnOut = new javax.swing.JMenuItem();
+        menuItemSignOut = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("KAT - Trang chủ");
@@ -135,14 +133,14 @@ public class HomeAdmin extends javax.swing.JFrame {
         menuUser.setText("Tên người dùng");
         menuUser.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
 
-        menuItemSIgnOut.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
-        menuItemSIgnOut.setText("Đăng xuất ");
-        menuItemSIgnOut.addActionListener(new java.awt.event.ActionListener() {
+        menuItemSignOut.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        menuItemSignOut.setText("Đăng xuất ");
+        menuItemSignOut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemSIgnOutActionPerformed(evt);
+                menuItemSignOutActionPerformed(evt);
             }
         });
-        menuUser.add(menuItemSIgnOut);
+        menuUser.add(menuItemSignOut);
 
         menuBar.add(menuUser);
 
@@ -190,7 +188,7 @@ public class HomeAdmin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     /**
-     * Lay username o day
+     * Lấy username ở đây
      *
      * @param model
      */
@@ -212,6 +210,12 @@ public class HomeAdmin extends javax.swing.JFrame {
         buttonSignOut.setIcon(Settings.signOutIcon);
         labelTitle.requestFocus();
     }
+    
+    private void signOut() {
+        this.dispose();
+        SignIn form = new SignIn();
+        form.setVisible(true);
+    }
 
     private void buttonCreateBillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCreateBillActionPerformed
         CreateBill form = new CreateBill();
@@ -225,9 +229,7 @@ public class HomeAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonManageBeverageActionPerformed
 
     private void buttonSignOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSignOutActionPerformed
-        this.dispose();
-        SignIn form = new SignIn();
-        form.setVisible(true);
+        signOut();
     }//GEN-LAST:event_buttonSignOutActionPerformed
 
     private void menuItemCreateBillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCreateBillActionPerformed
@@ -251,11 +253,9 @@ public class HomeAdmin extends javax.swing.JFrame {
         form.setVisible(true);
     }//GEN-LAST:event_buttonManageUserActionPerformed
 
-    private void menuItemSIgnOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemSIgnOutActionPerformed
-        this.dispose();
-        SignIn form = new SignIn();
-        form.setVisible(true);
-    }//GEN-LAST:event_menuItemSIgnOutActionPerformed
+    private void menuItemSignOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemSignOutActionPerformed
+        signOut();
+    }//GEN-LAST:event_menuItemSignOutActionPerformed
 
     private void menuManageUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuManageUserMouseClicked
         ManageUser form = new ManageUser();
@@ -305,7 +305,7 @@ public class HomeAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel labelTitle;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem menuItemCreateBill;
-    private javax.swing.JMenuItem menuItemSIgnOut;
+    private javax.swing.JMenuItem menuItemSignOut;
     private javax.swing.JMenuItem menuItemViewBillHistory;
     private javax.swing.JMenu menuManageBeverage;
     private javax.swing.JMenu menuManageBill;

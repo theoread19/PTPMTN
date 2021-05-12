@@ -10,6 +10,7 @@ package Model;
  * @author asus
  */
 public class UserModel {
+
     private int id;
     private String username;
     private String password;
@@ -53,5 +54,5 @@ public class UserModel {
     public void setRole(String role) {
         this.role = role;
     }
-    
+
 }

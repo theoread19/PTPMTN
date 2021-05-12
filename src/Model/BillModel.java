@@ -9,13 +9,12 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
 /**
  *
  * @author PC
  */
 public class BillModel {
+
     private int id;
     private int creatorId;
     private float discount;
@@ -26,10 +25,9 @@ public class BillModel {
     private float cash;
     private float changeMoney;
 
+    private List<BillDetailModel> beverages = new ArrayList<>();
 
-    private List<BillDetailModel> beverages = new ArrayList<BillDetailModel>();
-    
-    public BillModel(){
+    public BillModel() {
         id = -1;
         creatorId = -1;
         discount = -1;
@@ -41,7 +39,6 @@ public class BillModel {
         changeMoney = -1;
     }
 
-
     public float getSubtotal() {
         return subTotal;
     }
@@ -49,7 +46,7 @@ public class BillModel {
     public void setSubtotal(float subtotal) {
         this.subTotal = subtotal;
     }
-    
+
     public int getId() {
         return id;
     }
@@ -81,7 +78,7 @@ public class BillModel {
     public void setCreateTime(Timestamp createTime) {
         this.createTime = createTime;
     }
-    
+
     public float getTotal() {
         return total;
     }
@@ -122,5 +119,4 @@ public class BillModel {
         this.beverages = beverages;
     }
 
-    
 }

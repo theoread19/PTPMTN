@@ -7,7 +7,6 @@ package Controller;
 
 import Config.DBConnection;
 import Model.BillDetailModel;
-import Model.BillModel;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;

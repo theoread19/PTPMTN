@@ -25,7 +25,7 @@ public class ManageUser extends javax.swing.JFrame {
     public ManageUser() {
         initComponents();
         setInterface();
-        setButton();
+        setComponents();
         loadTable();
     }
 
@@ -352,7 +352,7 @@ public class ManageUser extends javax.swing.JFrame {
         panelBottomLeft.setBackground(Settings.contponentBackgroundColor);
     }
     
-    private void setButton() {
+    private void setComponents() {
         textUsername.setText("");
         textUsername.setEnabled(false);
         textPassword.setText("");
@@ -390,7 +390,7 @@ public class ManageUser extends javax.swing.JFrame {
         loadTable();
         
         // Set buttons
-        setButton();
+        setComponents();
     }//GEN-LAST:event_buttonDeleteActionPerformed
 
     private void buttonConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConfirmActionPerformed
@@ -400,9 +400,7 @@ public class ManageUser extends javax.swing.JFrame {
         String role = (String) comboBoxRole.getSelectedItem();
         
         if (username.equals("") || password.equals("")) {
-            String title = "Lỗi";
-            String message = "Tên người dùng và mật khẩu không được để trống!";
-            OptionPane.showMessageDialog(title, message);
+            OptionPane.showMessageDialog("Lỗi", "Tên người dùng và mật khẩu không được để trống!");
             return;
         }
         
@@ -420,7 +418,7 @@ public class ManageUser extends javax.swing.JFrame {
         loadTable();
         
         // Set buttons
-        setButton();
+        setComponents();
     }//GEN-LAST:event_buttonConfirmActionPerformed
 
     private void buttonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUpdateActionPerformed
@@ -444,7 +442,7 @@ public class ManageUser extends javax.swing.JFrame {
 
     private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelActionPerformed
         // Reset buttons
-        setButton();
+        setComponents();
     }//GEN-LAST:event_buttonCancelActionPerformed
 
     private void buttonReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonReturnActionPerformed

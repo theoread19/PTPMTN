@@ -10,14 +10,15 @@ package Model;
  * @author PC
  */
 public class DiscountModel {
+
     private int id;
     private float discountValue;
-    
-    public DiscountModel(){
+
+    public DiscountModel() {
         id = -1;
         discountValue = 0;
     }
-    
+
     public int getId() {
         return id;
     }
@@ -33,5 +34,5 @@ public class DiscountModel {
     public void setDiscountValue(float discountValue) {
         this.discountValue = discountValue;
     }
-    
+
 }

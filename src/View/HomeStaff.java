@@ -5,11 +5,7 @@
  */
 package View;
 
-
-import Controller.StaffController;
 import Model.UserModel;
-import javax.swing.ImageIcon;
-
 
 /**
  *
@@ -17,11 +13,6 @@ import javax.swing.ImageIcon;
  */
 public class HomeStaff extends javax.swing.JFrame {
 
-
-    private ImageIcon icon2 = new ImageIcon("src\\others\\icon-manage-bill.png");
-    private ImageIcon icon3 = new ImageIcon("src\\others\\icon-manage-beverage.png");
-    private ImageIcon icon4 = new ImageIcon("src\\others\\icon-sign-out.png");
-    private StaffController staffController = new StaffController();
     private UserModel userModel = new UserModel();
 
     /**
@@ -43,15 +34,13 @@ public class HomeStaff extends javax.swing.JFrame {
 
         labelTitle = new javax.swing.JLabel();
         buttonCreateBill = new javax.swing.JButton();
-        buttonManageBeverage = new javax.swing.JButton();
         buttonSignOut = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         menuCreateBill = new javax.swing.JMenu();
-        menuManageBeverage = new javax.swing.JMenu();
         menuUser = new javax.swing.JMenu();
         menuItemSignOut = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("KAT - Trang chủ");
         setResizable(false);
 
@@ -64,14 +53,6 @@ public class HomeStaff extends javax.swing.JFrame {
         buttonCreateBill.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCreateBillActionPerformed(evt);
-            }
-        });
-
-        buttonManageBeverage.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
-        buttonManageBeverage.setToolTipText("Quản lý thức uống");
-        buttonManageBeverage.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonManageBeverageActionPerformed(evt);
             }
         });
 
@@ -95,16 +76,7 @@ public class HomeStaff extends javax.swing.JFrame {
         });
         menuBar.add(menuCreateBill);
 
-        menuManageBeverage.setText("Quản lý thức uống   ");
-        menuManageBeverage.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
-        menuManageBeverage.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                menuManageBeverageMouseClicked(evt);
-            }
-        });
-        menuBar.add(menuManageBeverage);
-
-        menuUser.setText("Đăng xuất   ");
+        menuUser.setText("Tên người dùng");
         menuUser.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
 
         menuItemSignOut.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
@@ -127,89 +99,78 @@ public class HomeStaff extends javax.swing.JFrame {
             .addComponent(labelTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(buttonManageBeverage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(buttonCreateBill, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(buttonSignOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(buttonCreateBill, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {buttonCreateBill, buttonManageBeverage, buttonSignOut});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {buttonCreateBill, buttonSignOut});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addGap(33, 33, 33)
                 .addComponent(labelTitle)
-                .addGap(30, 30, 30)
-                .addComponent(buttonCreateBill, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(buttonSignOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(buttonManageBeverage, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
-                .addGap(35, 35, 35))
+                .addGap(80, 80, 80)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(buttonCreateBill, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonSignOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(85, 85, 85))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {buttonCreateBill, buttonManageBeverage, buttonSignOut});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {buttonCreateBill, buttonSignOut});
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-
     /**
-     * Lay username o day
-     * @param model 
+     * Lấy username ở đây
+     *
+     * @param model
      */
-    public void setUser(UserModel model){
+    public void setUser(UserModel model) {
         userModel.setId(model.getId());
         userModel.setRole(model.getRole());
         userModel.setUsername(model.getUsername());
         menuUser.setText(userModel.getUsername());
     }
+
     private void setInterface() {
         // Set frame interface
         Settings.setFrameInterface(this);
-        
+
         // Set components
         buttonCreateBill.setIcon(Settings.manageBillIcon);
-        buttonManageBeverage.setIcon(Settings.manageBeverageIcon);
         buttonSignOut.setIcon(Settings.signOutIcon);
         labelTitle.requestFocus();
-
     }
     
+    private void signOut() {
+        this.dispose();
+        SignIn form = new SignIn();
+        form.setVisible(true);
+    }
+
     private void buttonCreateBillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCreateBillActionPerformed
         CreateBill form = new CreateBill();
         form.setUser(userModel);
         form.setVisible(true);
     }//GEN-LAST:event_buttonCreateBillActionPerformed
 
-    private void buttonManageBeverageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonManageBeverageActionPerformed
-        ManageBeverage form = new ManageBeverage();
-        form.setVisible(true);
-    }//GEN-LAST:event_buttonManageBeverageActionPerformed
-
     private void buttonSignOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSignOutActionPerformed
-        this.dispose();
-        this.getParent().setVisible(true);
+        signOut();
     }//GEN-LAST:event_buttonSignOutActionPerformed
-
-    private void menuManageBeverageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuManageBeverageMouseClicked
-        ManageBeverage form = new ManageBeverage();
-        form.setVisible(true);
-    }//GEN-LAST:event_menuManageBeverageMouseClicked
 
     private void menuCreateBillMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuCreateBillMouseClicked
         CreateBill form = new CreateBill();
+        form.setUser(userModel);
         form.setVisible(true);
     }//GEN-LAST:event_menuCreateBillMouseClicked
 
     private void menuItemSignOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemSignOutActionPerformed
-        // Sign out
+        signOut();
     }//GEN-LAST:event_menuItemSignOutActionPerformed
 
     /**
@@ -250,13 +211,11 @@ public class HomeStaff extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCreateBill;
-    private javax.swing.JButton buttonManageBeverage;
     private javax.swing.JButton buttonSignOut;
     private javax.swing.JLabel labelTitle;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu menuCreateBill;
     private javax.swing.JMenuItem menuItemSignOut;
-    private javax.swing.JMenu menuManageBeverage;
     private javax.swing.JMenu menuUser;
     // End of variables declaration//GEN-END:variables
 }

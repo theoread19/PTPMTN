@@ -143,7 +143,7 @@ public class SignIn extends javax.swing.JFrame {
         // Set components
         labelLogo.setIcon(Settings.logo);
     }
-    
+
     private void signIn() {
         UserModel model = new UserModel();
         model = loginController.handleLogin(textUsername.getText(), String.valueOf(textPassword.getPassword()));

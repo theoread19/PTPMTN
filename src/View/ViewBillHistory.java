@@ -17,7 +17,9 @@ import javax.swing.table.DefaultTableModel;
  * @author B1704721
  */
 public class ViewBillHistory extends javax.swing.JFrame {
+
     private BillController billController;
+
     /**
      * Creates new form
      */
@@ -126,24 +128,28 @@ public class ViewBillHistory extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonDetailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDetailActionPerformed
-        int selectedRow = tableBillHistory.getSelectedRow();
-        int id = (int) tableBillHistory.getValueAt(selectedRow, 0);
-        BillDetail billDetail = new BillDetail();
-        billDetail.setBillDetail(billController.get(id));
-        billDetail.setVisible(true);
+        try {
+            int selectedRow = tableBillHistory.getSelectedRow();
+            int id = (int) tableBillHistory.getValueAt(selectedRow, 0);
+            BillDetail billDetail = new BillDetail();
+            billDetail.setBillDetail(billController.get(id));
+            billDetail.setVisible(true);
+        } catch (Exception ex) {
+            OptionPane.showMessageDialog("Lỗi", "Chưa chọn dòng nào trong bảng.");
+        }
     }//GEN-LAST:event_buttonDetailActionPerformed
 
     private void setInterface() {
         // Set frame interface
         Settings.setFrameInterface(this);
         loadTable();
+
         // Set table interface
         Settings.setTableInterface(tableBillHistory, scrollPaneTable);
     }
-    
-    
-    public void loadTable(){
-       DefaultTableModel tableModel = (DefaultTableModel) tableBillHistory.getModel();
+
+    public void loadTable() {
+        DefaultTableModel tableModel = (DefaultTableModel) tableBillHistory.getModel();
         int rowCount = tableModel.getRowCount();
         while (rowCount > 0) {
             tableModel.removeRow(0);
@@ -159,10 +165,8 @@ public class ViewBillHistory extends javax.swing.JFrame {
             data[3] = item.getTotal();
             tableModel.addRow(data);
         }
-        
     }
-    
-    
+
     /**
      * @param args the command line arguments
      */

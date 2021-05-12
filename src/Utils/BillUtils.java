@@ -6,13 +6,11 @@
 package Utils;
 
 import Controller.BeverageController;
-import Controller.BillDetailController;
 import Controller.UserController;
 import Model.BeverageModel;
 import Model.BillDetailModel;
 import Model.BillModel;
 import Model.UserModel;
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -45,13 +43,12 @@ public class BillUtils implements Printable {
     public BillUtils() {
         bHeight = 0.0;
     }
-    
-    
+
     public BillUtils(BillModel model, ImageObserver rootPane) {
         setBill(model, rootPane);
     }
 
-    public void setBill(BillModel model, ImageObserver rootPane){
+    public final void setBill(BillModel model, ImageObserver rootPane) {
         this.rootPane = rootPane;
         billModel = new BillModel();
         billModel.setId(model.getId());
@@ -63,22 +60,22 @@ public class BillUtils implements Printable {
         billModel.setCreatorId(model.getCreatorId());
         billModel.setSubtotal(model.getSubtotal());
         billModel.setTotal(model.getTotal());
-        billModel.setTotalAmount(model.getTotalAmount());    
-        getDetails();   
+        billModel.setTotalAmount(model.getTotalAmount());
+        getDetails();
     }
-    
-    public void getDetails(){
+
+    public void getDetails() {
         userModel = new UserModel();
         beverageModel = new ArrayList<>();
-        for (BillDetailModel item : billModel.getBeverages()){
+        for (BillDetailModel item : billModel.getBeverages()) {
             BeverageModel model = new BeverageModel();
             model = beverageController.get(item.getBeverageId());
             beverageModel.add(model);
         }
         userModel = userController.get(billModel.getCreatorId());
-        bHeight = Double.valueOf(beverageModel.size());
-    }    
-    
+        bHeight = (double) beverageModel.size();
+    }
+
     public PageFormat getPageFormat(PrinterJob pj) {
         PageFormat pf = pj.defaultPage();
         Paper paper = pf.getPaper();
@@ -86,10 +83,10 @@ public class BillUtils implements Printable {
         double bodyHeight = bHeight;
         double headerHeight = 5.0;
         double footerHeight = 5.0;
-        double width = cm_to_pp(8);
-        double height = cm_to_pp(headerHeight + bodyHeight + footerHeight);
+        double width = cmToPPI(8);
+        double height = cmToPPI(headerHeight + bodyHeight + footerHeight);
         paper.setSize(width, height);
-        paper.setImageableArea(0, 10, width, height - cm_to_pp(1));
+        paper.setImageableArea(0, 10, width, height - cmToPPI(1));
 
         pf.setOrientation(PageFormat.PORTRAIT);
         pf.setPaper(paper);
@@ -97,19 +94,18 @@ public class BillUtils implements Printable {
         return pf;
     }
 
-    protected static double cm_to_pp(double cm) {
-        return toPPI(cm * 0.393600787);
+    protected static double cmToPPI(double cm) {
+        return inchToPPI(cm * 0.393600787);
     }
-    
-    //doi tu don vi inch -> pp
-    protected static double toPPI(double inch) {
+
+    protected static double inchToPPI(double inch) {
         return inch * 72d;
     }
 
     @Override
-    public int print(Graphics graphics, PageFormat pageFormat, int pageIndex ) throws PrinterException {
+    public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
         int r = beverageModel.size();
-        
+
         ImageIcon icon = new ImageIcon("\\src\\images\\logo.png");
         int result = NO_SUCH_PAGE;
         if (pageIndex == 0) {
@@ -125,7 +121,7 @@ public class BillUtils implements Printable {
 
                 g2d.setFont(new Font("Monospaced", Font.PLAIN, 9));
                 g2d.drawImage(icon.getImage(), 70, 20, 90, 30, rootPane);
-                
+
                 y += yShift + 30;
                 g2d.drawString("-------------------------------------", 12, y);
                 y += yShift;
@@ -169,7 +165,7 @@ public class BillUtils implements Printable {
                 y += yShift;
                 g2d.drawString("-------------------------------------", 10, y);
                 y += yShift;
-                g2d.drawString(" Khuyến mãi       :      " + Float.toString(billModel.getDiscount()*100) + "%  ", 10, y);
+                g2d.drawString(" Khuyến mãi       :      " + Float.toString(billModel.getDiscount() * 100) + "%  ", 10, y);
                 y += yShift;
                 g2d.drawString("-------------------------------------", 10, y);
                 y += yShift;
@@ -190,8 +186,8 @@ public class BillUtils implements Printable {
                 g2d.drawString("CONTACT:locb1704748@student.ctu.edu.vn     ", 10, y);
                 y += yShift;
 
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (Exception ex) {
+                ex.printStackTrace();
             }
 
             result = PAGE_EXISTS;

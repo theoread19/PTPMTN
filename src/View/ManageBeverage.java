@@ -18,14 +18,14 @@ public class ManageBeverage extends javax.swing.JFrame {
 
     private BeverageController beverageController;
     private BeverageModel beverageModel;
-    
+
     /**
      * Creates new form
      */
     public ManageBeverage() {
         initComponents();
         setInterface();
-        setButton();
+        setComponents();
         loadTable();
     }
 
@@ -351,7 +351,7 @@ public class ManageBeverage extends javax.swing.JFrame {
         panelBottomLeft.setBackground(Settings.contponentBackgroundColor);
     }
 
-    private void setButton() {
+    private void setComponents() {
         textBeverageName.setText("");
         textBeverageName.setEnabled(false);
         textPrice.setText("");
@@ -370,7 +370,7 @@ public class ManageBeverage extends javax.swing.JFrame {
 
     private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelActionPerformed
         // Reset buttons
-        setButton();
+        setComponents();
     }//GEN-LAST:event_buttonCancelActionPerformed
 
     private void buttonInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonInsertActionPerformed
@@ -394,9 +394,9 @@ public class ManageBeverage extends javax.swing.JFrame {
 
         // Reload table
         loadTable();
-        
+
         // Set buttons
-        setButton();
+        setComponents();
     }//GEN-LAST:event_buttonDeleteActionPerformed
 
     private void buttonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUpdateActionPerformed
@@ -409,9 +409,9 @@ public class ManageBeverage extends javax.swing.JFrame {
         tableBeverage.setEnabled(false);
 
         // Other stuffs
+        beverageModel = new BeverageModel();
         int selectedRow = tableBeverage.getSelectedRow();
-        int id = (int) tableBeverage.getValueAt(selectedRow, 0);
-        beverageModel.setId(id);
+        beverageModel.setId((int) tableBeverage.getValueAt(selectedRow, 0));
         textBeverageName.setText((String) tableBeverage.getValueAt(selectedRow, 1));
         textPrice.setText(tableBeverage.getValueAt(selectedRow, 2).toString());
     }//GEN-LAST:event_buttonUpdateActionPerformed
@@ -421,36 +421,33 @@ public class ManageBeverage extends javax.swing.JFrame {
         String name = textBeverageName.getText();
         String priceText = textPrice.getText();
         int price = 0;
+        
         try {
             price = Integer.valueOf(priceText);
         } catch (NumberFormatException ex) {
-            String title = "Lỗi";
-            String message = "Giá thức uống phải là số nguyên!";
-            OptionPane.showMessageDialog(title, message);
+            OptionPane.showMessageDialog("Lỗi", "Giá thức uống phải là số nguyên!");
             return;
         }
-        
+
         if (name.equals("") || priceText.equals("")) {
-            String title = "Lỗi";
-            String message = "Tên thức uống và giá không được để trống!";
-            OptionPane.showMessageDialog(title, message);
+            OptionPane.showMessageDialog("Lỗi", "Tên thức uống và giá không được để trống!");
             return;
         }
-        
+
         beverageModel.setName(name);
         beverageModel.setPrice(price);
-        
+
         if (beverageModel.getId() > 0) {
             beverageController.put(beverageModel);
         } else {
             beverageController.post(beverageModel);
         }
-        
+
         // Reload table
         loadTable();
-        
+
         // Set buttons
-        setButton();
+        setComponents();
     }//GEN-LAST:event_buttonConfirmActionPerformed
 
     private void tableBeverageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableBeverageMouseClicked

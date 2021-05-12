@@ -8,7 +8,6 @@ package Controller;
 import Config.DBConnection;
 import Model.UserModel;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -16,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -28,7 +26,7 @@ public class UserController {
     private Connection con;
 
     public UserController() {
-       connection = new DBConnection();
+        connection = new DBConnection();
     }
 
     public List<UserModel> get() {
@@ -56,11 +54,11 @@ public class UserController {
 
         return userModels;
     }
-    
-    public UserModel get(int id){
+
+    public UserModel get(int id) {
         UserModel model = new UserModel();
         System.out.print(model.getId());
-        try {    
+        try {
             String sql = "select * from user where id =" + id;
             con = connection.connectDB();
             Statement stm = con.createStatement();
@@ -70,11 +68,8 @@ public class UserController {
             model.setUsername(rs.getString("username"));
             model.setPassword(rs.getString("password"));
             model.setRole(rs.getString("role"));
-            
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        } catch (SQLException ex) {
+
+        } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
@@ -82,7 +77,7 @@ public class UserController {
     }
 
     public void post(UserModel model) {
-        String sql = "insert into user(username, password, role) values('"+model.getUsername()+"','"+model.getPassword()+"','"+model.getRole()+"')";
+        String sql = "insert into user(username, password, role) values('" + model.getUsername() + "','" + model.getPassword() + "','" + model.getRole() + "')";
         try {
             con = connection.connectDB();
             Statement stm = con.createStatement();
@@ -93,27 +88,28 @@ public class UserController {
         }
     }
 
-    public void delete(int id){
-        String sql = "delete from user where id = " + id ;
+    public void delete(int id) {
+        String sql = "delete from user where id = " + id;
         try {
             con = connection.connectDB();
             Statement stm = con.createStatement();
-            stm.executeUpdate(sql); 
+            stm.executeUpdate(sql);
+            con.close();
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void put(UserModel model) {
+        String sql = "update user set username = '" + model.getUsername() + "', password = '" + model.getPassword() + "', role = '" + model.getRole() + "' where id = " + model.getId();
+        try {
+            con = connection.connectDB();
+            Statement stm = con.createStatement();
+            stm.executeUpdate(sql);
             con.close();
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
-    public void put(UserModel model){
-        String sql = "update user set username = '"+model.getUsername()+"', password = '"+model.getPassword()+"', role = '"+model.getRole()+"' where id = "+model.getId() ;
-        try {
-            con = connection.connectDB();
-            Statement stm = con.createStatement();
-            stm.executeUpdate(sql); 
-            con.close();
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
 }

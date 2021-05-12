@@ -5,12 +5,10 @@
  */
 package Controller;
 
-import Model.UserModel;
-
 /**
  *
  * @author asus
  */
 public class AdminController {
-    
+
 }

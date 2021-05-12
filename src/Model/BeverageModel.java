@@ -10,16 +10,17 @@ package Model;
  * @author PC
  */
 public class BeverageModel {
+
     private int id;
     private String name;
     private int price;
-    
-    public BeverageModel(){
+
+    public BeverageModel() {
         id = -1;
         name = "";
         price = -1;
     }
-    
+
     public int getId() {
         return id;
     }
@@ -43,6 +44,5 @@ public class BeverageModel {
     public void setPrice(int price) {
         this.price = price;
     }
-        
-        
+
 }

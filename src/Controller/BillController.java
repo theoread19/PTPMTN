@@ -11,7 +11,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -27,9 +26,7 @@ public class BillController {
     private Connection con;
 
     public BillController() {
-
         connection = new DBConnection();
-
     }
 
     public float applyDiscount(float subTotal) {
@@ -56,7 +53,6 @@ public class BillController {
     }
 
     public void post(BillModel model) {
-
         String sql = "insert into bill(creatorId,createTime,totalAmount,subTotal,discount,total,cash,`change`) "
                 + "values (" + model.getCreatorId() + ",'" + model.getCreateTime() + "'," + model.getTotalAmount() + "," + model.getSubtotal() + "," + model.getDiscount() + "," + model.getTotal() + "," + model.getCash() + "," + model.getChangeMoney() + " )";
 
@@ -65,9 +61,7 @@ public class BillController {
             Statement stm = con.createStatement();
             stm.executeUpdate(sql);
             con.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -94,9 +88,7 @@ public class BillController {
                 billModel.add(bModel);
             }
             con.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -123,9 +115,7 @@ public class BillController {
             bModel.setBeverages(billDetailController.get(bModel.getId()));
             bModel.setTotalAmount(rs.getInt("totalAmount"));
             con.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -142,9 +132,7 @@ public class BillController {
             rs.next();
             id = rs.getInt("id");
             con.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
         }
 

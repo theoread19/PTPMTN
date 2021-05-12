@@ -18,9 +18,6 @@ import java.awt.print.PrinterJob;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -31,7 +28,6 @@ public class CreateBill extends javax.swing.JFrame {
 
     private UserModel userModel;
     private BeverageController beverageController;
-    private BeverageModel beverageModel;
     private BillModel billModel;
     private BillController billController;
     private BillDetailController billDetailController;
@@ -48,17 +44,24 @@ public class CreateBill extends javax.swing.JFrame {
 
     private void initTable() {
         beverageController = new BeverageController();
-        List<BeverageModel> bModel = beverageController.get();
+        List<BeverageModel> beverageModel = beverageController.get();
 
-        DefaultTableModel defaulttablemodel = (DefaultTableModel)tableBeverage.getModel();
-        for(BeverageModel item : bModel){
+        DefaultTableModel defaulttablemodel = (DefaultTableModel) tableBeverage.getModel();
+        for (BeverageModel item : beverageModel) {
             Object[] data = new Object[3];
             data[0] = item.getId();
             data[1] = item.getName();
             data[2] = item.getPrice();
-
             defaulttablemodel.addRow(data);
         }
+    }
+
+    private void resetTextFields() {
+        textSubtotal.setText("");
+        textTotalAmount.setText("");
+        textDiscount.setText("0");
+        textTotal.setText("");
+        textCash.setText("");
     }
 
     /**
@@ -387,169 +390,138 @@ public class CreateBill extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-    
-    
-    public void setUser(UserModel model){
+
+    public void setUser(UserModel model) {
         userModel = new UserModel();
         userModel.setId(model.getId());
         userModel.setUsername(model.getUsername());
         userModel.setRole(model.getRole());
     }
-    
+
     private void buttonInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonInsertActionPerformed
         float subTotal = 0;
-        int totalAllAmount = 0;
+        int totalAmountAll = 0;
         float total = 0;
-
-        
-        
         boolean checkInput = true;
-        //Check amount input
+
+        // Check amount input
         for (int i = 0; i < tableBeverage.getRowCount(); i++) {
             try {
-                //Check non null rows
-
-                if(tableBeverage.getValueAt(i, 3) != null){
+                //Check not-null rows
+                if (tableBeverage.getValueAt(i, 3) != null) {
                     //Convert to int
                     int amount = Integer.valueOf((String) tableBeverage.getValueAt(i, 3));
-                    if(amount <= 0){
-
+                    if (amount <= 0) {
                         checkInput = false;
-                        JOptionPane.showMessageDialog(this, "Số lượng phải lớn hơn 0", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                        //Empty all text field
-                        textSubtotal.setText("");
-                        textTotalAmount.setText("");
-                        textDiscount.setText("0");
-                        textTotal.setText("");
-                        textCash.setText("");
-                        //Empty row
+                        OptionPane.showMessageDialog("Lỗi", "Số lượng phải lớn hơn 0.");
+
+                        // Empty all text field
+                        resetTextFields();
+
+                        // Empty row
                         tableBeverage.setValueAt(null, i, 3);
                     }
                 }
-            } catch (Exception e) {
+            } catch (Exception ex) {
                 checkInput = false;
-                JOptionPane.showMessageDialog(this, "Số lượng phải là số nguyên", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                //Empty all text field
-                textSubtotal.setText("");
-                textTotalAmount.setText("");
-                textDiscount.setText("0");
-                textTotal.setText("");
-                textCash.setText("");
-                //Empty row
+                OptionPane.showMessageDialog("Lỗi", "Số lượng phải là số nguyên.");
 
+                // Empty all text field
+                resetTextFields();
+
+                // Empty row
                 tableBeverage.setValueAt(null, i, 3);
-                }
-
-//                tableBeverage.setValueAt(null, i, 2);
-//            }
-
+            }
         }
 
         if (checkInput == true) {
             try {
-                //Calculate total money and total amount
+                // Calculate subtotal and total amount
+                for (int i = 0; i < tableBeverage.getRowCount(); i++) {
+                    if (tableBeverage.getValueAt(i, 3) != null) {
+                        // Total of a beverage
+                        float rowTotal = 0;
+                        rowTotal = (int) tableBeverage.getValueAt(i, 2) * Integer.valueOf(tableBeverage.getValueAt(i, 3).toString());
 
-                for(int i = 0; i < tableBeverage.getRowCount(); i++){
-                    if(tableBeverage.getValueAt(i, 3) != null){
-                        float rowTotal = 0;//Total of a beverage
-                       
-                        rowTotal = (int)tableBeverage.getValueAt(i, 2)  * Integer.valueOf(tableBeverage.getValueAt(i, 3).toString());
-                   
                         subTotal = subTotal + rowTotal;
-                        totalAllAmount = totalAllAmount + Integer.valueOf((String) tableBeverage.getValueAt(i, 3));
+                        totalAmountAll = totalAmountAll + Integer.valueOf((String) tableBeverage.getValueAt(i, 3));
                     }
-
                 }
 
-                
-                textSubtotal.setText(String.valueOf(subTotal));//Show subtotal
+                // Show subtotal
+                textSubtotal.setText(String.valueOf(subTotal));
 
-                textTotalAmount.setText(String.valueOf(totalAllAmount));//show total amount
+                // Show total amount
+                textTotalAmount.setText(String.valueOf(totalAmountAll));
 
+                // Show total
                 billController = new BillController();
-
                 total = billController.applyDiscount(subTotal);
 
- //               textTotal.setText(Float.toString(total));//Show total
-            
+                textTotal.setText(String.valueOf(total));
 
-                textTotal.setText(String.valueOf(total));//Show total
-
-
+                // Show discount
                 String discount = billController.calculateDiscount(subTotal);
-                textDiscount.setText(discount);//Show discount
-
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Lỗi khi lấy dữ liệu từ bảng thức uống", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                e.printStackTrace();
+                
+                textDiscount.setText(discount);
+            } catch (Exception ex) {
+                OptionPane.showMessageDialog("Lỗi", "Lỗi khi lấy dữ liệu từ bảng thức uống.");
             }
         }
-
     }//GEN-LAST:event_buttonInsertActionPerformed
 
     private void buttonReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonReturnActionPerformed
-
         this.dispose();
     }//GEN-LAST:event_buttonReturnActionPerformed
 
     private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelActionPerformed
-        //Empty all text field
-        textSubtotal.setText("");
-        textTotalAmount.setText("");
-        textDiscount.setText("0");
-        textTotal.setText("");
-        textCash.setText("");
+        // Empty all text field
+        resetTextFields();
 
-        //Empty table
-
-        for(int i = 0; i < tableBeverage.getRowCount(); i++){
+        // Reset table
+        for (int i = 0; i < tableBeverage.getRowCount(); i++) {
             tableBeverage.setValueAt(null, i, 3);
-//
-//        for (int i = 0; i < tableBeverage.getRowCount(); i++) {
-//            tableBeverage.setValueAt(null, i, 2);
-
         }
     }//GEN-LAST:event_buttonCancelActionPerformed
 
     private void buttonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUpdateActionPerformed
-
         billModel = new BillModel();
         List<BillDetailModel> billDetailModels = new ArrayList<>();
-        
+
         float changeMoney = Float.valueOf(textCash.getText()) - Float.valueOf(textTotal.getText());
         textChange.setText(Float.toString(changeMoney));
-        java.util.Date date= new java.util.Date();
+        java.util.Date date = new java.util.Date();
         Timestamp ts = new Timestamp(date.getTime());
-        //Set data to billmodel
-
-
+        
+        // Set data to billModel
         billModel.setCreatorId(userModel.getId());
         billModel.setTotalAmount(Integer.valueOf(textTotalAmount.getText()));
         billModel.setSubtotal(Float.valueOf(textTotal.getText()));
         billModel.setDiscount(Float.valueOf(textDiscount.getText()));
-
         billModel.setTotal(Float.valueOf(textTotal.getText()));
         billModel.setCash(Float.valueOf(textCash.getText()));
         billModel.setChangeMoney(changeMoney);
         billModel.setCreateTime(ts);
-        
-        //post bill model to database
+
+        // Post bill model to database
         billController = new BillController();
         billController.post(billModel);
-        
-        //get data
+
+        // Get data
         billDetailController = new BillDetailController();
         int LastID = billController.getLastBillModelID();
-        //browse table
-        for(int i = 0; i < tableBeverage.getRowCount(); i++){
-            if(tableBeverage.getValueAt(i, 3) != null){
+        
+        // Browse table
+        for (int i = 0; i < tableBeverage.getRowCount(); i++) {
+            if (tableBeverage.getValueAt(i, 3) != null) {
+                // Set bill detail values
                 billDetailModel = new BillDetailModel();
-                //set bill detail values
                 billDetailModel.setBillId(LastID);
                 billDetailModel.setBeverageId(Integer.valueOf(tableBeverage.getValueAt(i, 0).toString()));
                 billDetailModel.setAmount(Integer.valueOf(tableBeverage.getValueAt(i, 3).toString()));
                 billDetailModels.add(billDetailModel);
-                //insert bill details data into databse
+                
+                // Insert bill details data into databse
                 billDetailController.post(billDetailModel);
             }
         }
@@ -563,9 +535,8 @@ public class CreateBill extends javax.swing.JFrame {
             PrinterJob pj = PrinterJob.getPrinterJob();
             pj.setPrintable(new BillUtils(billModel, rootPane), utils.getPageFormat(pj));
             pj.print();
-            
         } catch (PrinterException ex) {
-            Logger.getLogger(CreateBill.class.getName()).log(Level.SEVERE, null, ex);
+            OptionPane.showMessageDialog("Lỗi", "Xảy ra lỗi khi in hóa đơn.");
         }
     }//GEN-LAST:event_buttonConfirmActionPerformed
 

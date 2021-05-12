@@ -2,7 +2,7 @@
 
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
-    <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="defaultCloseOperation" type="int" value="2"/>
     <Property name="title" type="java.lang.String" value="KAT - Chi ti&#x1ebf;t h&#xf3;a &#x111;&#x1a1;n"/>
     <Property name="resizable" type="boolean" value="false"/>
   </Properties>
@@ -27,39 +27,8 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="labelTitle" alignment="1" max="32767" attributes="0"/>
           <Group type="102" attributes="0">
-              <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              <Component id="buttonReturn" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          </Group>
-                          <Component id="scrollPaneTable" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="labelChangeMoney" min="-2" max="-2" attributes="0"/>
-                                  <Component id="labelReceivedMoney" min="-2" max="-2" attributes="0"/>
-                                  <Component id="labelMoneyToPay" min="-2" max="-2" attributes="0"/>
-                                  <Component id="labelDiscount" min="-2" max="-2" attributes="0"/>
-                                  <Component id="labelTotal" linkSize="6" min="-2" max="-2" attributes="0"/>
-                                  <Component id="labelAmountTotal" linkSize="6" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="labelChangeMoneyValue" linkSize="7" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="labelReceivedMoneyValue" linkSize="7" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="labelMoneyToPayValue" linkSize="7" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="labelDiscountValue" linkSize="7" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="labelTotalValue" linkSize="7" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="labelAmountTotalValue" linkSize="7" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                  </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="labelCreatorId" linkSize="6" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -68,13 +37,38 @@
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="labelCreatorIdValue" linkSize="7" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="labelCreateTimeValue" linkSize="7" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="labelBillIdValue" linkSize="7" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="labelBillIdValue" max="32767" attributes="0"/>
+                          <Component id="labelCreatorIdValue" max="32767" attributes="0"/>
+                          <Component id="labelCreateTimeValue" alignment="0" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="buttonReturn" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
+                  <Component id="scrollPaneTable" alignment="0" pref="464" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="labelChange" min="-2" max="-2" attributes="0"/>
+                          <Component id="labelCash" min="-2" max="-2" attributes="0"/>
+                          <Component id="labelTotal" min="-2" max="-2" attributes="0"/>
+                          <Component id="labelDiscount" min="-2" max="-2" attributes="0"/>
+                          <Component id="labelSubtotal" linkSize="6" min="-2" max="-2" attributes="0"/>
+                          <Component id="labelTotalAmount" linkSize="6" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="labelTotalAmountValue" max="32767" attributes="0"/>
+                          <Component id="labelSubtotalValue" alignment="0" max="32767" attributes="0"/>
+                          <Component id="labelDiscountValue" alignment="0" max="32767" attributes="0"/>
+                          <Component id="labelTotalValue" alignment="0" max="32767" attributes="0"/>
+                          <Component id="labelCashValue" max="32767" attributes="0"/>
+                          <Component id="labelChangeValue" alignment="0" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
               </Group>
+              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -100,38 +94,38 @@
                       <Component id="labelCreateTimeValue" linkSize="8" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="scrollPaneTable" min="-2" pref="200" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+              <Component id="scrollPaneTable" pref="222" max="32767" attributes="0"/>
+              <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="labelAmountTotal" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelTotalAmount" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-                      <Component id="labelTotal" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelSubtotal" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                       <Component id="labelDiscount" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-                      <Component id="labelMoneyToPay" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelTotal" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-                      <Component id="labelReceivedMoney" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelCash" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-                      <Component id="labelChangeMoney" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelChange" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="labelAmountTotalValue" linkSize="8" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelTotalAmountValue" linkSize="8" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-                      <Component id="labelTotalValue" linkSize="8" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelSubtotalValue" linkSize="8" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                       <Component id="labelDiscountValue" linkSize="8" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-                      <Component id="labelMoneyToPayValue" linkSize="8" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelTotalValue" linkSize="8" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-                      <Component id="labelReceivedMoneyValue" linkSize="8" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelCashValue" linkSize="8" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-                      <Component id="labelChangeMoneyValue" linkSize="8" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelChangeValue" linkSize="8" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
               <Component id="buttonReturn" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
           </Group>
@@ -148,111 +142,52 @@
         <Property name="text" type="java.lang.String" value="CHI TI&#x1ebe;T H&#xd3;A &#x110;&#x1a0;N"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="buttonReturn">
+    <Component class="javax.swing.JLabel" name="labelBillId">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Times New Roman" size="22" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Tr&#x1edf; v&#x1ec1;"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonReturnActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JLabel" name="labelAmountTotal">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Times New Roman" size="22" style="0"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="T&#x1ed5;ng s&#x1ed1; l&#x1b0;&#x1ee3;ng:"/>
+        <Property name="text" type="java.lang.String" value=" ID h&#xf3;a &#x111;&#x1a1;n:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="labelTotal">
+    <Component class="javax.swing.JLabel" name="labelBillIdValue">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Times New Roman" size="22" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="T&#x1ed5;ng ti&#x1ec1;n h&#xf3;a &#x111;&#x1a1;n:"/>
+        <Property name="text" type="java.lang.String" value="..."/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="labelDiscount">
+    <Component class="javax.swing.JLabel" name="labelCreatorId">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Times New Roman" size="22" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Khuy&#x1ebf;n m&#xe3;i:"/>
+        <Property name="text" type="java.lang.String" value=" Ng&#x1b0;&#x1edd;i t&#x1ea1;o:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="labelMoneyToPay">
+    <Component class="javax.swing.JLabel" name="labelCreatorIdValue">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Times New Roman" size="22" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Ti&#x1ec1;n ph&#x1ea3;i tr&#x1ea3;:"/>
+        <Property name="text" type="java.lang.String" value="..."/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="labelReceivedMoney">
+    <Component class="javax.swing.JLabel" name="labelCreateTime">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Times New Roman" size="22" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Ti&#x1ec1;n nh&#x1ead;n:"/>
+        <Property name="text" type="java.lang.String" value=" Ng&#xe0;y t&#x1ea1;o:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="labelChangeMoney">
+    <Component class="javax.swing.JLabel" name="labelCreateTimeValue">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Times New Roman" size="22" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Ti&#x1ec1;n th&#x1ed1;i l&#x1ea1;i:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="labelAmountTotalValue">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Times New Roman" size="22" style="0"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="T&#x1ed5;ng s&#x1ed1; th&#x1ee9;c u&#x1ed1;ng"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="labelTotalValue">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Times New Roman" size="22" style="0"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="T&#x1ed5;ng ti&#x1ec1;n h&#xf3;a &#x111;&#x1a1;n"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="labelDiscountValue">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Times New Roman" size="22" style="0"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="S&#x1ed1; ti&#x1ec1;n &#x111;&#x1b0;&#x1ee3;c khuy&#x1ebf;n m&#xe3;i"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="labelMoneyToPayValue">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Times New Roman" size="22" style="0"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="S&#x1ed1; ti&#x1ec1;n kh&#xe1;ch h&#xe0;ng ph&#x1ea3;i tr&#x1ea3;"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="labelReceivedMoneyValue">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Times New Roman" size="22" style="0"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="S&#x1ed1; ti&#x1ec1;n nh&#x1ead;n t&#x1eeb; kh&#xe1;ch h&#xe0;ng"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="labelChangeMoneyValue">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Times New Roman" size="22" style="0"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="S&#x1ed1; ti&#x1ec1;n th&#x1ed1;i l&#x1ea1;i"/>
+        <Property name="text" type="java.lang.String" value="..."/>
       </Properties>
     </Component>
     <Container class="javax.swing.JScrollPane" name="scrollPaneTable">
@@ -306,53 +241,112 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JLabel" name="labelCreatorId">
+    <Component class="javax.swing.JLabel" name="labelTotalAmount">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Times New Roman" size="22" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Ng&#x1b0;&#x1edd;i t&#x1ea1;o:"/>
+        <Property name="text" type="java.lang.String" value=" T&#x1ed5;ng s&#x1ed1; l&#x1b0;&#x1ee3;ng:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="labelBillIdValue">
+    <Component class="javax.swing.JLabel" name="labelTotalAmountValue">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Times New Roman" size="22" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="ID h&#xf3;a &#x111;&#x1a1;n"/>
+        <Property name="text" type="java.lang.String" value="..."/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="labelCreateTimeValue">
+    <Component class="javax.swing.JLabel" name="labelSubtotal">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Times New Roman" size="22" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Ng&#xe0;y t&#x1ea1;o"/>
+        <Property name="text" type="java.lang.String" value=" T&#x1ed5;ng ti&#x1ec1;n:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="labelBillId">
+    <Component class="javax.swing.JLabel" name="labelSubtotalValue">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Times New Roman" size="22" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="ID h&#xf3;a &#x111;&#x1a1;n:"/>
+        <Property name="text" type="java.lang.String" value="..."/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="labelCreatorIdValue">
+    <Component class="javax.swing.JLabel" name="labelDiscount">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Times New Roman" size="22" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="ID ng&#x1b0;&#x1edd;i t&#x1ea1;o"/>
+        <Property name="text" type="java.lang.String" value=" Khuy&#x1ebf;n m&#xe3;i:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="labelCreateTime">
+    <Component class="javax.swing.JLabel" name="labelDiscountValue">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Times New Roman" size="22" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Ng&#xe0;y t&#x1ea1;o:"/>
+        <Property name="text" type="java.lang.String" value="..."/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="labelTotal">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Times New Roman" size="22" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value=" Th&#xe0;nh ti&#x1ec1;n:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="labelTotalValue">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Times New Roman" size="22" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="..."/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="labelCash">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Times New Roman" size="22" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value=" Ti&#x1ec1;n nh&#x1ead;n:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="labelCashValue">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Times New Roman" size="22" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="..."/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="labelChange">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Times New Roman" size="22" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value=" Ti&#x1ec1;n th&#x1ed1;i:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="labelChangeValue">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Times New Roman" size="22" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="..."/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="buttonReturn">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Times New Roman" size="22" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Tr&#x1edf; v&#x1ec1;"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonReturnActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

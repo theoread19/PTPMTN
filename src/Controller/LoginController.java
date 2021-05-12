@@ -7,16 +7,12 @@ package Controller;
 
 import Config.DBConnection;
 import Model.UserModel;
-import View.SignIn;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -25,35 +21,32 @@ import javax.swing.JOptionPane;
 public class LoginController {
 
     private DBConnection connection;
-    private Connection con ;
+    private Connection con;
 
     public LoginController() {
         try {
             connection = new DBConnection();
             con = connection.connectDB();
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
+        } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public UserModel handleLogin(String username, String password) {
         String sql = "select * from user";
-        
+
         UserModel model = new UserModel();
         try {
             Statement stm = con.createStatement();
             ResultSet rs = stm.executeQuery(sql);
-            
-            while(rs.next()){
-                if (username.equals(rs.getString("username")) && password.equals(rs.getString("password"))){
-                    model.setId(rs.getInt("id"));              
+
+            while (rs.next()) {
+                if (username.equals(rs.getString("username")) && password.equals(rs.getString("password"))) {
+                    model.setId(rs.getInt("id"));
                     model.setUsername(rs.getString("username"));
                     model.setRole(rs.getString("role"));
                 }
-            }    
-            
+            }
         } catch (SQLException ex) {
             try {
                 Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
@@ -65,12 +58,13 @@ public class LoginController {
         }
         return model;
     }
-    
-    public void closeLogin(){
+
+    public void closeLogin() {
         try {
             con.close();
         } catch (SQLException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
 }
