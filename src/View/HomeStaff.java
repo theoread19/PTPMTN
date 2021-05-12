@@ -76,7 +76,7 @@ public class HomeStaff extends javax.swing.JFrame {
         });
         menuBar.add(menuCreateBill);
 
-        menuUser.setText("Tên người dùng");
+        menuUser.setText("Tên người dùng   ");
         menuUser.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
 
         menuItemSignOut.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
@@ -134,7 +134,7 @@ public class HomeStaff extends javax.swing.JFrame {
         userModel.setId(model.getId());
         userModel.setRole(model.getRole());
         userModel.setUsername(model.getUsername());
-        menuUser.setText(userModel.getUsername());
+        menuUser.setText(userModel.getUsername() + "   ");
     }
 
     private void setInterface() {

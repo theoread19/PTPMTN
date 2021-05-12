@@ -130,7 +130,7 @@ public class HomeAdmin extends javax.swing.JFrame {
         });
         menuBar.add(menuManageBeverage);
 
-        menuUser.setText("Tên người dùng");
+        menuUser.setText("Tên người dùng   ");
         menuUser.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
 
         menuItemSignOut.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
@@ -196,7 +196,7 @@ public class HomeAdmin extends javax.swing.JFrame {
         userModel.setId(model.getId());
         userModel.setUsername(model.getUsername());
         userModel.setRole(model.getRole());
-        menuUser.setText(model.getUsername());
+        menuUser.setText(model.getUsername() + "   ");
     }
 
     private void setInterface() {
