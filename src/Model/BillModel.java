@@ -26,7 +26,7 @@ public class BillModel {
     private float cash;
     private float changeMoney;
 
-    private float subtotal;
+
     private List<BillDetailModel> beverages = new ArrayList<BillDetailModel>();
     
     public BillModel(){
@@ -43,11 +43,11 @@ public class BillModel {
 
 
     public float getSubtotal() {
-        return subtotal;
+        return subTotal;
     }
 
     public void setSubtotal(float subtotal) {
-        this.subtotal = subtotal;
+        this.subTotal = subtotal;
     }
     
     public int getId() {

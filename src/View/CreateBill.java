@@ -11,8 +11,15 @@ import Controller.BillDetailController;
 import Model.BeverageModel;
 import Model.BillDetailModel;
 import Model.BillModel;
+import Model.UserModel;
+import Utils.BillUtils;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -22,6 +29,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class CreateBill extends javax.swing.JFrame {
 
+    private UserModel userModel;
     private BeverageController beverageController;
     private BeverageModel beverageModel;
     private BillModel billModel;
@@ -48,12 +56,6 @@ public class CreateBill extends javax.swing.JFrame {
             data[0] = item.getId();
             data[1] = item.getName();
             data[2] = item.getPrice();
-
-//        DefaultTableModel defaulttablemodel = (DefaultTableModel) tableBeverage.getModel();
-//        for (BeverageModel item : bModel) {
-//            Object[] data = new Object[2];
-//            data[0] = item.getName();
-//            data[1] = item.getPrice();
 
             defaulttablemodel.addRow(data);
         }
@@ -242,7 +244,11 @@ public class CreateBill extends javax.swing.JFrame {
 
         buttonConfirm.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
         buttonConfirm.setText("In");
-        buttonConfirm.setEnabled(false);
+        buttonConfirm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonConfirmActionPerformed(evt);
+            }
+        });
 
         buttonReturn.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
         buttonReturn.setText("Trở về");
@@ -381,12 +387,22 @@ public class CreateBill extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    
+    public void setUser(UserModel model){
+        userModel = new UserModel();
+        userModel.setId(model.getId());
+        userModel.setUsername(model.getUsername());
+        userModel.setRole(model.getRole());
+    }
+    
     private void buttonInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonInsertActionPerformed
         float subTotal = 0;
         int totalAllAmount = 0;
         float total = 0;
 
+        
+        
         boolean checkInput = true;
         //Check amount input
         for (int i = 0; i < tableBeverage.getRowCount(); i++) {
@@ -397,11 +413,6 @@ public class CreateBill extends javax.swing.JFrame {
                     //Convert to int
                     int amount = Integer.valueOf((String) tableBeverage.getValueAt(i, 3));
                     if(amount <= 0){
-
-//                if (tableBeverage.getValueAt(i, 2) != null) {
-//                    //Convert to int
-//                    int amount = Integer.valueOf((String) tableBeverage.getValueAt(i, 2));
-//                    if (amount <= 0) {
 
                         checkInput = false;
                         JOptionPane.showMessageDialog(this, "Số lượng phải lớn hơn 0", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
@@ -443,22 +454,13 @@ public class CreateBill extends javax.swing.JFrame {
                         float rowTotal = 0;//Total of a beverage
                        
                         rowTotal = (int)tableBeverage.getValueAt(i, 2)  * Integer.valueOf(tableBeverage.getValueAt(i, 3).toString());
-                    
-
-//                for (int i = 0; i < tableBeverage.getRowCount(); i++) {
-//                    if (tableBeverage.getValueAt(i, 2) != null) {
-//                        float rowTotal = 0;//Total of a beverage
-//                        rowTotal = (int) tableBeverage.getValueAt(i, 1) * Integer.valueOf((String) tableBeverage.getValueAt(i, 2));
-//
-
+                   
                         subTotal = subTotal + rowTotal;
                         totalAllAmount = totalAllAmount + Integer.valueOf((String) tableBeverage.getValueAt(i, 3));
                     }
 
                 }
 
-            
- //               textTotal.setText(Float.toString(subTotal));//Show subtotal
                 
                 textSubtotal.setText(String.valueOf(subTotal));//Show subtotal
 
@@ -512,7 +514,7 @@ public class CreateBill extends javax.swing.JFrame {
     private void buttonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUpdateActionPerformed
 
         billModel = new BillModel();
-
+        List<BillDetailModel> billDetailModels = new ArrayList<>();
         
         float changeMoney = Float.valueOf(textCash.getText()) - Float.valueOf(textTotal.getText());
         textChange.setText(Float.toString(changeMoney));
@@ -520,14 +522,8 @@ public class CreateBill extends javax.swing.JFrame {
         Timestamp ts = new Timestamp(date.getTime());
         //Set data to billmodel
 
-//
-//        float changeMoney = Float.valueOf(textCash.getText()) - Float.valueOf(textTotal.getText());
-//
-//        java.util.Date date = new java.util.Date();
-//        Timestamp ts = new Timestamp(date.getTime());
 
-
-        billModel.setCreatorId(1);
+        billModel.setCreatorId(userModel.getId());
         billModel.setTotalAmount(Integer.valueOf(textTotalAmount.getText()));
         billModel.setSubtotal(Float.valueOf(textTotal.getText()));
         billModel.setDiscount(Float.valueOf(textDiscount.getText()));
@@ -552,22 +548,26 @@ public class CreateBill extends javax.swing.JFrame {
                 billDetailModel.setBillId(LastID);
                 billDetailModel.setBeverageId(Integer.valueOf(tableBeverage.getValueAt(i, 0).toString()));
                 billDetailModel.setAmount(Integer.valueOf(tableBeverage.getValueAt(i, 3).toString()));
+                billDetailModels.add(billDetailModel);
                 //insert bill details data into databse
                 billDetailController.post(billDetailModel);
             }
         }
-        
-
-//        billModel.setTotal(Float.valueOf(textTotal.getText()));
-//        billModel.setReceivedMoney(Integer.valueOf(textCash.getText()));
-//        billModel.setChangeMoney(changeMoney);
-//        billModel.setCreateTime(ts);
-//
-//        billController = new BillController();
-//        billController.post(billModel);
-//
-//>>>>>>> view
+        billModel.setBeverages(billDetailModels);
     }//GEN-LAST:event_buttonUpdateActionPerformed
+
+    private void buttonConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConfirmActionPerformed
+        try {
+            BillUtils utils = new BillUtils();
+            utils.setBill(billModel, rootPane);
+            PrinterJob pj = PrinterJob.getPrinterJob();
+            pj.setPrintable(new BillUtils(billModel, rootPane), utils.getPageFormat(pj));
+            pj.print();
+            
+        } catch (PrinterException ex) {
+            Logger.getLogger(CreateBill.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_buttonConfirmActionPerformed
 
     private void setInterface() {
         // Set frame interface

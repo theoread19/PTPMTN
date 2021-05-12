@@ -165,7 +165,10 @@ public class HomeStaff extends javax.swing.JFrame {
      * @param model 
      */
     public void setUser(UserModel model){
-        userModel = staffController.get(model);
+        userModel.setId(model.getId());
+        userModel.setRole(model.getRole());
+        userModel.setUsername(model.getUsername());
+        menuUser.setText(userModel.getUsername());
     }
     private void setInterface() {
         // Set frame interface
@@ -181,6 +184,7 @@ public class HomeStaff extends javax.swing.JFrame {
     
     private void buttonCreateBillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCreateBillActionPerformed
         CreateBill form = new CreateBill();
+        form.setUser(userModel);
         form.setVisible(true);
     }//GEN-LAST:event_buttonCreateBillActionPerformed
 

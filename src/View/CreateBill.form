@@ -378,8 +378,10 @@
                   <Font name="Times New Roman" size="22" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="In"/>
-                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonConfirmActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="buttonReturn">
               <Properties>

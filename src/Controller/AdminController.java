@@ -13,9 +13,4 @@ import Model.UserModel;
  */
 public class AdminController {
     
-    public UserModel get(UserModel model){
-        UserModel userModel = new UserModel();
-        userModel.setUsername(model.getUsername());
-        return model;
-    }
 }

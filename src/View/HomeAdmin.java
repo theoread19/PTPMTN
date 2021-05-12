@@ -195,7 +195,9 @@ public class HomeAdmin extends javax.swing.JFrame {
      * @param model
      */
     public void setUser(UserModel model) {
-        userModel = adminController.get(model);
+        userModel.setId(model.getId());
+        userModel.setUsername(model.getUsername());
+        userModel.setRole(model.getRole());
         menuUser.setText(model.getUsername());
     }
 
@@ -213,6 +215,7 @@ public class HomeAdmin extends javax.swing.JFrame {
 
     private void buttonCreateBillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCreateBillActionPerformed
         CreateBill form = new CreateBill();
+        form.setUser(userModel);
         form.setVisible(true);
     }//GEN-LAST:event_buttonCreateBillActionPerformed
 
@@ -229,6 +232,7 @@ public class HomeAdmin extends javax.swing.JFrame {
 
     private void menuItemCreateBillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCreateBillActionPerformed
         CreateBill form = new CreateBill();
+        form.setUser(userModel);
         form.setVisible(true);
     }//GEN-LAST:event_menuItemCreateBillActionPerformed
 

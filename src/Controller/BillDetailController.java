@@ -59,6 +59,7 @@ public class BillDetailController {
                 + "values ('" + model.getBillId() + "','" + model.getBeverageId() + "','" + model.getAmount() + "' )";
 
         try {
+            con = connection.connectDB();
             Statement stm = con.createStatement();
             stm.executeUpdate(sql);
             con.close();
@@ -69,6 +70,8 @@ public class BillDetailController {
             } catch (SQLException ex1) {
                 Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex1);
             }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(BillDetailController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
