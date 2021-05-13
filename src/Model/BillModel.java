@@ -23,7 +23,7 @@ public class BillModel {
     private float subTotal;
     private int totalAmount;
     private float cash;
-    private float changeMoney;
+    private float change;
 
     private List<BillDetailModel> beverages = new ArrayList<>();
 
@@ -36,7 +36,7 @@ public class BillModel {
         subTotal = -1;
         totalAmount = -1;
         cash = -1;
-        changeMoney = -1;
+        change = -1;
     }
 
     public float getSubtotal() {
@@ -103,12 +103,12 @@ public class BillModel {
         this.cash = receivedMoney;
     }
 
-    public float getChangeMoney() {
-        return changeMoney;
+    public float getChange() {
+        return change;
     }
 
-    public void setChangeMoney(float changeMoney) {
-        this.changeMoney = changeMoney;
+    public void setChange(float change) {
+        this.change = change;
     }
 
     public List<BillDetailModel> getBeverages() {

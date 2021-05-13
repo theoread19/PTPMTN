@@ -60,6 +60,11 @@ public class ViewBillHistory extends javax.swing.JFrame {
 
         buttonReturn.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
         buttonReturn.setText("Trở về");
+        buttonReturn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonReturnActionPerformed(evt);
+            }
+        });
 
         tableBillHistory.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
         tableBillHistory.setModel(new javax.swing.table.DefaultTableModel(
@@ -138,6 +143,10 @@ public class ViewBillHistory extends javax.swing.JFrame {
             OptionPane.showMessageDialog("Lỗi", "Chưa chọn dòng nào trong bảng.");
         }
     }//GEN-LAST:event_buttonDetailActionPerformed
+
+    private void buttonReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonReturnActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_buttonReturnActionPerformed
 
     private void setInterface() {
         // Set frame interface

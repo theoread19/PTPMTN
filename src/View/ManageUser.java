@@ -382,6 +382,8 @@ public class ManageUser extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonInsertActionPerformed
 
     private void buttonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteActionPerformed
+        // Check user
+
         // Other stuffs
         int selectedRow = tableUser.getSelectedRow();
         userController.delete((int) tableUser.getValueAt(selectedRow, 0));

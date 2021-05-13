@@ -54,7 +54,7 @@ public class BillController {
 
     public void post(BillModel model) {
         String sql = "insert into bill(creatorId,createTime,totalAmount,subTotal,discount,total,cash,`change`) "
-                + "values (" + model.getCreatorId() + ",'" + model.getCreateTime() + "'," + model.getTotalAmount() + "," + model.getSubtotal() + "," + model.getDiscount() + "," + model.getTotal() + "," + model.getCash() + "," + model.getChangeMoney() + " )";
+                + "values (" + model.getCreatorId() + ",'" + model.getCreateTime() + "'," + model.getTotalAmount() + "," + model.getSubtotal() + "," + model.getDiscount() + "," + model.getTotal() + "," + model.getCash() + "," + model.getChange() + " )";
 
         try {
             con = connection.connectDB();
@@ -83,7 +83,7 @@ public class BillController {
                 bModel.setDiscount(rs.getFloat("discount"));
                 bModel.setTotal(rs.getFloat("total"));
                 bModel.setCash(rs.getFloat("cash"));
-                bModel.setChangeMoney(rs.getFloat("change"));
+                bModel.setChange(rs.getFloat("change"));
                 bModel.setBeverages(billDetailController.get(bModel.getId()));
                 billModel.add(bModel);
             }
@@ -111,7 +111,7 @@ public class BillController {
             bModel.setDiscount(rs.getFloat("discount"));
             bModel.setTotal(rs.getFloat("total"));
             bModel.setCash(rs.getFloat("cash"));
-            bModel.setChangeMoney(rs.getFloat("change"));
+            bModel.setChange(rs.getFloat("change"));
             bModel.setBeverages(billDetailController.get(bModel.getId()));
             bModel.setTotalAmount(rs.getInt("totalAmount"));
             con.close();

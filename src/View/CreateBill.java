@@ -39,6 +39,8 @@ public class CreateBill extends javax.swing.JFrame {
     public CreateBill() {
         initComponents();
         setInterface();
+        resetTextFields();
+        resetComponents();
         initTable();
     }
 
@@ -56,12 +58,41 @@ public class CreateBill extends javax.swing.JFrame {
         }
     }
 
+    private void setInterface() {
+        // Set frame interface
+        Settings.setFrameInterface(this);
+
+        // Set table interface
+        Settings.setTableInterface(tableBeverage, scrollPaneTable);
+
+        // Set components
+        panelLeft.setBackground(Settings.contponentBackgroundColor);
+        panelTopLeft.setBackground(Settings.contponentBackgroundColor);
+        panelBottomLeft.setBackground(Settings.contponentBackgroundColor);
+    }
+
     private void resetTextFields() {
-        textSubtotal.setText("");
-        textTotalAmount.setText("");
+        textTotalAmount.setText("0");
+        textSubtotal.setText("0.0");
         textDiscount.setText("0");
-        textTotal.setText("");
+        textTotal.setText("0.0");
+        textCash.setEnabled(false);
         textCash.setText("");
+        textChange.setText("");
+    }
+
+    private void resetComponents() {
+        buttonCreate.setEnabled(true);
+        buttonCalculate.setEnabled(false);
+        buttonCancel.setEnabled(false);
+        buttonPrint.setEnabled(false);
+        tableBeverage.setEnabled(true);
+    }
+
+    private void resetTable() {
+        for (int i = 0; i < tableBeverage.getRowCount(); i++) {
+            tableBeverage.setValueAt(null, i, 3);
+        }
     }
 
     /**
@@ -91,10 +122,10 @@ public class CreateBill extends javax.swing.JFrame {
         textChange = new javax.swing.JTextField();
         panelLeftSeparator = new javax.swing.JSeparator();
         panelBottomLeft = new javax.swing.JPanel();
-        buttonInsert = new javax.swing.JButton();
-        buttonUpdate = new javax.swing.JButton();
+        buttonCreate = new javax.swing.JButton();
+        buttonCalculate = new javax.swing.JButton();
         buttonCancel = new javax.swing.JButton();
-        buttonConfirm = new javax.swing.JButton();
+        buttonPrint = new javax.swing.JButton();
         buttonReturn = new javax.swing.JButton();
         panelRight = new javax.swing.JPanel();
         scrollPaneTable = new javax.swing.JScrollPane();
@@ -117,12 +148,14 @@ public class CreateBill extends javax.swing.JFrame {
         labelTotalAmount.setText("Tổng số lượng:");
 
         textTotalAmount.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        textTotalAmount.setText("0");
         textTotalAmount.setEnabled(false);
 
         labelSubtotal.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
         labelSubtotal.setText("Tổng tiền:");
 
         textSubtotal.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        textSubtotal.setText("0.0");
         textSubtotal.setEnabled(false);
 
         labelDiscount.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
@@ -133,9 +166,10 @@ public class CreateBill extends javax.swing.JFrame {
         textDiscount.setEnabled(false);
 
         labelTotal.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
-        labelTotal.setText("Tiền phải trả:");
+        labelTotal.setText("Thành tiền:");
 
         textTotal.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        textTotal.setText("0.0");
         textTotal.setEnabled(false);
 
         labelCash.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
@@ -221,19 +255,19 @@ public class CreateBill extends javax.swing.JFrame {
 
         panelTopLeftLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {labelCash, labelDiscount, labelTotal, labelTotalAmount});
 
-        buttonInsert.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
-        buttonInsert.setText("Tạo");
-        buttonInsert.addActionListener(new java.awt.event.ActionListener() {
+        buttonCreate.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        buttonCreate.setText("Tạo");
+        buttonCreate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonInsertActionPerformed(evt);
+                buttonCreateActionPerformed(evt);
             }
         });
 
-        buttonUpdate.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
-        buttonUpdate.setText("Tính tiền");
-        buttonUpdate.addActionListener(new java.awt.event.ActionListener() {
+        buttonCalculate.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        buttonCalculate.setText("Tính tiền");
+        buttonCalculate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonUpdateActionPerformed(evt);
+                buttonCalculateActionPerformed(evt);
             }
         });
 
@@ -245,11 +279,11 @@ public class CreateBill extends javax.swing.JFrame {
             }
         });
 
-        buttonConfirm.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
-        buttonConfirm.setText("In");
-        buttonConfirm.addActionListener(new java.awt.event.ActionListener() {
+        buttonPrint.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        buttonPrint.setText("In");
+        buttonPrint.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonConfirmActionPerformed(evt);
+                buttonPrintActionPerformed(evt);
             }
         });
 
@@ -269,36 +303,36 @@ public class CreateBill extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelBottomLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelBottomLeftLayout.createSequentialGroup()
-                        .addComponent(buttonInsert)
+                        .addComponent(buttonCreate)
                         .addGap(18, 18, 18)
-                        .addComponent(buttonUpdate)
+                        .addComponent(buttonCalculate)
                         .addGap(18, 18, 18)
                         .addComponent(buttonCancel))
                     .addGroup(panelBottomLeftLayout.createSequentialGroup()
-                        .addComponent(buttonConfirm)
+                        .addComponent(buttonPrint)
                         .addGap(18, 18, 18)
                         .addComponent(buttonReturn)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        panelBottomLeftLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {buttonCancel, buttonConfirm, buttonInsert, buttonReturn, buttonUpdate});
+        panelBottomLeftLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {buttonCalculate, buttonCancel, buttonCreate, buttonPrint, buttonReturn});
 
         panelBottomLeftLayout.setVerticalGroup(
             panelBottomLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelBottomLeftLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(panelBottomLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonInsert)
-                    .addComponent(buttonUpdate)
+                    .addComponent(buttonCreate)
+                    .addComponent(buttonCalculate)
                     .addComponent(buttonCancel))
                 .addGap(18, 18, 18)
                 .addGroup(panelBottomLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonConfirm)
+                    .addComponent(buttonPrint)
                     .addComponent(buttonReturn))
                 .addGap(18, 18, 18))
         );
 
-        panelBottomLeftLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {buttonCancel, buttonConfirm, buttonInsert, buttonReturn, buttonUpdate});
+        panelBottomLeftLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {buttonCalculate, buttonCancel, buttonCreate, buttonPrint, buttonReturn});
 
         javax.swing.GroupLayout panelLeftLayout = new javax.swing.GroupLayout(panelLeft);
         panelLeft.setLayout(panelLeftLayout);
@@ -356,7 +390,7 @@ public class CreateBill extends javax.swing.JFrame {
         panelRight.setLayout(panelRightLayout);
         panelRightLayout.setHorizontalGroup(
             panelRightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneTable, javax.swing.GroupLayout.DEFAULT_SIZE, 514, Short.MAX_VALUE)
+            .addComponent(scrollPaneTable, javax.swing.GroupLayout.DEFAULT_SIZE, 690, Short.MAX_VALUE)
         );
         panelRightLayout.setVerticalGroup(
             panelRightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -398,9 +432,9 @@ public class CreateBill extends javax.swing.JFrame {
         userModel.setRole(model.getRole());
     }
 
-    private void buttonInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonInsertActionPerformed
+    private void buttonCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCreateActionPerformed
         float subTotal = 0;
-        int totalAmountAll = 0;
+        int totalAmount = 0;
         float total = 0;
         boolean checkInput = true;
 
@@ -442,9 +476,8 @@ public class CreateBill extends javax.swing.JFrame {
                         // Total of a beverage
                         float rowTotal = 0;
                         rowTotal = (int) tableBeverage.getValueAt(i, 2) * Integer.valueOf(tableBeverage.getValueAt(i, 3).toString());
-
                         subTotal = subTotal + rowTotal;
-                        totalAmountAll = totalAmountAll + Integer.valueOf((String) tableBeverage.getValueAt(i, 3));
+                        totalAmount = totalAmount + Integer.valueOf((String) tableBeverage.getValueAt(i, 3));
                     }
                 }
 
@@ -452,55 +485,80 @@ public class CreateBill extends javax.swing.JFrame {
                 textSubtotal.setText(String.valueOf(subTotal));
 
                 // Show total amount
-                textTotalAmount.setText(String.valueOf(totalAmountAll));
+                textTotalAmount.setText(String.valueOf(totalAmount));
 
                 // Show total
                 billController = new BillController();
                 total = billController.applyDiscount(subTotal);
-
                 textTotal.setText(String.valueOf(total));
 
                 // Show discount
                 String discount = billController.calculateDiscount(subTotal);
-                
                 textDiscount.setText(discount);
             } catch (Exception ex) {
                 OptionPane.showMessageDialog("Lỗi", "Lỗi khi lấy dữ liệu từ bảng thức uống.");
             }
         }
-    }//GEN-LAST:event_buttonInsertActionPerformed
+
+        // Check total amount
+        if (totalAmount < 1) {
+            OptionPane.showMessageDialog("Lỗi", "Không thể tạo hóa đơn trống.");
+            return;
+        }
+
+        // Set components
+        textCash.setEnabled(true);
+        buttonCreate.setEnabled(false);
+        buttonCalculate.setEnabled(true);
+        buttonCancel.setEnabled(true);
+        tableBeverage.setEnabled(false);
+    }//GEN-LAST:event_buttonCreateActionPerformed
 
     private void buttonReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonReturnActionPerformed
         this.dispose();
     }//GEN-LAST:event_buttonReturnActionPerformed
 
     private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelActionPerformed
-        // Empty all text field
+        // Reset everything
         resetTextFields();
-
-        // Reset table
-        for (int i = 0; i < tableBeverage.getRowCount(); i++) {
-            tableBeverage.setValueAt(null, i, 3);
-        }
+        resetComponents();
+        resetTable();
     }//GEN-LAST:event_buttonCancelActionPerformed
 
-    private void buttonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUpdateActionPerformed
+    private void buttonCalculateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCalculateActionPerformed
         billModel = new BillModel();
         List<BillDetailModel> billDetailModels = new ArrayList<>();
-
-        float changeMoney = Float.valueOf(textCash.getText()) - Float.valueOf(textTotal.getText());
-        textChange.setText(Float.toString(changeMoney));
         java.util.Date date = new java.util.Date();
         Timestamp ts = new Timestamp(date.getTime());
-        
+
+        // Check cash
+        int cash;
+        float total;
+
+        try {
+            cash = Integer.valueOf(textCash.getText());
+            total = Float.valueOf(textTotal.getText());
+        } catch (NumberFormatException ex) {
+            OptionPane.showMessageDialog("Lỗi", "Tiền nhận phải là số nguyên.");
+            return;
+        }
+
+        if (cash < total) {
+            OptionPane.showMessageDialog("Lỗi", "Tiền nhận không thể ít hơn thành tiền.");
+            return;
+        }
+
         // Set data to billModel
+        float change = Float.valueOf(textCash.getText()) - Float.valueOf(textTotal.getText());
+        textChange.setText(Float.toString(change));
+
         billModel.setCreatorId(userModel.getId());
         billModel.setTotalAmount(Integer.valueOf(textTotalAmount.getText()));
         billModel.setSubtotal(Float.valueOf(textTotal.getText()));
         billModel.setDiscount(Float.valueOf(textDiscount.getText()));
         billModel.setTotal(Float.valueOf(textTotal.getText()));
         billModel.setCash(Float.valueOf(textCash.getText()));
-        billModel.setChangeMoney(changeMoney);
+        billModel.setChange(change);
         billModel.setCreateTime(ts);
 
         // Post bill model to database
@@ -510,7 +568,7 @@ public class CreateBill extends javax.swing.JFrame {
         // Get data
         billDetailController = new BillDetailController();
         int LastID = billController.getLastBillModelID();
-        
+
         // Browse table
         for (int i = 0; i < tableBeverage.getRowCount(); i++) {
             if (tableBeverage.getValueAt(i, 3) != null) {
@@ -520,38 +578,36 @@ public class CreateBill extends javax.swing.JFrame {
                 billDetailModel.setBeverageId(Integer.valueOf(tableBeverage.getValueAt(i, 0).toString()));
                 billDetailModel.setAmount(Integer.valueOf(tableBeverage.getValueAt(i, 3).toString()));
                 billDetailModels.add(billDetailModel);
-                
+
                 // Insert bill details data into databse
                 billDetailController.post(billDetailModel);
             }
         }
         billModel.setBeverages(billDetailModels);
-    }//GEN-LAST:event_buttonUpdateActionPerformed
+        
+        // Set components
+        textCash.setEnabled(false);
+        buttonCalculate.setEnabled(false);
+        buttonCancel.setEnabled(false);
+        buttonPrint.setEnabled(true);
+    }//GEN-LAST:event_buttonCalculateActionPerformed
 
-    private void buttonConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConfirmActionPerformed
+    private void buttonPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPrintActionPerformed
         try {
             BillUtils utils = new BillUtils();
             utils.setBill(billModel, rootPane);
             PrinterJob pj = PrinterJob.getPrinterJob();
             pj.setPrintable(new BillUtils(billModel, rootPane), utils.getPageFormat(pj));
             pj.print();
-        } catch (PrinterException ex) {
+        } catch (PrinterException | NullPointerException ex) {
             OptionPane.showMessageDialog("Lỗi", "Xảy ra lỗi khi in hóa đơn.");
         }
-    }//GEN-LAST:event_buttonConfirmActionPerformed
 
-    private void setInterface() {
-        // Set frame interface
-        Settings.setFrameInterface(this);
-
-        // Set table interface
-        Settings.setTableInterface(tableBeverage, scrollPaneTable);
-
-        // Set components
-        panelLeft.setBackground(Settings.contponentBackgroundColor);
-        panelTopLeft.setBackground(Settings.contponentBackgroundColor);
-        panelBottomLeft.setBackground(Settings.contponentBackgroundColor);
-    }
+        // Reset everything
+        resetTextFields();
+        resetComponents();
+        resetTable();
+    }//GEN-LAST:event_buttonPrintActionPerformed
 
     /**
      * @param args the command line arguments
@@ -592,11 +648,11 @@ public class CreateBill extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonCalculate;
     private javax.swing.JButton buttonCancel;
-    private javax.swing.JButton buttonConfirm;
-    private javax.swing.JButton buttonInsert;
+    private javax.swing.JButton buttonCreate;
+    private javax.swing.JButton buttonPrint;
     private javax.swing.JButton buttonReturn;
-    private javax.swing.JButton buttonUpdate;
     private javax.swing.JLabel labelBill;
     private javax.swing.JLabel labelCash;
     private javax.swing.JLabel labelChange;

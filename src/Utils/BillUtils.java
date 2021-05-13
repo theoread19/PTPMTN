@@ -54,7 +54,7 @@ public class BillUtils implements Printable {
         billModel.setId(model.getId());
         billModel.setBeverages(model.getBeverages());
         billModel.setCash(model.getCash());
-        billModel.setChangeMoney(model.getChangeMoney());
+        billModel.setChange(model.getChange());
         billModel.setCreateTime(model.getCreateTime());
         billModel.setDiscount(model.getDiscount());
         billModel.setCreatorId(model.getCreatorId());
@@ -173,7 +173,7 @@ public class BillUtils implements Printable {
                 y += yShift;
                 g2d.drawString("-------------------------------------", 10, y);
                 y += yShift;
-                g2d.drawString(" Change           :      " + Float.toString(billModel.getChangeMoney()) + " VNĐ  ", 10, y);
+                g2d.drawString(" Change           :      " + Float.toString(billModel.getChange()) + " VNĐ  ", 10, y);
                 y += yShift;
                 g2d.drawString("*************************************", 10, y);
                 y += yShift;

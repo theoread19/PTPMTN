@@ -281,7 +281,7 @@ public class BillDetail extends javax.swing.JFrame {
         List<BillDetailModel> billDetail = billDetailController.get(model.getId());
         labelBillIdValue.setText(String.valueOf(model.getId()));
         labelTotalAmountValue.setText(String.valueOf(model.getTotalAmount()));
-        labelChangeValue.setText(String.valueOf(model.getChangeMoney()));
+        labelChangeValue.setText(String.valueOf(model.getChange()));
         labelCreateTimeValue.setText(String.valueOf(model.getCreateTime()));
         UserModel userModel = new UserModel();
         userModel = userController.get(model.getCreatorId());
