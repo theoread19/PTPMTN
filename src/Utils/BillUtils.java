@@ -11,6 +11,7 @@ import Model.BeverageModel;
 import Model.BillDetailModel;
 import Model.BillModel;
 import Model.UserModel;
+import View.Settings;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -106,86 +107,78 @@ public class BillUtils implements Printable {
     public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
         int r = beverageModel.size();
 
-        ImageIcon icon = new ImageIcon("\\src\\images\\logo.png");
         int result = NO_SUCH_PAGE;
         if (pageIndex == 0) {
 
             Graphics2D g2d = (Graphics2D) graphics;
-            double width = pageFormat.getImageableWidth();
             g2d.translate((int) pageFormat.getImageableX(), (int) pageFormat.getImageableY());
 
             try {
-                int y = 18;
-                int yShift = 8;
+                int billHeight = 6;
+                int lineHeight = 8;
                 int headerRectHeight = 15;
 
                 g2d.setFont(new Font("Monospaced", Font.PLAIN, 9));
-                g2d.drawImage(icon.getImage(), 70, 20, 90, 30, rootPane);
+                g2d.drawImage(Settings.logo.getImage(), 80, 0, 60, 60, rootPane);
 
-                y += yShift + 30;
-                g2d.drawString("-------------------------------------", 12, y);
-                y += yShift;
-                g2d.drawString("              KAT COFEE        ", 12, y);
-                y += yShift;
-                g2d.drawString("       No 002 Address Line One      ", 12, y);
-                y += yShift;
-                g2d.drawString("     Address Line In We Universal ", 12, y);
-                y += yShift;
-                g2d.drawString("       www.facebook.com/Coffee ", 12, y);
-                y += yShift;
-                g2d.drawString("-------------------------------------", 12, y);
-                y += headerRectHeight;
-                y += yShift;
-                g2d.drawString(" Người tạo: " + userModel.getUsername(), 12, y);
-                y += yShift;
-                g2d.drawString(" Ngày tạo : " + billModel.getCreateTime(), 12, y);
-                y += yShift;
-                y += yShift;
-                g2d.drawString(" Item Name               Price   ", 10, y);
-                y += yShift;
-                g2d.drawString("-------------------------------------", 10, y);
-                y += headerRectHeight;
+                billHeight += lineHeight + 55;
+                g2d.drawString("-------------------------------------", 12, billHeight);
+                billHeight += lineHeight;
+                g2d.drawString("             KAT COFFEE        ", 12, billHeight);
+                billHeight += lineHeight;
+                g2d.drawString("       No 002 Address Line One      ", 12, billHeight);
+                billHeight += lineHeight;
+                g2d.drawString("     Address Line In We Universal ", 12, billHeight);
+                billHeight += lineHeight;
+                g2d.drawString("       www.facebook.com/Coffee ", 12, billHeight);
+                billHeight += lineHeight;
+                g2d.drawString("-------------------------------------", 12, billHeight);
+                billHeight += headerRectHeight;
+                billHeight += lineHeight;
+                g2d.drawString(" Người tạo: " + userModel.getUsername(), 12, billHeight);
+                billHeight += lineHeight;
+                g2d.drawString(" Ngày tạo : " + billModel.getCreateTime(), 12, billHeight);
+                billHeight += lineHeight;
+                billHeight += lineHeight;
+                g2d.drawString(" Item Name              Price   ", 10, billHeight);
+                billHeight += lineHeight;
+                g2d.drawString("-------------------------------------", 10, billHeight);
+                billHeight += headerRectHeight;
 
                 for (int i = 0; i < r; i++) {
-                    g2d.drawString(" " + beverageModel.get(i).getName() + "                            ", 10, y);
-                    y += yShift;
-                    g2d.drawString("    " + billModel.getBeverages().get(i).getAmount() + " * " + beverageModel.get(i).getPrice(), 10, y);
-                    g2d.drawString("                         " + (billModel.getBeverages().get(i).getAmount() * beverageModel.get(i).getPrice()) + "VNĐ", 10, y);
-                    y += yShift;
-
+                    g2d.drawString(" " + beverageModel.get(i).getName() + "                            ", 10, billHeight);
+                    billHeight += lineHeight;
+                    g2d.drawString("    " + billModel.getBeverages().get(i).getAmount() + " * " + beverageModel.get(i).getPrice(), 10, billHeight);
+                    g2d.drawString("                        " + (float) (billModel.getBeverages().get(i).getAmount() * beverageModel.get(i).getPrice()) + " VNĐ", 10, billHeight);
+                    billHeight += lineHeight;
                 }
 
-                g2d.drawString("-------------------------------------", 10, y);
-                y += yShift;
-                g2d.drawString(" Tổng Số Lượng    :      " + Integer.toString(billModel.getTotalAmount()) + "   ", 10, y);
-                y += yShift;
-                g2d.drawString("-------------------------------------", 10, y);
-                y += yShift;
-                g2d.drawString(" Tổng tiền hoá đơn:      " + Float.toString(billModel.getSubtotal()) + " VNĐ  ", 10, y);
-                y += yShift;
-                g2d.drawString("-------------------------------------", 10, y);
-                y += yShift;
-                g2d.drawString(" Khuyến mãi       :      " + Float.toString(billModel.getDiscount() * 100) + "%  ", 10, y);
-                y += yShift;
-                g2d.drawString("-------------------------------------", 10, y);
-                y += yShift;
-                g2d.drawString(" Cash             :      " + Float.toString(billModel.getCash()) + " VNĐ  ", 10, y);
-                y += yShift;
-                g2d.drawString("-------------------------------------", 10, y);
-                y += yShift;
-                g2d.drawString(" Change           :      " + Float.toString(billModel.getChange()) + " VNĐ  ", 10, y);
-                y += yShift;
-                g2d.drawString("*************************************", 10, y);
-                y += yShift;
-                g2d.drawString("         THANK YOU COME AGAIN            ", 10, y);
-                y += yShift;
-                g2d.drawString("*************************************", 10, y);
-                y += yShift;
-                g2d.drawString("                JAVA          ", 10, y);
-                y += yShift;
-                g2d.drawString("CONTACT:locb1704748@student.ctu.edu.vn     ", 10, y);
-                y += yShift;
-
+                g2d.drawString("-------------------------------------", 10, billHeight);
+                billHeight += lineHeight;
+                g2d.drawString(" Tổng Số Lượng    :     " + Integer.toString(billModel.getTotalAmount()) + "   ", 10, billHeight);
+                billHeight += lineHeight;
+                g2d.drawString("-------------------------------------", 10, billHeight);
+                billHeight += lineHeight;
+                g2d.drawString(" Tổng tiền        :     " + Float.toString(billModel.getSubtotal()) + " VNĐ  ", 10, billHeight);
+                billHeight += lineHeight;
+                g2d.drawString("-------------------------------------", 10, billHeight);
+                billHeight += lineHeight;
+                g2d.drawString(" Khuyến mãi       :     " + Float.toString(billModel.getDiscount() * 100) + "%  ", 10, billHeight);
+                billHeight += lineHeight;
+                g2d.drawString("-------------------------------------", 10, billHeight);
+                billHeight += lineHeight;
+                g2d.drawString(" Tiền nhận        :     " + Float.toString(billModel.getCash()) + " VNĐ  ", 10, billHeight);
+                billHeight += lineHeight;
+                g2d.drawString("-------------------------------------", 10, billHeight);
+                billHeight += lineHeight;
+                g2d.drawString(" Tiền thối        :     " + Float.toString(billModel.getChange()) + " VNĐ  ", 10, billHeight);
+                billHeight += headerRectHeight;
+                g2d.drawString("*************************************", 10, billHeight);
+                billHeight += lineHeight;
+                g2d.drawString("       THANK YOU     COME AGAIN            ", 10, billHeight);
+                billHeight += headerRectHeight;
+                g2d.drawString("*************************************", 10, billHeight);
+                billHeight += lineHeight + 50;
             } catch (Exception ex) {
                 ex.printStackTrace();
             }

@@ -184,7 +184,7 @@ public class BillDetail extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(buttonReturn)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(scrollPaneTable, javax.swing.GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE)
+                    .addComponent(scrollPaneTable, javax.swing.GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelChange)
@@ -300,9 +300,9 @@ public class BillDetail extends javax.swing.JFrame {
             tableModel.addRow(data);
         }
 
-        labelTotalValue.setText(String.valueOf(model.getSubtotal()));
-        labelCashValue.setText(String.valueOf(model.getCash()));
-        labelSubtotalValue.setText(String.valueOf(model.getTotal()));
+        labelSubtotalValue.setText(String.valueOf(model.getSubtotal()));
+        labelTotalValue.setText(String.valueOf(model.getTotal()));
+        labelCashValue.setText(String.valueOf(model.getCash()));        
     }
 
     private void buttonReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonReturnActionPerformed

@@ -106,7 +106,7 @@
               <Table columnCount="4" rowCount="0">
                 <Column editable="false" title="ID" type="java.lang.Integer"/>
                 <Column editable="false" title="Ng&#x1b0;&#x1edd;i t&#x1ea1;o" type="java.lang.String"/>
-                <Column editable="true" title="Th&#x1edd;i gian t&#x1ea1;o" type="java.lang.String"/>
+                <Column editable="false" title="Th&#x1edd;i gian t&#x1ea1;o" type="java.lang.String"/>
                 <Column editable="false" title="T&#x1ed5;ng ti&#x1ec1;n" type="java.lang.Integer"/>
               </Table>
             </Property>

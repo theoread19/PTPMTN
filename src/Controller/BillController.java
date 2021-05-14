@@ -80,6 +80,7 @@ public class BillController {
                 bModel.setId(rs.getInt("id"));
                 bModel.setCreatorId(rs.getInt("creatorId"));
                 bModel.setCreateTime(rs.getTimestamp("createTime"));
+                bModel.setSubtotal(rs.getFloat("subtotal"));
                 bModel.setDiscount(rs.getFloat("discount"));
                 bModel.setTotal(rs.getFloat("total"));
                 bModel.setCash(rs.getFloat("cash"));
@@ -97,7 +98,7 @@ public class BillController {
 
     public BillModel get(int id) {
         BillModel bModel = new BillModel();
-        String sql = "select * from bill where id = " + id;
+        String sql = "select * from bill where id = " + id + "order by createTime asc";
 
         try {
             con = connection.connectDB();
@@ -108,6 +109,7 @@ public class BillController {
             bModel.setId(id);
             bModel.setCreatorId(rs.getInt("creatorId"));
             bModel.setCreateTime(rs.getTimestamp("createTime"));
+            bModel.setSubtotal(rs.getFloat("subtotal"));
             bModel.setDiscount(rs.getFloat("discount"));
             bModel.setTotal(rs.getFloat("total"));
             bModel.setCash(rs.getFloat("cash"));

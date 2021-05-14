@@ -433,20 +433,19 @@ public class CreateBill extends javax.swing.JFrame {
     }
 
     private void buttonCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCreateActionPerformed
-        float subTotal = 0;
         int totalAmount = 0;
+        float subTotal = 0;
         float total = 0;
-        boolean checkInput = true;
 
-        // Check amount input
         for (int i = 0; i < tableBeverage.getRowCount(); i++) {
-            try {
-                //Check not-null rows
-                if (tableBeverage.getValueAt(i, 3) != null) {
-                    //Convert to int
-                    int amount = Integer.valueOf((String) tableBeverage.getValueAt(i, 3));
+            // Check valid rows
+            if (tableBeverage.getValueAt(i, 3) != null && tableBeverage.getValueAt(i, 3).toString().length() > 0) {
+                int amount = 0;
+                try {
+                    // Convert to int
+                    amount = Integer.valueOf((String) tableBeverage.getValueAt(i, 3));
+
                     if (amount <= 0) {
-                        checkInput = false;
                         OptionPane.showMessageDialog("Lỗi", "Số lượng phải lớn hơn 0.");
 
                         // Empty all text field
@@ -454,55 +453,56 @@ public class CreateBill extends javax.swing.JFrame {
 
                         // Empty row
                         tableBeverage.setValueAt(null, i, 3);
+                        return;
+                    } else {
+                        totalAmount += amount;
                     }
+                } catch (Exception ex) {
+                    OptionPane.showMessageDialog("Lỗi", "Số lượng phải là số nguyên.");
+
+                    // Empty all text field
+                    resetTextFields();
+
+                    // Empty row
+                    tableBeverage.setValueAt(null, i, 3);
+                    return;
                 }
-            } catch (Exception ex) {
-                checkInput = false;
-                OptionPane.showMessageDialog("Lỗi", "Số lượng phải là số nguyên.");
-
-                // Empty all text field
-                resetTextFields();
-
-                // Empty row
-                tableBeverage.setValueAt(null, i, 3);
             }
         }
 
-        if (checkInput == true) {
+        if (totalAmount > 0) {
             try {
                 // Calculate subtotal and total amount
                 for (int i = 0; i < tableBeverage.getRowCount(); i++) {
-                    if (tableBeverage.getValueAt(i, 3) != null) {
+                    if (tableBeverage.getValueAt(i, 3) != null && tableBeverage.getValueAt(i, 3).toString().length() > 0) {
                         // Total of a beverage
                         float rowTotal = 0;
                         rowTotal = (int) tableBeverage.getValueAt(i, 2) * Integer.valueOf(tableBeverage.getValueAt(i, 3).toString());
-                        subTotal = subTotal + rowTotal;
-                        totalAmount = totalAmount + Integer.valueOf((String) tableBeverage.getValueAt(i, 3));
+                        subTotal += rowTotal;
                     }
                 }
 
-                // Show subtotal
+                // Display
+                textTotalAmount.setText(String.valueOf(totalAmount));
+                
                 textSubtotal.setText(String.valueOf(subTotal));
 
-                // Show total amount
-                textTotalAmount.setText(String.valueOf(totalAmount));
-
-                // Show total
                 billController = new BillController();
-                total = billController.applyDiscount(subTotal);
-                textTotal.setText(String.valueOf(total));
-
-                // Show discount
+                
                 String discount = billController.calculateDiscount(subTotal);
                 textDiscount.setText(discount);
+                
+                total = billController.applyDiscount(subTotal);
+                textTotal.setText(String.valueOf(total));
             } catch (Exception ex) {
                 OptionPane.showMessageDialog("Lỗi", "Lỗi khi lấy dữ liệu từ bảng thức uống.");
+                ex.printStackTrace();
             }
-        }
-
-        // Check total amount
-        if (totalAmount < 1) {
-            OptionPane.showMessageDialog("Lỗi", "Không thể tạo hóa đơn trống.");
+        } else {
+            // Empty table
+            resetTextFields();
+            resetComponents();
+            OptionPane.showMessageDialog("Lỗi", "Chưa chọn thức uống.");
             return;
         }
 
@@ -532,19 +532,19 @@ public class CreateBill extends javax.swing.JFrame {
         Timestamp ts = new Timestamp(date.getTime());
 
         // Check cash
-        int cash;
         float total;
-
+        int cash;
+        
         try {
-            cash = Integer.valueOf(textCash.getText());
             total = Float.valueOf(textTotal.getText());
+            cash = Integer.valueOf(textCash.getText());
         } catch (NumberFormatException ex) {
-            OptionPane.showMessageDialog("Lỗi", "Tiền nhận phải là số nguyên.");
+            OptionPane.showMessageDialog("Lỗi", "Tiền nhận phải là số nguyên!");
             return;
         }
 
         if (cash < total) {
-            OptionPane.showMessageDialog("Lỗi", "Tiền nhận không thể ít hơn thành tiền.");
+            OptionPane.showMessageDialog("Lỗi", "Tiền nhận không thể ít hơn thành tiền!");
             return;
         }
 
@@ -579,12 +579,15 @@ public class CreateBill extends javax.swing.JFrame {
                 billDetailModel.setAmount(Integer.valueOf(tableBeverage.getValueAt(i, 3).toString()));
                 billDetailModels.add(billDetailModel);
 
-                // Insert bill details data into databse
+                // Insert bill details data into database
                 billDetailController.post(billDetailModel);
             }
         }
         billModel.setBeverages(billDetailModels);
-        
+
+        // Show message dialog
+        OptionPane.showMessageDialog("Thông báo", "Đã thanh toán hóa đơn!");
+
         // Set components
         textCash.setEnabled(false);
         buttonCalculate.setEnabled(false);
@@ -600,7 +603,7 @@ public class CreateBill extends javax.swing.JFrame {
             pj.setPrintable(new BillUtils(billModel, rootPane), utils.getPageFormat(pj));
             pj.print();
         } catch (PrinterException | NullPointerException ex) {
-            OptionPane.showMessageDialog("Lỗi", "Xảy ra lỗi khi in hóa đơn.");
+            OptionPane.showMessageDialog("Lỗi", "Xảy ra lỗi khi in hóa đơn!");
         }
 
         // Reset everything
