@@ -1,0 +1,7 @@
+menu nhan vien
+	-chua co lich su hoa don
+quan ly hoa don
+	-chua co thong bao hoan thanh hanh dong
+	-in hoa don them tu dong dat ten, luu file vao thu muc chi dinh, tu dong mo file
+quan ly ng dung
+	-khong cho phep ng dung xoa chinh minh
