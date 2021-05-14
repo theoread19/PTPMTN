@@ -436,7 +436,7 @@ public class CreateBill extends javax.swing.JFrame {
         float subTotal = 0;
         int totalAmount = 0;
         float total = 0;
-        boolean checkInput = false;
+        
         
 
         // Check amount input
@@ -450,7 +450,7 @@ public class CreateBill extends javax.swing.JFrame {
                         amount = Integer.valueOf((String) tableBeverage.getValueAt(i, 3));
                         
                         if (amount <= 0) {
-                            checkInput = false;
+                            
                             OptionPane.showMessageDialog("Lỗi", "Số lượng phải lớn hơn 0.");
                             
                             // Empty all text field
@@ -460,12 +460,12 @@ public class CreateBill extends javax.swing.JFrame {
                             tableBeverage.setValueAt(null, i, 3);
                             return;
                         }else{
-                            checkInput = true;
+                            
                             totalAmount = totalAmount +amount;
                         }
                         
                     } catch (Exception ex) {
-                        checkInput = false;
+                        
                         OptionPane.showMessageDialog("Lỗi", "Số lượng phải là số nguyên.");
 
                         // Empty all text field
@@ -480,7 +480,7 @@ public class CreateBill extends javax.swing.JFrame {
             
         }
 
-        if (checkInput == true && totalAmount > 0) {
+        if (totalAmount > 0) {
             try {
                 // Calculate subtotal and total amount
                 for (int i = 0; i < tableBeverage.getRowCount(); i++) {
@@ -489,7 +489,7 @@ public class CreateBill extends javax.swing.JFrame {
                         float rowTotal = 0;
                         rowTotal = (int) tableBeverage.getValueAt(i, 2) * Integer.valueOf(tableBeverage.getValueAt(i, 3).toString());
                         subTotal = subTotal + rowTotal;
-                        totalAmount = totalAmount + Integer.valueOf((String) tableBeverage.getValueAt(i, 3));
+                        
                     }
                 }
 
