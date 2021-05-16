@@ -286,7 +286,7 @@ public class BillDetail extends javax.swing.JFrame {
         UserModel userModel = new UserModel();
         userModel = userController.get(model.getCreatorId());
         labelCreatorIdValue.setText(userModel.getUsername());
-        labelDiscountValue.setText(String.valueOf(model.getDiscount() * 100));
+        labelDiscountValue.setText(String.valueOf(model.getDiscount() * 100) + "%");
 
         DefaultTableModel tableModel = (DefaultTableModel) tableBeverageList.getModel();
         for (BillDetailModel item : billDetail) {

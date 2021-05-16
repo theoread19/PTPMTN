@@ -68,7 +68,7 @@ public class BillController {
 
     public List<BillModel> get() {
         List<BillModel> billModel = new ArrayList<>();
-        String sql = "select * from bill order by createTime asc";
+        String sql = "select * from bill order by createTime desc";
 
         try {
             con = connection.connectDB();
