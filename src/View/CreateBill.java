@@ -74,7 +74,7 @@ public class CreateBill extends javax.swing.JFrame {
     private void resetTextFields() {
         textTotalAmount.setText("0");
         textSubtotal.setText("0.0");
-        textDiscount.setText("0");
+        textDiscount.setText("0%");
         textTotal.setText("0.0");
         textCash.setEnabled(false);
         textCash.setText("");
@@ -132,7 +132,7 @@ public class CreateBill extends javax.swing.JFrame {
         tableBeverage = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("KAT - Quản lý người dùng");
+        setTitle("KAT - Tạo hóa đơn");
 
         labelTitle.setFont(new java.awt.Font("Times New Roman", 1, 30)); // NOI18N
         labelTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -162,7 +162,7 @@ public class CreateBill extends javax.swing.JFrame {
         labelDiscount.setText("Khuyến mãi:");
 
         textDiscount.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
-        textDiscount.setText("0");
+        textDiscount.setText("0%");
         textDiscount.setEnabled(false);
 
         labelTotal.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
@@ -434,7 +434,7 @@ public class CreateBill extends javax.swing.JFrame {
 
     private void buttonCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCreateActionPerformed
         int totalAmount = 0;
-        float subTotal = 0;
+        float subtotal = 0;
         float total = 0;
 
         for (int i = 0; i < tableBeverage.getRowCount(); i++) {
@@ -478,21 +478,23 @@ public class CreateBill extends javax.swing.JFrame {
                         // Total of a beverage
                         float rowTotal = 0;
                         rowTotal = (int) tableBeverage.getValueAt(i, 2) * Integer.valueOf(tableBeverage.getValueAt(i, 3).toString());
-                        subTotal += rowTotal;
+                        subtotal += rowTotal;
                     }
                 }
 
                 // Display
                 textTotalAmount.setText(String.valueOf(totalAmount));
-                
-                textSubtotal.setText(String.valueOf(subTotal));
+
+                textSubtotal.setText(String.valueOf(subtotal));
 
                 billController = new BillController();
-                
-                String discount = billController.calculateDiscount(subTotal);
+
+                String discount = billController.calculateDiscount(subtotal);
+                int discountValue = (int) (Float.parseFloat(discount) * 100);
+                discount = String.valueOf(discountValue) + "%";
                 textDiscount.setText(discount);
-                
-                total = billController.applyDiscount(subTotal);
+
+                total = billController.applyDiscount(subtotal);
                 textTotal.setText(String.valueOf(total));
             } catch (Exception ex) {
                 OptionPane.showMessageDialog("Lỗi", "Lỗi khi lấy dữ liệu từ bảng thức uống.");
@@ -502,7 +504,7 @@ public class CreateBill extends javax.swing.JFrame {
             // Empty table
             resetTextFields();
             resetComponents();
-            OptionPane.showMessageDialog("Lỗi", "Chưa chọn thức uống.");
+            OptionPane.showMessageDialog("Lỗi", "Hóa đơn trống!");
             return;
         }
 
@@ -534,7 +536,7 @@ public class CreateBill extends javax.swing.JFrame {
         // Check cash
         float total;
         int cash;
-        
+
         try {
             total = Float.valueOf(textTotal.getText());
             cash = Integer.valueOf(textCash.getText());
@@ -555,7 +557,13 @@ public class CreateBill extends javax.swing.JFrame {
         billModel.setCreatorId(userModel.getId());
         billModel.setTotalAmount(Integer.valueOf(textTotalAmount.getText()));
         billModel.setSubtotal(Float.valueOf(textTotal.getText()));
-        billModel.setDiscount(Float.valueOf(textDiscount.getText()));
+        // Error here, this is just a temporary fix
+        String discount = textDiscount.getText();
+        if (discount.equals("10%")) {
+            billModel.setDiscount(0.1f);
+        } else {
+            billModel.setDiscount(0f);
+        }
         billModel.setTotal(Float.valueOf(textTotal.getText()));
         billModel.setCash(Float.valueOf(textCash.getText()));
         billModel.setChange(change);

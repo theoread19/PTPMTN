@@ -44,7 +44,7 @@ public class ViewBillHistory extends javax.swing.JFrame {
         tableBillHistory = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("KAT - Xem lịch sử hóa đơn");
+        setTitle("KAT - Lịch sử hóa đơn");
 
         labelTitle.setFont(new java.awt.Font("Times New Roman", 1, 30)); // NOI18N
         labelTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
