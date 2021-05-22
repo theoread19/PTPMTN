@@ -307,6 +307,7 @@ public class BillDetail extends javax.swing.JFrame {
         labelChangeValue.setText(String.valueOf(billModel.getChange()));
         labelCreateTimeValue.setText(String.valueOf(billModel.getCreateTime()));
         UserModel userModel = new UserModel();
+
         userModel = userController.get(billModel.getCreatorId());
         labelCreatorValue.setText(userModel.getFullName());
         labelDiscountValue.setText(String.valueOf(billModel.getDiscount() * 100) + "%");
