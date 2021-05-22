@@ -6,8 +6,10 @@
 package View;
 
 import Controller.BillController;
+import Controller.UserController;
 
 import Model.BillModel;
+import Model.UserModel;
 
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -16,16 +18,17 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author B1704721
  */
-public class ViewBillHistory extends javax.swing.JFrame {
+public class BillHistory extends javax.swing.JFrame {
 
     private BillController billController;
 
     /**
      * Creates new form
      */
-    public ViewBillHistory() {
+    public BillHistory() {
         initComponents();
         setInterface();
+        loadTable();
     }
 
     /**
@@ -72,7 +75,7 @@ public class ViewBillHistory extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Người tạo", "Thời gian tạo", "Tổng tiền"
+                "ID", "Người tạo", "Thời gian tạo", "Thành tiền"
             }
         ) {
             Class[] types = new Class [] {
@@ -136,8 +139,7 @@ public class ViewBillHistory extends javax.swing.JFrame {
         try {
             int selectedRow = tableBillHistory.getSelectedRow();
             int id = (int) tableBillHistory.getValueAt(selectedRow, 0);
-            BillDetail billDetail = new BillDetail();
-            billDetail.setBillDetail(billController.get(id));
+            BillDetail billDetail = new BillDetail(billController.get(id));
             billDetail.setVisible(true);
         } catch (Exception ex) {
             OptionPane.showMessageDialog("Lỗi", "Chưa chọn dòng nào trong bảng.");
@@ -151,13 +153,12 @@ public class ViewBillHistory extends javax.swing.JFrame {
     private void setInterface() {
         // Set frame interface
         Settings.setFrameInterface(this);
-        loadTable();
 
         // Set table interface
         Settings.setTableInterface(tableBillHistory, scrollPaneTable);
     }
 
-    public void loadTable() {
+    private void loadTable() {
         DefaultTableModel tableModel = (DefaultTableModel) tableBillHistory.getModel();
         int rowCount = tableModel.getRowCount();
         while (rowCount > 0) {
@@ -165,11 +166,18 @@ public class ViewBillHistory extends javax.swing.JFrame {
             rowCount--;
         }
         billController = new BillController();
-        List<BillModel> models = billController.get();
-        for (BillModel item : models) {
+        List<BillModel> bills = billController.get();
+        UserController userController = new UserController();
+        List<UserModel> users = userController.get();
+        for (BillModel item : bills) {
             Object[] data = new Object[4];
             data[0] = item.getId();
-            data[1] = item.getCreatorId();
+            for (UserModel user : users) {
+                if (user.getId() == item.getCreatorId()) {
+                    data[1] = user.getFullName();
+                    break;
+                }
+            }
             data[2] = item.getCreateTime();
             data[3] = item.getTotal();
             tableModel.addRow(data);
@@ -193,14 +201,18 @@ public class ViewBillHistory extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ViewBillHistory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BillHistory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ViewBillHistory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BillHistory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ViewBillHistory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BillHistory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ViewBillHistory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BillHistory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -209,7 +221,7 @@ public class ViewBillHistory extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ViewBillHistory().setVisible(true);
+                new BillHistory().setVisible(true);
             }
         });
     }

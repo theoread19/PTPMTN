@@ -7,6 +7,7 @@ package Controller;
 
 import Config.DBConnection;
 import Model.UserModel;
+import View.OptionPane;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -40,6 +41,7 @@ public class UserController {
                 UserModel model = new UserModel();
                 model.setId(rs.getInt("id"));
                 model.setUsername(rs.getString("username"));
+                model.setFullName(rs.getString("fullname"));
                 model.setPassword(rs.getString("password"));
                 model.setRole(rs.getString("role"));
                 userModels.add(model);
@@ -65,6 +67,7 @@ public class UserController {
             rs.next();
             model.setId(id);
             model.setUsername(rs.getString("username"));
+            model.setFullName(rs.getString("fullname"));
             model.setPassword(rs.getString("password"));
             model.setRole(rs.getString("role"));
 
@@ -76,14 +79,16 @@ public class UserController {
     }
 
     public void post(UserModel model) {
-        String sql = "insert into user(username, password, role) values('" + model.getUsername() + "','" + model.getPassword() + "','" + model.getRole() + "')";
+        String sql = "insert into user(username, fullname, password, role) values('" + model.getUsername() + "','" + model.getFullName() + "','" + model.getPassword() + "','" + model.getRole() + "')";
         try {
             con = connection.connectDB();
             Statement stm = con.createStatement();
             stm.executeUpdate(sql);
             con.close();
-        } catch (ClassNotFoundException | SQLException ex) {
+        } catch (ClassNotFoundException ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            OptionPane.showMessageDialog("Lỗi", "Tên người dùng đã tồn tại!");
         }
     }
 
@@ -100,7 +105,7 @@ public class UserController {
     }
 
     public void put(UserModel model) {
-        String sql = "update user set username = '" + model.getUsername() + "', password = '" + model.getPassword() + "', role = '" + model.getRole() + "' where id = " + model.getId();
+        String sql = "update user set fullname = '" + model.getFullName() + "', password = '" + model.getPassword() + "', role = '" + model.getRole() + "' where id = " + model.getId();
         try {
             con = connection.connectDB();
             Statement stm = con.createStatement();

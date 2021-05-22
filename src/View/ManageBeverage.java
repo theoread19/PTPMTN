@@ -391,6 +391,7 @@ public class ManageBeverage extends javax.swing.JFrame {
         // Other stuffs
         int selectedRow = tableBeverage.getSelectedRow();
         beverageController.delete((int) tableBeverage.getValueAt(selectedRow, 0));
+        OptionPane.showMessageDialog("Thông báo", "Xóa thức uống thành công!");
 
         // Reload table
         loadTable();

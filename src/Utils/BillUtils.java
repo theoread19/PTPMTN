@@ -25,7 +25,6 @@ import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.ImageIcon;
 
 /**
  *
@@ -135,7 +134,7 @@ public class BillUtils implements Printable {
                 g2d.drawString("-------------------------------------", 12, billHeight);
                 billHeight += headerRectHeight;
                 billHeight += lineHeight;
-                g2d.drawString(" Người tạo: " + userModel.getUsername(), 12, billHeight);
+                g2d.drawString(" Người tạo: " + userModel.getFullName(), 12, billHeight);
                 billHeight += lineHeight;
                 g2d.drawString(" Ngày tạo : " + billModel.getCreateTime(), 12, billHeight);
                 billHeight += lineHeight;

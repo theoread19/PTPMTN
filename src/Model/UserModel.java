@@ -13,12 +13,14 @@ public class UserModel {
 
     private int id;
     private String username;
+    private String fullName;
     private String password;
     private String role;
 
     public UserModel() {
         id = -1;
         username = "";
+        fullName = "";
         password = "";
         role = "";
     }
@@ -37,6 +39,14 @@ public class UserModel {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+    
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getPassword() {

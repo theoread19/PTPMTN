@@ -195,8 +195,9 @@ public class HomeAdmin extends javax.swing.JFrame {
     public void setUser(UserModel model) {
         userModel.setId(model.getId());
         userModel.setUsername(model.getUsername());
+        userModel.setFullName(model.getFullName());
         userModel.setRole(model.getRole());
-        menuUser.setText(model.getUsername() + "   ");
+        menuUser.setText(model.getFullName() + "   ");
     }
 
     private void setInterface() {
@@ -239,7 +240,7 @@ public class HomeAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_menuItemCreateBillActionPerformed
 
     private void menuItemViewBillHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemViewBillHistoryActionPerformed
-        ViewBillHistory form = new ViewBillHistory();
+        BillHistory form = new BillHistory();
         form.setVisible(true);
     }//GEN-LAST:event_menuItemViewBillHistoryActionPerformed
 
@@ -250,6 +251,7 @@ public class HomeAdmin extends javax.swing.JFrame {
 
     private void buttonManageUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonManageUserActionPerformed
         ManageUser form = new ManageUser();
+        form.setCurrentUserId(userModel.getId());
         form.setVisible(true);
     }//GEN-LAST:event_buttonManageUserActionPerformed
 
@@ -259,6 +261,7 @@ public class HomeAdmin extends javax.swing.JFrame {
 
     private void menuManageUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuManageUserMouseClicked
         ManageUser form = new ManageUser();
+        form.setCurrentUserId(userModel.getId());
         form.setVisible(true);
     }//GEN-LAST:event_menuManageUserMouseClicked
 

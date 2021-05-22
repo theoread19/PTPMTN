@@ -16,6 +16,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ManageUser extends javax.swing.JFrame {
     
+    private int currentUserId;
     private UserController userController;
     private UserModel userModel;
 
@@ -27,6 +28,10 @@ public class ManageUser extends javax.swing.JFrame {
         setInterface();
         setComponents();
         loadTable();
+    }
+    
+    public void setCurrentUserId(int id) {
+        this.currentUserId = id;
     }
 
     private void loadTable() {
@@ -42,11 +47,12 @@ public class ManageUser extends javax.swing.JFrame {
         userController = new UserController();
         List<UserModel> models = userController.get();
         for (UserModel item : models) {
-            Object[] data = new Object[4];
+            Object[] data = new Object[5];
             data[0] = item.getId();
             data[1] = item.getUsername();
-            data[2] = item.getPassword();
-            data[3] = item.getRole();
+            data[2] = item.getFullName();
+            data[3] = item.getPassword();
+            data[4] = item.getRole();
             tableModel.addRow(data);
         }
     }
@@ -70,6 +76,8 @@ public class ManageUser extends javax.swing.JFrame {
         textPassword = new javax.swing.JTextField();
         labelRole = new javax.swing.JLabel();
         comboBoxRole = new javax.swing.JComboBox();
+        labelFullName = new javax.swing.JLabel();
+        textFullName = new javax.swing.JTextField();
         panelLeftSeparator = new javax.swing.JSeparator();
         panelBottomLeft = new javax.swing.JPanel();
         buttonInsert = new javax.swing.JButton();
@@ -111,6 +119,11 @@ public class ManageUser extends javax.swing.JFrame {
         comboBoxRole.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
         comboBoxRole.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "admin", "staff" }));
 
+        labelFullName.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        labelFullName.setText("Họ tên:");
+
+        textFullName.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+
         javax.swing.GroupLayout panelTopLeftLayout = new javax.swing.GroupLayout(panelTopLeft);
         panelTopLeft.setLayout(panelTopLeftLayout);
         panelTopLeftLayout.setHorizontalGroup(
@@ -122,12 +135,15 @@ public class ManageUser extends javax.swing.JFrame {
                         .addGroup(panelTopLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(labelUsername, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(labelRole, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(labelPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(labelPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(labelFullName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
-                        .addGroup(panelTopLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(textUsername)
-                            .addComponent(textPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
-                            .addComponent(comboBoxRole, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(panelTopLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelTopLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(textUsername)
+                                .addComponent(textPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                                .addComponent(comboBoxRole, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(textFullName, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)))
                     .addComponent(labelUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18))
         );
@@ -140,6 +156,10 @@ public class ManageUser extends javax.swing.JFrame {
                 .addGroup(panelTopLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(textUsername)
                     .addComponent(labelUsername, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(panelTopLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelFullName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(textFullName))
                 .addGap(18, 18, 18)
                 .addGroup(panelTopLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(textPassword)
@@ -275,14 +295,14 @@ public class ManageUser extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Tên người dùng", "Mật khẩu", "Vai trò"
+                "ID", "Tên người dùng", "Họ tên", "Mật khẩu", "Vai trò"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -304,7 +324,7 @@ public class ManageUser extends javax.swing.JFrame {
         panelRight.setLayout(panelRightLayout);
         panelRightLayout.setHorizontalGroup(
             panelRightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneTable, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
+            .addComponent(scrollPaneTable, javax.swing.GroupLayout.DEFAULT_SIZE, 690, Short.MAX_VALUE)
         );
         panelRightLayout.setVerticalGroup(
             panelRightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -355,6 +375,8 @@ public class ManageUser extends javax.swing.JFrame {
     private void setComponents() {
         textUsername.setText("");
         textUsername.setEnabled(false);
+        textFullName.setText("");
+        textFullName.setEnabled(false);
         textPassword.setText("");
         textPassword.setEnabled(false);
         comboBoxRole.setEnabled(false);
@@ -369,6 +391,7 @@ public class ManageUser extends javax.swing.JFrame {
     private void buttonInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonInsertActionPerformed
         // Set buttons
         textUsername.setEnabled(true);
+        textFullName.setEnabled(true);
         textPassword.setEnabled(true);
         comboBoxRole.setEnabled(true);
         buttonConfirm.setEnabled(true);
@@ -382,11 +405,18 @@ public class ManageUser extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonInsertActionPerformed
 
     private void buttonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteActionPerformed
+        int selectedRow = tableUser.getSelectedRow();
+        int selectedId = (int) tableUser.getValueAt(selectedRow, 0);
+        
         // Check user
+        if (currentUserId == selectedId) {
+            OptionPane.showMessageDialog("Lỗi", "Không thể xóa người dùng hiện hành!");
+            return;
+        }
 
         // Other stuffs
-        int selectedRow = tableUser.getSelectedRow();
-        userController.delete((int) tableUser.getValueAt(selectedRow, 0));
+        userController.delete(selectedId);
+        OptionPane.showMessageDialog("Thông báo", "Xóa người dùng thành công!");
         
         // Reload table
         loadTable();
@@ -398,15 +428,17 @@ public class ManageUser extends javax.swing.JFrame {
     private void buttonConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConfirmActionPerformed
         // Other stuffs
         String username = textUsername.getText();
+        String fullName = textFullName.getText();
         String password = textPassword.getText();
         String role = (String) comboBoxRole.getSelectedItem();
         
-        if (username.equals("") || password.equals("")) {
-            OptionPane.showMessageDialog("Lỗi", "Tên người dùng và mật khẩu không được để trống!");
+        if (username.equals("") || fullName.equals("") || password.equals("")) {
+            OptionPane.showMessageDialog("Lỗi", "Vui lòng nhập đầy đủ thông tin.");
             return;
         }
         
         userModel.setUsername(username);
+        userModel.setFullName(fullName);
         userModel.setPassword(password);
         userModel.setRole(role);
         
@@ -425,7 +457,8 @@ public class ManageUser extends javax.swing.JFrame {
 
     private void buttonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUpdateActionPerformed
         // Set buttons
-        textUsername.setEnabled(true);
+        textUsername.setEnabled(false);
+        textFullName.setEnabled(true);
         textPassword.setEnabled(true);
         comboBoxRole.setEnabled(true);
         buttonDelete.setEnabled(false);
@@ -438,7 +471,8 @@ public class ManageUser extends javax.swing.JFrame {
         int selectedRow = tableUser.getSelectedRow();
         userModel.setId((int) tableUser.getValueAt(selectedRow, 0));
         textUsername.setText((String) tableUser.getValueAt(selectedRow, 1));
-        textPassword.setText((String) tableUser.getValueAt(selectedRow, 2));
+        textFullName.setText((String) tableUser.getValueAt(selectedRow, 2));
+        textPassword.setText((String) tableUser.getValueAt(selectedRow, 3));
         comboBoxRole.setSelectedItem((String) tableUser.getValueAt(selectedRow, 3));
     }//GEN-LAST:event_buttonUpdateActionPerformed
 
@@ -504,6 +538,7 @@ public class ManageUser extends javax.swing.JFrame {
     private javax.swing.JButton buttonReturn;
     private javax.swing.JButton buttonUpdate;
     private javax.swing.JComboBox comboBoxRole;
+    private javax.swing.JLabel labelFullName;
     private javax.swing.JLabel labelPassword;
     private javax.swing.JLabel labelRole;
     private javax.swing.JLabel labelTitle;
@@ -516,6 +551,7 @@ public class ManageUser extends javax.swing.JFrame {
     private javax.swing.JPanel panelTopLeft;
     private javax.swing.JScrollPane scrollPaneTable;
     private javax.swing.JTable tableUser;
+    private javax.swing.JTextField textFullName;
     private javax.swing.JTextField textPassword;
     private javax.swing.JTextField textUsername;
     // End of variables declaration//GEN-END:variables

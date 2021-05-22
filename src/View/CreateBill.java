@@ -85,7 +85,6 @@ public class CreateBill extends javax.swing.JFrame {
         buttonCreate.setEnabled(true);
         buttonCalculate.setEnabled(false);
         buttonCancel.setEnabled(false);
-        buttonPrint.setEnabled(false);
         tableBeverage.setEnabled(true);
     }
 
@@ -125,7 +124,6 @@ public class CreateBill extends javax.swing.JFrame {
         buttonCreate = new javax.swing.JButton();
         buttonCalculate = new javax.swing.JButton();
         buttonCancel = new javax.swing.JButton();
-        buttonPrint = new javax.swing.JButton();
         buttonReturn = new javax.swing.JButton();
         panelRight = new javax.swing.JPanel();
         scrollPaneTable = new javax.swing.JScrollPane();
@@ -279,14 +277,6 @@ public class CreateBill extends javax.swing.JFrame {
             }
         });
 
-        buttonPrint.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
-        buttonPrint.setText("In");
-        buttonPrint.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPrintActionPerformed(evt);
-            }
-        });
-
         buttonReturn.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
         buttonReturn.setText("Trở về");
         buttonReturn.addActionListener(new java.awt.event.ActionListener() {
@@ -301,21 +291,19 @@ public class CreateBill extends javax.swing.JFrame {
             panelBottomLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelBottomLeftLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(panelBottomLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelBottomLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(panelBottomLeftLayout.createSequentialGroup()
+                        .addComponent(buttonCancel)
+                        .addGap(18, 18, 18)
+                        .addComponent(buttonReturn))
                     .addGroup(panelBottomLeftLayout.createSequentialGroup()
                         .addComponent(buttonCreate)
                         .addGap(18, 18, 18)
-                        .addComponent(buttonCalculate)
-                        .addGap(18, 18, 18)
-                        .addComponent(buttonCancel))
-                    .addGroup(panelBottomLeftLayout.createSequentialGroup()
-                        .addComponent(buttonPrint)
-                        .addGap(18, 18, 18)
-                        .addComponent(buttonReturn)))
+                        .addComponent(buttonCalculate)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        panelBottomLeftLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {buttonCalculate, buttonCancel, buttonCreate, buttonPrint, buttonReturn});
+        panelBottomLeftLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {buttonCalculate, buttonCancel, buttonCreate, buttonReturn});
 
         panelBottomLeftLayout.setVerticalGroup(
             panelBottomLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -323,16 +311,15 @@ public class CreateBill extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(panelBottomLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonCreate)
-                    .addComponent(buttonCalculate)
-                    .addComponent(buttonCancel))
+                    .addComponent(buttonCalculate))
                 .addGap(18, 18, 18)
                 .addGroup(panelBottomLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonPrint)
-                    .addComponent(buttonReturn))
+                    .addComponent(buttonReturn)
+                    .addComponent(buttonCancel))
                 .addGap(18, 18, 18))
         );
 
-        panelBottomLeftLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {buttonCalculate, buttonCancel, buttonCreate, buttonPrint, buttonReturn});
+        panelBottomLeftLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {buttonCalculate, buttonCancel, buttonCreate, buttonReturn});
 
         javax.swing.GroupLayout panelLeftLayout = new javax.swing.GroupLayout(panelLeft);
         panelLeft.setLayout(panelLeftLayout);
@@ -575,14 +562,14 @@ public class CreateBill extends javax.swing.JFrame {
 
         // Get data
         billDetailController = new BillDetailController();
-        int LastID = billController.getLastBillModelID();
+        int lastID = billController.getLastBillModelID();
 
         // Browse table
         for (int i = 0; i < tableBeverage.getRowCount(); i++) {
             if (tableBeverage.getValueAt(i, 3) != null) {
                 // Set bill detail values
                 billDetailModel = new BillDetailModel();
-                billDetailModel.setBillId(LastID);
+                billDetailModel.setBillId(lastID);
                 billDetailModel.setBeverageId(Integer.valueOf(tableBeverage.getValueAt(i, 0).toString()));
                 billDetailModel.setAmount(Integer.valueOf(tableBeverage.getValueAt(i, 3).toString()));
                 billDetailModels.add(billDetailModel);
@@ -592,33 +579,20 @@ public class CreateBill extends javax.swing.JFrame {
             }
         }
         billModel.setBeverages(billDetailModels);
+        
+        // Show bill detail
+        BillModel updatedModel = billController.get(billController.getLastBillModelID());
+        BillDetail form = new BillDetail(updatedModel);
+        form.setVisible(true);
 
         // Show message dialog
         OptionPane.showMessageDialog("Thông báo", "Đã thanh toán hóa đơn!");
-
-        // Set components
-        textCash.setEnabled(false);
-        buttonCalculate.setEnabled(false);
-        buttonCancel.setEnabled(false);
-        buttonPrint.setEnabled(true);
-    }//GEN-LAST:event_buttonCalculateActionPerformed
-
-    private void buttonPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPrintActionPerformed
-        try {
-            BillUtils utils = new BillUtils();
-            utils.setBill(billModel, rootPane);
-            PrinterJob pj = PrinterJob.getPrinterJob();
-            pj.setPrintable(new BillUtils(billModel, rootPane), utils.getPageFormat(pj));
-            pj.print();
-        } catch (PrinterException | NullPointerException ex) {
-            OptionPane.showMessageDialog("Lỗi", "Xảy ra lỗi khi in hóa đơn!");
-        }
 
         // Reset everything
         resetTextFields();
         resetComponents();
         resetTable();
-    }//GEN-LAST:event_buttonPrintActionPerformed
+    }//GEN-LAST:event_buttonCalculateActionPerformed
 
     /**
      * @param args the command line arguments
@@ -662,7 +636,6 @@ public class CreateBill extends javax.swing.JFrame {
     private javax.swing.JButton buttonCalculate;
     private javax.swing.JButton buttonCancel;
     private javax.swing.JButton buttonCreate;
-    private javax.swing.JButton buttonPrint;
     private javax.swing.JButton buttonReturn;
     private javax.swing.JLabel labelBill;
     private javax.swing.JLabel labelCash;

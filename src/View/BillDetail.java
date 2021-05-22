@@ -12,6 +12,9 @@ import Model.BeverageModel;
 import Model.BillDetailModel;
 import Model.BillModel;
 import Model.UserModel;
+import Utils.BillUtils;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -21,16 +24,19 @@ import javax.swing.table.DefaultTableModel;
  */
 public class BillDetail extends javax.swing.JFrame {
 
+    private BillModel billModel;
     private BillDetailController billDetailController;
     private UserController userController;
     private BeverageController beverageController;
 
     /**
      * Creates new form
+     * @param billModel 
      */
-    public BillDetail() {
+    public BillDetail(BillModel billModel) {
         initComponents();
         setInterface();
+        setBillDetail(billModel);
     }
 
     /**
@@ -45,8 +51,8 @@ public class BillDetail extends javax.swing.JFrame {
         labelTitle = new javax.swing.JLabel();
         labelBillId = new javax.swing.JLabel();
         labelBillIdValue = new javax.swing.JLabel();
-        labelCreatorId = new javax.swing.JLabel();
-        labelCreatorIdValue = new javax.swing.JLabel();
+        labelCreator = new javax.swing.JLabel();
+        labelCreatorValue = new javax.swing.JLabel();
         labelCreateTime = new javax.swing.JLabel();
         labelCreateTimeValue = new javax.swing.JLabel();
         scrollPaneTable = new javax.swing.JScrollPane();
@@ -63,6 +69,7 @@ public class BillDetail extends javax.swing.JFrame {
         labelCashValue = new javax.swing.JLabel();
         labelChange = new javax.swing.JLabel();
         labelChangeValue = new javax.swing.JLabel();
+        buttonPrint = new javax.swing.JButton();
         buttonReturn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -79,11 +86,11 @@ public class BillDetail extends javax.swing.JFrame {
         labelBillIdValue.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
         labelBillIdValue.setText("...");
 
-        labelCreatorId.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
-        labelCreatorId.setText(" Người tạo:");
+        labelCreator.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        labelCreator.setText(" Người tạo:");
 
-        labelCreatorIdValue.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
-        labelCreatorIdValue.setText("...");
+        labelCreatorValue.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        labelCreatorValue.setText("...");
 
         labelCreateTime.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
         labelCreateTime.setText(" Ngày tạo:");
@@ -154,6 +161,14 @@ public class BillDetail extends javax.swing.JFrame {
         labelChangeValue.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
         labelChangeValue.setText("...");
 
+        buttonPrint.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
+        buttonPrint.setText("In");
+        buttonPrint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonPrintActionPerformed(evt);
+            }
+        });
+
         buttonReturn.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
         buttonReturn.setText("Trở về");
         buttonReturn.addActionListener(new java.awt.event.ActionListener() {
@@ -168,23 +183,25 @@ public class BillDetail extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(labelTitle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelCreatorId)
+                            .addComponent(labelCreator)
                             .addComponent(labelCreateTime)
                             .addComponent(labelBillId))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelBillIdValue, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(labelCreatorIdValue, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(labelCreatorValue, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(labelCreateTimeValue, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(buttonPrint)
+                        .addGap(18, 18, 18)
                         .addComponent(buttonReturn)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(scrollPaneTable, javax.swing.GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)
+                    .addComponent(scrollPaneTable, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelChange)
@@ -201,10 +218,12 @@ public class BillDetail extends javax.swing.JFrame {
                             .addComponent(labelTotalValue, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(labelCashValue, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(labelChangeValue, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(18, 18, 18))
+                .addGap(30, 30, 30))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {labelBillId, labelCreateTime, labelCreatorId, labelSubtotal, labelTotalAmount});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {labelBillId, labelCreateTime, labelCreator, labelSubtotal, labelTotalAmount});
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {buttonPrint, buttonReturn});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -216,13 +235,13 @@ public class BillDetail extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(labelBillId)
                         .addGap(18, 18, 18)
-                        .addComponent(labelCreatorId)
+                        .addComponent(labelCreator)
                         .addGap(18, 18, 18)
                         .addComponent(labelCreateTime))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(labelBillIdValue)
                         .addGap(18, 18, 18)
-                        .addComponent(labelCreatorIdValue)
+                        .addComponent(labelCreatorValue)
                         .addGap(18, 18, 18)
                         .addComponent(labelCreateTimeValue)))
                 .addGap(18, 18, 18)
@@ -254,16 +273,18 @@ public class BillDetail extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(labelChangeValue)))
                 .addGap(18, 18, 18)
-                .addComponent(buttonReturn)
-                .addGap(18, 18, 18))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(buttonReturn)
+                    .addComponent(buttonPrint))
+                .addGap(30, 30, 30))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {labelBillIdValue, labelCashValue, labelChangeValue, labelCreateTimeValue, labelCreatorIdValue, labelDiscountValue, labelSubtotalValue, labelTotalAmountValue, labelTotalValue});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {labelBillIdValue, labelCashValue, labelChangeValue, labelCreateTimeValue, labelCreatorValue, labelDiscountValue, labelSubtotalValue, labelTotalAmountValue, labelTotalValue});
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    
     private void setInterface() {
         // Set frame interface
         Settings.setFrameInterface(this);
@@ -272,21 +293,23 @@ public class BillDetail extends javax.swing.JFrame {
         Settings.setTableInterface(tableBeverageList, scrollPaneTable);
     }
 
-    public void setBillDetail(BillModel model) {
+    private void setBillDetail(BillModel billModel) {
         // Init stuffs
+        this.billModel = billModel;
         userController = new UserController();
         billDetailController = new BillDetailController();
         beverageController = new BeverageController();
 
-        List<BillDetailModel> billDetail = billDetailController.get(model.getId());
-        labelBillIdValue.setText(String.valueOf(model.getId()));
-        labelTotalAmountValue.setText(String.valueOf(model.getTotalAmount()));
-        labelChangeValue.setText(String.valueOf(model.getChange()));
-        labelCreateTimeValue.setText(String.valueOf(model.getCreateTime()));
+        // Set bill detail
+        List<BillDetailModel> billDetail = billDetailController.get(billModel.getId());
+        labelBillIdValue.setText(String.valueOf(billModel.getId()));
+        labelTotalAmountValue.setText(String.valueOf(billModel.getTotalAmount()));
+        labelChangeValue.setText(String.valueOf(billModel.getChange()));
+        labelCreateTimeValue.setText(String.valueOf(billModel.getCreateTime()));
         UserModel userModel = new UserModel();
-        userModel = userController.get(model.getCreatorId());
-        labelCreatorIdValue.setText(userModel.getUsername());
-        labelDiscountValue.setText(String.valueOf(model.getDiscount() * 100));
+        userModel = userController.get(billModel.getCreatorId());
+        labelCreatorValue.setText(userModel.getFullName());
+        labelDiscountValue.setText(String.valueOf(billModel.getDiscount() * 100) + "%");
 
         DefaultTableModel tableModel = (DefaultTableModel) tableBeverageList.getModel();
         for (BillDetailModel item : billDetail) {
@@ -300,10 +323,23 @@ public class BillDetail extends javax.swing.JFrame {
             tableModel.addRow(data);
         }
 
-        labelSubtotalValue.setText(String.valueOf(model.getSubtotal()));
-        labelTotalValue.setText(String.valueOf(model.getTotal()));
-        labelCashValue.setText(String.valueOf(model.getCash()));        
+        labelSubtotalValue.setText(String.valueOf(billModel.getSubtotal()));
+        labelTotalValue.setText(String.valueOf(billModel.getTotal()));
+        labelCashValue.setText(String.valueOf(billModel.getCash()));        
     }
+
+    private void buttonPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPrintActionPerformed
+        try {
+            BillUtils utils = new BillUtils();
+            utils.setBill(billModel, rootPane);
+            PrinterJob pj = PrinterJob.getPrinterJob();
+            pj.setPrintable(new BillUtils(billModel, rootPane), utils.getPageFormat(pj));
+            pj.print();
+        } catch (NullPointerException ex) {
+            OptionPane.showMessageDialog("Lỗi", "Xảy ra lỗi khi in hóa đơn!");
+        } catch (PrinterException ex) {
+        }
+    }//GEN-LAST:event_buttonPrintActionPerformed
 
     private void buttonReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonReturnActionPerformed
         this.dispose();
@@ -346,12 +382,13 @@ public class BillDetail extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BillDetail().setVisible(true);
+                new BillDetail(new BillModel()).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonPrint;
     private javax.swing.JButton buttonReturn;
     private javax.swing.JLabel labelBillId;
     private javax.swing.JLabel labelBillIdValue;
@@ -361,8 +398,8 @@ public class BillDetail extends javax.swing.JFrame {
     private javax.swing.JLabel labelChangeValue;
     private javax.swing.JLabel labelCreateTime;
     private javax.swing.JLabel labelCreateTimeValue;
-    private javax.swing.JLabel labelCreatorId;
-    private javax.swing.JLabel labelCreatorIdValue;
+    private javax.swing.JLabel labelCreator;
+    private javax.swing.JLabel labelCreatorValue;
     private javax.swing.JLabel labelDiscount;
     private javax.swing.JLabel labelDiscountValue;
     private javax.swing.JLabel labelSubtotal;

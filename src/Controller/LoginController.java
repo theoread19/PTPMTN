@@ -44,6 +44,7 @@ public class LoginController {
                 if (username.equals(rs.getString("username")) && password.equals(rs.getString("password"))) {
                     model.setId(rs.getInt("id"));
                     model.setUsername(rs.getString("username"));
+                    model.setFullName(rs.getString("fullname"));
                     model.setRole(rs.getString("role"));
                 }
             }

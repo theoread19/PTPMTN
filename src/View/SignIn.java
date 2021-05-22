@@ -159,6 +159,10 @@ public class SignIn extends javax.swing.JFrame {
                 form.setUser(model);
                 form.setVisible(true);
                 this.dispose();
+            } else {
+                String title = "Lỗi";
+                String message = "Tài khoản không hợp lệ!";
+                OptionPane.showMessageDialog(title, message);
             }
         } else {
             String title = "Thông báo";

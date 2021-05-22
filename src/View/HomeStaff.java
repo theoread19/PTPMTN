@@ -134,7 +134,8 @@ public class HomeStaff extends javax.swing.JFrame {
         userModel.setId(model.getId());
         userModel.setRole(model.getRole());
         userModel.setUsername(model.getUsername());
-        menuUser.setText(userModel.getUsername() + "   ");
+        userModel.setFullName(model.getFullName());
+        menuUser.setText(userModel.getFullName() + "   ");
     }
 
     private void setInterface() {

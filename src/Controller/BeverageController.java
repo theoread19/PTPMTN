@@ -32,7 +32,7 @@ public class BeverageController {
 
     public List<BeverageModel> get() {
         List<BeverageModel> beverageModel = new ArrayList<>();
-        String sql = "select * from beverage";
+        String sql = "select * from beverage where status = true";
 
         try {
             con = connection.connectDB();
@@ -95,7 +95,7 @@ public class BeverageController {
     }
 
     public void delete(int id) {
-        String sql = "delete from beverage where id = " + id;
+        String sql = "update beverage set status = false where id = " + id;
 
         try {
             con = connection.connectDB();
